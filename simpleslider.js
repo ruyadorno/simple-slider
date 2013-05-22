@@ -1,6 +1,6 @@
 (function(){
 	'use strict';
-	var Banner = function(containerElem, autoPlay, prop, initValue, endValue){
+	var SimpleSlider = function(containerElem, autoPlay, transitionDelay, prop, initValue, endValue){
 		this.containerElem = containerElem;
 		this.transitionProperty = 'opacity';
 		this.transitionValue = 0;
@@ -19,9 +19,12 @@
 		if( autoPlay ){
 			this.autoPlay = autoPlay;
 		}
+		if( transitionDelay ){
+			this.transitionDelay = transitionDelay;
+		}
 		this.init();
 	};
-	Banner.prototype.init = function(){
+	SimpleSlider.prototype.init = function(){
 		var i = this.containerElem.children.length-1;
 		var bannerElem = null;
 		this.imgs = [];
@@ -35,11 +38,11 @@
 		if( this.autoPlay ){
 			var scope = this;
 			setInterval(function(){
-				scope.changeBanner(scope.nextBannerIndex());
-			}, 5000);
+				scope.changeSimpleSlider(scope.nextSimpleSliderIndex());
+			}, this.transitionDelay*1000);
 		}
 	};
-	Banner.prototype.anim = function(target, diffValue, targetValue){
+	SimpleSlider.prototype.anim = function(target, diffValue, targetValue){
 		var nextValue = this.transitionValue+(diffValue/60);
 		this.transitionValue = nextValue;
 		target.style[this.transitionProperty] = this.transitionValue/100;
@@ -54,28 +57,28 @@
 			target.style[this.transitionProperty] = diffValue;
 		}
 	};
-	Banner.prototype.startAnim = function(target, fromValue, targetValue){
+	SimpleSlider.prototype.startAnim = function(target, fromValue, targetValue){
 		this.transitionValue = fromValue;
 		var animEndValue = targetValue-this.transitionValue;
 		this.anim(target, animEndValue, targetValue);
 	};
-	Banner.prototype.removeBanner = function(index){
+	SimpleSlider.prototype.removeSimpleSlider = function(index){
 		this.startAnim(this.imgs[index], this.initValue, this.endValue);
 	};
-	Banner.prototype.insertBanner = function(index){
+	SimpleSlider.prototype.insertSimpleSlider = function(index){
 		this.startAnim(this.imgs[index], this.endValue, this.initValue);
 	};
-	Banner.prototype.changeBanner = function(newIndex){
-		this.removeBanner(this.actualIndex);
-		this.insertBanner(newIndex);
+	SimpleSlider.prototype.changeSimpleSlider = function(newIndex){
+		this.removeSimpleSlider(this.actualIndex);
+		this.insertSimpleSlider(newIndex);
 		this.actualIndex = newIndex;
 	};
-	Banner.prototype.nextBannerIndex = function(){
+	SimpleSlider.prototype.nextSimpleSliderIndex = function(){
 		var newIndex = this.actualIndex+1;
 		if( newIndex >= this.imgs.length ){
 			newIndex = 0;
 		}
 		return newIndex;
 	};
-	window.Banner = Banner;
+	window.SimpleSlider = SimpleSlider;
 })();
