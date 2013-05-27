@@ -31,7 +31,6 @@
 		}
 	};
 	SimpleSlider.prototype.anim = function(target, diffValue, targetValue){
-		console.log('anim');
 		var nextValue = this.transitionValue+(diffValue/60);
 		this.transitionValue = nextValue;
 		target.style[this.transitionProperty] = this.transitionValue/100;
