@@ -1,27 +1,15 @@
 (function(){
 	'use strict';
-	var SimpleSlider = function(containerElem, autoPlay, transitionDelay, prop, initValue, endValue){
+	var SimpleSlider = function(containerElem, options){
 		this.containerElem = containerElem;
-		this.transitionProperty = 'opacity';
-		this.transitionValue = 0;
-		this.transitionTime = 0.5;
-		this.initValue = 100;
-		this.endValue = 0;
-		if( prop ){
-			this.transitionProperty = prop;
-		}
-		if( initValue ){
-			this.initValue = initValue;
-		}
-		if( endValue ){
-			this.endValue = endValue;
-		}
-		if( autoPlay ){
-			this.autoPlay = autoPlay;
-		}
-		if( transitionDelay ){
-			this.transitionDelay = transitionDelay;
-		}
+		if( !options ) options = {};
+		this.transitionProperty = options.transitionProperty ? options.transitionProperty : 'opacity';
+		this.transitionValue =  options.transitionValue ? options.transitionValue : 0;
+		this.transitionTime = options.transitionTime ? options.transitionTime : 0.5;
+		this.transitionDelay = options.transitionDelay ? options.transitionDelay : 1;
+		this.startValue = options.startValue ? options.startValue : 100;
+		this.endValue = options.endValue ? options.endValue : 0;
+		this.autoPlay = options.autoPlay ? options.autoPlay : true;
 		this.init();
 	};
 	SimpleSlider.prototype.init = function(){
@@ -33,7 +21,7 @@
 			bannerElem.style[this.transitionProperty] = this.endValue;
 			i--;
 		}
-		this.imgs[0].style[this.transitionProperty] = this.initValue;
+		this.imgs[0].style[this.transitionProperty] = this.startValue;
 		this.actualIndex = 0;
 		if( this.autoPlay ){
 			var scope = this;
@@ -43,6 +31,7 @@
 		}
 	};
 	SimpleSlider.prototype.anim = function(target, diffValue, targetValue){
+		console.log('anim');
 		var nextValue = this.transitionValue+(diffValue/60);
 		this.transitionValue = nextValue;
 		target.style[this.transitionProperty] = this.transitionValue/100;
@@ -63,10 +52,10 @@
 		this.anim(target, animEndValue, targetValue);
 	};
 	SimpleSlider.prototype.removeSimpleSlider = function(index){
-		this.startAnim(this.imgs[index], this.initValue, this.endValue);
+		this.startAnim(this.imgs[index], this.startValue, this.endValue);
 	};
 	SimpleSlider.prototype.insertSimpleSlider = function(index){
-		this.startAnim(this.imgs[index], this.endValue, this.initValue);
+		this.startAnim(this.imgs[index], this.endValue, this.startValue);
 	};
 	SimpleSlider.prototype.changeSimpleSlider = function(newIndex){
 		this.removeSimpleSlider(this.actualIndex);
