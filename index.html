@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+	<head>
+		<title>SimpleSlider</title>
+		<meta name="viewport" content="width=672">
+		<meta name="description" content="A simple javascript slider without any dependencies on third-party libraries.">
+		<meta property="og:title" content="SimpleSlider">
+		<meta property="og:description" content="A simple javascript slider without any dependencies on third-party libraries.">
+		<meta property="og:image" content="http://distilleryimage8.s3.amazonaws.com/a042749ac72111e28c3c22000a1fb85a_7.jpg">
+		<link rel="stylesheet" href="http://yui.yahooapis.com/combo?pure/0.1.0/base-min.css">
+		<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+		<style>
+			body{ font-family:'Lato', 'Helvetica', Arial, sans-serif; font-weight:300; font-size:1.2em; color:#303030; }
+			h1, h2, h3{ font-weight:300; }
+			h1{ font-size:4em; font-weight:700; width:612px; text-align:center; }
+			pre{ background:#EEE; border:solid 1px #C3C3C3; padding:20px; font-family:"Lucida Console", Monaco, monospace; font-size:0.75em;  }
+			hr{ background:#DDD; height:1px; width:612px; border:none; }
+			.wrapper{ width:612px; position:relative; left:50%; margin-left:-336px; padding:30px; }
+			#myslider{ position:relative; width:612px; height:612px; }
+			#myslider img{ position:absolute; top:0; left:0; opacity:0; }
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<h1>SimpleSlider</h1>
+			<p>A simple javascript slider without any dependencies on third-party libraries.</p>
+			<br/>
+			<hr/>
+			<br/>
+			<h2>Example:</h2>
+			<div id="myslider">
+				<img src="http://distilleryimage0.s3.amazonaws.com/3d2e5efa491d11e2a3b222000a9f1696_7.jpg"/>
+				<img src="http://distilleryimage5.s3.amazonaws.com/de66967ac72111e2a23222000aaa0537_7.jpg"/>
+				<img src="http://distilleryimage8.s3.amazonaws.com/a042749ac72111e28c3c22000a1fb85a_7.jpg"/>
+				<img src="http://distilleryimage4.s3.amazonaws.com/8d32600ec72111e29f1422000a1fbc0e_7.jpg"/>
+			</div>
+			<br/>
+			<h2>Usage</h2>
+			<p>Just import the script on html and make sure it's available before starting it.</p>
+			<pre>&lt;script src="simpleslider.min.js">&lt;/script>
+&lt;script>
+	var imgSlider = new SimpleSlider(
+		document.getElementById('myslider'),
+		{ autoPlay: false }
+	);
+&lt;/script>
+</pre>
+			<p>It only requires a group of elements overlapped inside a main html tag. The best way to implement is like on the example above where a div with position:relative contains four img tags, with position:absolute.</p>
+			<br/>
+			<h2>More info</h2>
+			<p>The goal of this small script is to enable an html element swapping adding the smallest piece of code possible.</p>
+			<p>The motivation to put this together is a frustration with such a simple functionality usually requiring plugins and frameworks.</p>
+			<br/>
+			<hr/>
+			<br/>
+			<h2>About the author:</h2>
+			<p><a href="https://github.com/ruyadorno">Ruy Adorno</a> is a Brazilian/Canadian developer, focused on high-end creative web development.</p>
+		</div>
+		<a href="https://github.com/ruyadorno/SimpleSlider"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+	<script src="simpleslider.min.js"></script>
+	<script>
+		var imgSlider = new SimpleSlider( document.getElementById('myslider'), {autoPlay:true, transitionDelay:3} );
+		console.log(imgSlider);
+	</script>
+	</body>
+</html>
