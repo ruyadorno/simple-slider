@@ -6,13 +6,13 @@
 	var SimpleSlider = function(containerElem, options){
 		this.containerElem = containerElem;
 		if( !options ) options = {};
-		this.trProp = getdef(options.transitionProperty);
-		this.trVal =  getdef(options.transitionValue);
-		this.trTime = getdef(options.transitionTime);
-		this.delay = getdef(options.transitionDelay);
-		this.startVal = getdef(options.startValue);
-		this.endVal = getdef(options.endValue);
-		this.autoPlay = getdef(options.autoPlay);
+		this.trProp = getdef(options.transitionProperty, 'opacity');
+		this.trVal =  getdef(options.transitionValue, 0);
+		this.trTime = getdef(options.transitionTime, 0.5);
+		this.delay = getdef(options.transitionDelay, 1);
+		this.startVal = getdef(options.startValue, 100);
+		this.endVal = getdef(options.endValue, 0);
+		this.autoPlay = getdef(options.autoPlay, true);
 		this.init();
 	};
 	SimpleSlider.prototype.init = function(){
