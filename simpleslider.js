@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 	function getdef(val, def){
-		return val ? val : def;
+		return val!==undefined || val!==null ? val : def;
 	}
 	var SimpleSlider = function(containerElem, options){
 		this.containerElem = containerElem;
