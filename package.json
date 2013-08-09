@@ -4,11 +4,12 @@
   "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
+    "phantom-jasmine": "~0.3.0",
     "yui-compressor": "0.1.3"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/ruyadorno/SimpleSlider.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruyadorno/SimpleSlider.git"
   },
   "engines": {
     "node": ">=0.10.12"

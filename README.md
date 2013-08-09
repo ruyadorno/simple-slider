@@ -17,6 +17,14 @@ var slider = new SimpleSlider( document.getElementById('myslider') );
 
 There are many usage examples on the examples folder, including all the available options for the slider.
 
+## Contributing ##
+
+The script uses yui compressor to generate the minified version. To be able to change the module code and recompile just npm install to get all dependencies. You can use the build command to generate the minified file after all the node modules are installed.
+
+```sh
+./build
+```
+
 ## License ##
 
 Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
