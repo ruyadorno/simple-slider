@@ -39,7 +39,7 @@ describe('SimpleSlider', function() {
 
     });
 
-    it('properties should be defined properly', function(){
+    it('properties should be defined properly', function() {
 
         // Test default values
         var ss = getNewSlider();
@@ -75,6 +75,21 @@ describe('SimpleSlider', function() {
         expect(ss.trProp).toEqual('top');
         expect(ss.startVal).toEqual(-100);
         expect(ss.autoPlay).toEqual(false);
+
+    });
+
+    it('after init should contain imgs data', function() {
+
+        var newDiv = getNewDiv();
+        var ss = new SimpleSlider(newDiv);
+        var countChildren = newDiv.children.length-1;
+
+        expect(ss.imgs.length).toEqual(newDiv.children.length);
+
+        while (countChildren>=0) {
+            expect(ss.imgs).toContain(newDiv.children[countChildren]);
+            countChildren--;
+        }
 
     });
 
