@@ -18,9 +18,9 @@
 
     var SimpleSlider = function(containerElem, options){
         this.containerElem = containerElem;
+        this.trVal = 0;
         if( !options ) options = {};
         this.trProp = getdef(options.transitionProperty, 'opacity');
-        this.trVal =  getdef(options.transitionValue, 0);
         this.trTime = getdef(options.transitionTime, 0.5);
         this.delay = getdef(options.transitionDelay, 1);
         this.startVal = getdef(options.startValue, 100);

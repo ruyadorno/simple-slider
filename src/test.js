@@ -24,16 +24,16 @@ describe('SimpleSlider', function() {
 
     };
 
-    var getNewSlider = function() {
+    var getNewSlider = function(options) {
 
         var testDiv = getNewDiv();
-        var ss = new SimpleSlider(testDiv);
+        var ss = new SimpleSlider(testDiv, options);
 
         return ss;
 
     };
 
-    it('should create a new instance', function() {
+    it('should be able to create a new instance', function() {
 
         expect(typeof getNewSlider()).toEqual('object');
 
@@ -44,12 +44,37 @@ describe('SimpleSlider', function() {
         // Test default values
         var ss = getNewSlider();
         expect(ss.trProp).toEqual('opacity');
-        expect(ss.trVal).toEqual(0);
         expect(ss.trTime).toEqual(0.5);
         expect(ss.delay).toEqual(1);
         expect(ss.startVal).toEqual(100);
         expect(ss.endVal).toEqual(0);
         expect(ss.autoPlay).toEqual(true);
+
+        // Test some custom values
+        ss = getNewSlider({
+            transitionProperty: 'left',
+            transitionTime: 1,
+            transitionDelay: 2,
+            startValue: 300,
+            endValue: 100,
+            autoPlay:false
+        });
+        expect(ss.trProp).toEqual('left');
+        expect(ss.trTime).toEqual(1);
+        expect(ss.delay).toEqual(2);
+        expect(ss.startVal).toEqual(300);
+        expect(ss.endVal).toEqual(100);
+        expect(ss.autoPlay).toEqual(false);
+
+        // Partially defined values
+        ss = getNewSlider({
+            transitionProperty: 'top',
+            startValue: -100,
+            autoPlay:false
+        });
+        expect(ss.trProp).toEqual('top');
+        expect(ss.startVal).toEqual(-100);
+        expect(ss.autoPlay).toEqual(false);
 
     });
 
