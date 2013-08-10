@@ -19,6 +19,12 @@ There are many usage examples on the examples folder, including all the availabl
 
 ## Contributing ##
 
+You will need node.js and phantom.js in order to build and test the script. First of all get the required modules using npm:
+
+```sh
+npm install
+```
+
 The script uses yui compressor to generate the minified version. To be able to change the module code and recompile just npm install to get all dependencies. You can use the build command to generate the minified file after all the node modules are installed.
 
 ```sh
