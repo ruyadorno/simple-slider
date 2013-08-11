@@ -2,21 +2,21 @@ describe('SimpleSlider', function() {
 
     var testDivCount = 0;
 
-    var getNewDiv = function() {
+    var getNewDiv = function(numChild) {
 
         var newDiv = document.createElement('div');
         newDiv.id = 'test-div-' + testDivCount;
         testDivCount++;
 
-        addChildrenDivs(newDiv);
+        addChildrenDivs(newDiv, numChild);
 
         return newDiv;
 
     };
 
-    var addChildrenDivs = function(newDiv) {
+    var addChildrenDivs = function(newDiv, numChild) {
 
-        var childrenNum = Math.ceil( Math.random()*10 );
+        var childrenNum = numChild ? numChild : Math.ceil( Math.random()*10 );
         while (childrenNum >= 0) {
             newDiv.appendChild(document.createElement('div'));
             childrenNum--;
@@ -24,9 +24,9 @@ describe('SimpleSlider', function() {
 
     };
 
-    var getNewSlider = function(options) {
+    var getNewSlider = function(options, numChild) {
 
-        var testDiv = getNewDiv();
+        var testDiv = getNewDiv(numChild);
         var ss = new SimpleSlider(testDiv, options);
 
         return ss;
@@ -35,7 +35,9 @@ describe('SimpleSlider', function() {
 
     it('should be able to create a new instance', function() {
 
-        expect(typeof getNewSlider()).toEqual('object');
+        var ss = getNewSlider();
+        expect(typeof ss).toEqual('object');
+        expect(ss instanceof SimpleSlider).toBeTruthy();
 
     });
 
@@ -96,6 +98,17 @@ describe('SimpleSlider', function() {
             expect(ss.imgs).toContain(newDiv.children[countChildren]);
             countChildren--;
         }
+
+    });
+
+    it('should create a slideshow', function() {
+
+        var ss = getNewSlider(5);
+        var nextIndex = ss.actualIndex+1;
+
+        waitsFor(function() {
+            return ss.actualIndex === nextIndex;
+        }, 'slide change checking', ss.delay*1000+1);
 
     });
 

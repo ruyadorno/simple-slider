@@ -19,6 +19,7 @@
     var SimpleSlider = function(containerElem, options){
         this.containerElem = containerElem;
         this.trVal = 0;
+        this.interval = 0;
         if( !options ) options = {};
         this.trProp = getdef(options.transitionProperty, 'opacity');
         this.trTime = getdef(options.transitionTime, 0.5);
@@ -45,7 +46,7 @@
         }
         var i = this.containerElem.children.length-1;
         this.imgs = [];
-        while(i>=0){
+        while (i>=0) {
             this.imgs[i] = this.containerElem.children[i];
             this.imgs[i].style[this.trProp] = this.endVal;
             i--;
@@ -57,9 +58,13 @@
     SimpleSlider.prototype.configSlideshow = function() {
         if (this.autoPlay) {
             var scope = this;
-            window.setInterval(function(){
-                scope.change(scope.nextIndex());
-            }, this.delay*1000);
+            if (this.interval) {
+                window.clearInterval(this.interval);
+            } else {
+                this.interval = window.setInterval(function(){
+                    scope.change(scope.nextIndex());
+                }, this.delay*1000);
+            }
         }
     };
 
