@@ -29,12 +29,20 @@
         this.init();
     };
 
+    SimpleSlider.CONTAINER_ELEMENT_ERROR = {
+        name: 'SimpleSliderError',
+        message: 'A SimpleSlider main element should have at least one child.'
+    };
+
     SimpleSlider.prototype.init = function() {
         this.reset();
         this.configSlideshow();
     };
 
     SimpleSlider.prototype.reset = function() {
+        if (this.containerElem.children.length <= 0) {
+            throw SimpleSlider.CONTAINER_ELEMENT_ERROR;
+        }
         var i = this.containerElem.children.length-1;
         this.imgs = [];
         while(i>=0){
