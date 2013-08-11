@@ -29,9 +29,9 @@
         this.init();
     };
 
-    SimpleSlider.CONTAINER_ELEMENT_ERROR = {
+    SimpleSlider.CONTAINER_ERROR = {
         name: 'SimpleSliderError',
-        message: 'A SimpleSlider main element should have at least one child.'
+        message: 'A SimpleSlider main container element should have at least one child.'
     };
 
     SimpleSlider.prototype.init = function() {
@@ -41,7 +41,7 @@
 
     SimpleSlider.prototype.reset = function() {
         if (this.containerElem.children.length <= 0) {
-            throw SimpleSlider.CONTAINER_ELEMENT_ERROR;
+            throw SimpleSlider.CONTAINER_ERROR;
         }
         var i = this.containerElem.children.length-1;
         this.imgs = [];

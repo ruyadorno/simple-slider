@@ -41,7 +41,7 @@ describe('SimpleSlider', function() {
 
     it('should throw an error if using an empty html element', function() {
 
-        expect(function(){new SimpleSlider(document.createElement('div'));}).toThrow(SimpleSlider.CONTAINER_ELEMENT_ERROR);
+        expect(function(){new SimpleSlider(document.createElement('div'));}).toThrow(SimpleSlider.CONTAINER_ERROR);
 
     });
 
