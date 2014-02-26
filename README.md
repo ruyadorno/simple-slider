@@ -9,6 +9,7 @@ A simple javascript slider without any dependencies on third-party libraries.
 
 Bateries included
 
+
 ## Usage ##
 
 Just import the script on html and make sure it's available before starting it.
@@ -19,26 +20,35 @@ var slider = new SimpleSlider( document.getElementById('myslider') );
 
 There are many usage examples on the examples folder, including all the available options for the slider.
 
+
 ## Contributing ##
 
-You will need node.js and phantom.js in order to build and test the script. First of all get the required modules using npm:
+You will need [node.js](http://nodejs.org/), [Grunt](gruntjs.com) and [PhantomJS](http://phantomjs.org/) in order to build and test the script. If you have all these dependcies you can just get the required packages for development using npm:
 
 ```sh
 npm install
 ```
 
-The script uses yui compressor to generate the minified version. To be able to change the module code and recompile just npm install to get all dependencies. You can use the build command to generate the minified file after all the node modules are installed.
+### Running the tests
+
+Tests are using [PhantomJS](http://phantomjs.org/) and [Jasmine](http://jasmine.github.io/), to run them simply execute the following grunt task:
 
 ```sh
-bin/build
+grunt jasmine
 ```
 
-Tests are using phantomjs and jasmine, to run it just invoke on terminal from the root folder:
+### Building the compiled version
+
+The script uses [UglifyJS](http://lisperator.net/uglifyjs/) to generate the minified version.
+
+You can use the grunt uglify task to generate the minified file after all the node modules are installed:
 
 ```sh
-bin/test
+grunt uglify:dist
 ```
+
 
 ## License ##
 
 Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+
