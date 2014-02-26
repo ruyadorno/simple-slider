@@ -101,14 +101,15 @@ describe('SimpleSlider', function() {
 
     });
 
-    it('should create a slideshow', function() {
+    it('should create a slideshow', function(done) {
 
         var ss = getNewSlider(5);
         var nextIndex = ss.actualIndex+1;
 
-        waitsFor(function() {
-            return ss.actualIndex === nextIndex;
-        }, 'slide change checking', ss.delay*1000+1);
+        setTimeout(function() {
+            expect(ss.actualIndex).toEqual(nextIndex);
+            done();
+        }, ss.delay*1000+1);
 
     });
 
