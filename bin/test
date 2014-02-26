@@ -1,3 +1,0 @@
-#!/bin/bash
-
-phantomjs ./node_modules/phantom-jasmine/lib/run_jasmine_test.coffee ./TestRunner.html

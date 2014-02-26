@@ -1,3 +1,0 @@
-#!/bin/bash
-
-java -jar ./node_modules/yui-compressor/lib/vendor/yuicompressor.jar src/simpleslider.js -o dist/simpleslider.min.js
