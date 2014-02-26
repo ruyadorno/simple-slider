@@ -5,6 +5,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.initConfig({
 
@@ -38,15 +39,27 @@ module.exports = function (grunt) {
           warnings: true
         }
       },
-      build: {
+      dist: {
         src: 'src/simpleslider.js',
         dest: 'dist/simpleslider.min.js'
       }
-    }
+    },
+
+    concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: ['src/simpleslider.js'],
+        dest: 'dist/simpleslider.js',
+      },
+    },
 
   });
 
   grunt.registerTask('release', [
+    'uglify:dist',
+    'concat:dist',
     'bump'
   ]);
 
