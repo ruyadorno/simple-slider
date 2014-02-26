@@ -3,6 +3,8 @@ SimpleSlider
 
 http://ruyadorno.github.com/SimpleSlider
 
+version 0.0.1
+
 A simple javascript slider without any dependencies on third-party libraries.
 
 Bateries included
