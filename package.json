@@ -2,6 +2,9 @@
   "name": "SimpleSlider",
   "version": "0.0.1",
   "description": "A simple javascript slider without any dependencies",
+  "scripts": {
+    "test": "grunt jasmine"
+  },
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.x",
