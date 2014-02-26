@@ -29,6 +29,19 @@ module.exports = function (grunt) {
       options: {
         specs: 'test/*Spec.js'
       }
+    },
+
+    uglify: {
+      options: {
+        mangle: false,
+        compress: {
+          warnings: true
+        }
+      },
+      build: {
+        src: 'src/simpleslider.js',
+        dest: 'dist/simpleslider.min.js'
+      }
     }
 
   });
