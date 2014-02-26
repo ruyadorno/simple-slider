@@ -1,0 +1,25 @@
+{
+  "name": "SimpleSlider",
+  "version": "0.0.1",
+  "description": "A simple javascript slider without any dependencies",
+  "homepage": "http://ruyadorno.github.io/SimpleSlider/",
+  "authors": [
+    "Ruy Adorno"
+  ],
+  "main": "dist/simpleslider.js",
+  "keywords": [
+    "slider",
+    "simple",
+    "gallery",
+    "carousel",
+    "images"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
