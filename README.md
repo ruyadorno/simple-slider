@@ -43,7 +43,11 @@ Options can be set to help you customize your slider, just set a second paramete
 </div>
 <script src="../src/simpleslider.js"></script>
 <script>
-  var slider = new SimpleSlider( document.getElementById('myslider'), {autoPlay:false, transitionTime:1, transitionDelay:3.5} );
+  var slider = new SimpleSlider( document.getElementById('myslider'), {
+    autoPlay:false,
+    transitionTime:1,
+    transitionDelay:3.5
+  } );
 </script>
 ```
 
