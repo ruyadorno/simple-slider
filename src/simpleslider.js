@@ -115,7 +115,15 @@
   };
 
   SimpleSlider.prototype.dispose = function(){
+
     window.clearInterval(this.actualIndex);
+
+    var i = this.imgs.length;
+    while (--i) {
+      this.imgs.pop();
+    }
+    this.imgs = null;
+
     this.containerElem = null;
     this.trVal = null;
     this.interval = null;
