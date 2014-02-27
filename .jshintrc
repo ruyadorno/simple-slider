@@ -1,3 +1,4 @@
 {
-  indent: 2
+  "strict": true,
+  "indent": 2
 }
