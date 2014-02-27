@@ -1,5 +1,7 @@
 (function (context, definition) {
 
+  'use strict';
+
   if (typeof module != 'undefined' && module.exports) {
     module.exports = definition();
   } else if (typeof define == 'function' && define.amd) {
@@ -16,6 +18,26 @@
     return val===undefined || val===null ? def : val;
   }
 
+  // Test if have children and throw warning otherwise
+  function testChildrenNum(value) {
+
+    if (value <= 0) {
+      try {
+        console.warn(
+          'A SimpleSlider main container element' +
+          'should have at least one child.'
+        );
+      } catch(e) {}
+
+      return true;
+
+    } else {
+
+      return false;
+    }
+
+  }
+
   var SimpleSlider = function(containerElem, options){
     this.containerElem = containerElem;
     this.trVal = 0;
@@ -23,16 +45,11 @@
     if( !options ) options = {};
     this.trProp = getdef(options.transitionProperty, 'opacity');
     this.trTime = getdef(options.transitionTime, 0.5);
-    this.delay = getdef(options.transitionDelay, 1);
+    this.delay = getdef(options.transitionDelay, 2);
     this.startVal = getdef(options.startValue, 100);
     this.endVal = getdef(options.endValue, 0);
     this.autoPlay = getdef(options.autoPlay, true);
     this.init();
-  };
-
-  SimpleSlider.CONTAINER_ERROR = {
-    name: 'SimpleSliderError',
-    message: 'A SimpleSlider main container element should have at least one child.'
   };
 
   SimpleSlider.prototype.init = function() {
@@ -41,9 +58,11 @@
   };
 
   SimpleSlider.prototype.reset = function() {
-    if (this.containerElem.children.length <= 0) {
-      throw SimpleSlider.CONTAINER_ERROR;
+
+    if (testChildrenNum(this.containerElem.children.length)) {
+      return; // Do not follow reset logic if don't have children
     }
+
     var i = this.containerElem.children.length-1;
     this.imgs = [];
     while (i>=0) {
@@ -51,11 +70,17 @@
       this.imgs[i].style[this.trProp] = this.endVal;
       i--;
     }
+
     this.imgs[0].style[this.trProp] = this.startVal;
     this.actualIndex = 0;
   };
 
   SimpleSlider.prototype.configSlideshow = function() {
+
+    if (!this.imgs) {
+      return;
+    }
+
     if (this.autoPlay) {
       var scope = this;
       if (this.interval) {
@@ -66,6 +91,7 @@
         }, this.delay*1000);
       }
     }
+
   };
 
   SimpleSlider.prototype.anim = function(target, diffValue, targetValue){
@@ -110,6 +136,28 @@
       newIndex = 0;
     }
     return newIndex;
+  };
+
+  SimpleSlider.prototype.dispose = function(){
+
+    window.clearInterval(this.actualIndex);
+
+    var i = this.imgs.length;
+    while (--i) {
+      this.imgs.pop();
+    }
+    this.imgs = null;
+
+    this.containerElem = null;
+    this.trVal = null;
+    this.interval = null;
+    this.trProp = null;
+    this.trTime = null;
+    this.delay = null;
+    this.startVal = null;
+    this.endVal = null;
+    this.autoPlay = null;
+    this.actualIndex = null;
   };
 
   return SimpleSlider;
