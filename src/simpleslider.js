@@ -1,5 +1,7 @@
 (function (context, definition) {
 
+  'use strict';
+
   if (typeof module != 'undefined' && module.exports) {
     module.exports = definition();
   } else if (typeof define == 'function' && define.amd) {
@@ -23,7 +25,7 @@
     if( !options ) options = {};
     this.trProp = getdef(options.transitionProperty, 'opacity');
     this.trTime = getdef(options.transitionTime, 0.5);
-    this.delay = getdef(options.transitionDelay, 1);
+    this.delay = getdef(options.transitionDelay, 2);
     this.startVal = getdef(options.startValue, 100);
     this.endVal = getdef(options.endValue, 0);
     this.autoPlay = getdef(options.autoPlay, true);
