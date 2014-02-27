@@ -1,5 +1,7 @@
 describe('SimpleSlider', function() {
 
+  'use strict';
+
   var testDivCount = 0;
 
   var getNewDiv = function(numChild) {
@@ -53,7 +55,7 @@ describe('SimpleSlider', function() {
     var ss = getNewSlider();
     expect(ss.trProp).toEqual('opacity');
     expect(ss.trTime).toEqual(0.5);
-    expect(ss.delay).toEqual(1);
+    expect(ss.delay).toEqual(2);
     expect(ss.startVal).toEqual(100);
     expect(ss.endVal).toEqual(0);
     expect(ss.autoPlay).toEqual(true);
@@ -103,13 +105,26 @@ describe('SimpleSlider', function() {
 
   it('should create a slideshow', function(done) {
 
-    var ss = getNewSlider(5);
+    var ss = getNewSlider({}, 5);
     var nextIndex = ss.actualIndex+1;
 
     setTimeout(function() {
       expect(ss.actualIndex).toEqual(nextIndex);
       done();
     }, ss.delay*1000+1);
+
+  });
+
+  it('should dispose created instances', function() {
+
+    var ss = getNewSlider({}, 5);
+
+    ss.dispose();
+
+    expect(ss.imgs).toEqual(null);
+    expect(ss.actualIndex).toEqual(null);
+    expect(ss.interval).toEqual(null);
+    expect(ss.containerElem).toEqual(null);
 
   });
 

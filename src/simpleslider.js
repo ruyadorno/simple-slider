@@ -114,6 +114,20 @@
     return newIndex;
   };
 
+  SimpleSlider.prototype.dispose = function(){
+    window.clearInterval(this.actualIndex);
+    this.containerElem = null;
+    this.trVal = null;
+    this.interval = null;
+    this.trProp = null;
+    this.trTime = null;
+    this.delay = null;
+    this.startVal = null;
+    this.endVal = null;
+    this.autoPlay = null;
+    this.actualIndex = null;
+  };
+
   return SimpleSlider;
 
 });
