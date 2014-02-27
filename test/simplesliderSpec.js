@@ -105,21 +105,11 @@ describe('SimpleSlider', function() {
 
   });
 
-  it('should create a slideshow', function(done) {
-
-    var ss = getNewSlider({}, 5);
-    var nextIndex = ss.actualIndex+1;
-
-    setTimeout(function() {
-      expect(ss.actualIndex).toEqual(nextIndex);
-      done();
-    }, ss.delay*1000+1);
-
-  });
-
   it('should dispose created instances', function() {
 
-    var ss = getNewSlider({}, 5);
+    var ss = getNewSlider({
+      transitionProperty: 'opacity'
+    }, 5);
 
     ss.dispose();
 
@@ -127,6 +117,42 @@ describe('SimpleSlider', function() {
     expect(ss.actualIndex).toEqual(null);
     expect(ss.interval).toEqual(null);
     expect(ss.containerElem).toEqual(null);
+
+  });
+
+  describe('slideshow animation logic', function(done) {
+
+    var ss = getNewSlider({}, 5);
+    var nextIndex = ss.actualIndex+1;
+    var timeEnoughToStartTransition = (ss.delay*1000)+1;
+    var timeEnoughToEndTransition = ss.trTime*1000+1;
+
+    it('should have correct initial values', function() {
+
+      expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.startVal.toString());
+      expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.endVal.toString());
+
+    });
+
+    it('should change values correctly after transition time', function() {
+
+      setTimeout(function() {
+
+        // Internal index value is correct
+        expect(ss.actualIndex).toEqual(nextIndex);
+
+        setTimeout(function() {
+
+          // Test values after finishing the first transition
+          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString());
+          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString());
+
+          done();
+
+        }, timeEnoughToEndTransition);
+      }, timeEnoughToStartTransition);
+
+    });
 
   });
 
