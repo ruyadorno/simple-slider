@@ -19,6 +19,8 @@ This package is also only supporting the simple javascript usage, I plan to wrap
 
 Just import the script on html and create a new slider instance.
 
+Basically the slider takes the element that handles the gallery as the first parameter, this will be usually a *div* or *ul* containing the elements to be transitioned.
+
 ```html
 <div id="myslider">
   <img src="http://placekitten.com/g/612/612"/>
