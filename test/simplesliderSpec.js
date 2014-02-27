@@ -43,9 +43,11 @@ describe('SimpleSlider', function() {
 
   });
 
-  it('should throw an error if using an empty html element', function() {
+  it('should throw an warning if using an empty html element', function() {
 
-    expect(function(){new SimpleSlider(document.createElement('div'));}).toThrow(SimpleSlider.CONTAINER_ERROR);
+    spyOn(console, 'warn');
+    new SimpleSlider(document.createElement('div'));
+    expect(console.warn).toHaveBeenCalled();
 
   });
 

@@ -18,6 +18,26 @@
     return val===undefined || val===null ? def : val;
   }
 
+  // Test if have children and throw warning otherwise
+  function testChildrenNum(value) {
+
+    if (value <= 0) {
+      try {
+        console.warn(
+          'A SimpleSlider main container element' +
+          'should have at least one child.'
+        );
+      } catch(e) {}
+
+      return true;
+
+    } else {
+
+      return false;
+    }
+
+  }
+
   var SimpleSlider = function(containerElem, options){
     this.containerElem = containerElem;
     this.trVal = 0;
@@ -32,20 +52,17 @@
     this.init();
   };
 
-  SimpleSlider.CONTAINER_ERROR = {
-    name: 'SimpleSliderError',
-    message: 'A SimpleSlider main container element should have at least one child.'
-  };
-
   SimpleSlider.prototype.init = function() {
     this.reset();
     this.configSlideshow();
   };
 
   SimpleSlider.prototype.reset = function() {
-    if (this.containerElem.children.length <= 0) {
-      throw SimpleSlider.CONTAINER_ERROR;
+
+    if (testChildrenNum(this.containerElem.children.length)) {
+      return; // Do not follow reset logic if don't have children
     }
+
     var i = this.containerElem.children.length-1;
     this.imgs = [];
     while (i>=0) {
@@ -53,11 +70,17 @@
       this.imgs[i].style[this.trProp] = this.endVal;
       i--;
     }
+
     this.imgs[0].style[this.trProp] = this.startVal;
     this.actualIndex = 0;
   };
 
   SimpleSlider.prototype.configSlideshow = function() {
+
+    if (!this.imgs) {
+      return;
+    }
+
     if (this.autoPlay) {
       var scope = this;
       if (this.interval) {
@@ -68,6 +91,7 @@
         }, this.delay*1000);
       }
     }
+
   };
 
   SimpleSlider.prototype.anim = function(target, diffValue, targetValue){
