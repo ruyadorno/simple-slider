@@ -86,11 +86,11 @@
 
     } else {
 
-      percentual = ((elapsedTime-startTime) * 100) / transitionDuration;
+      percentual = (elapsedTime - startTime) / transitionDuration;
 
-      if (percentual < 100) {
+      if (percentual < 1) {
 
-        target[prop] = ((percentual * toValue) / 100)/100;
+        target[prop] = (percentual * toValue) / 100;
         loop();
 
       } else {
