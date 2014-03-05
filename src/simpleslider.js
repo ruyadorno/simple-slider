@@ -63,9 +63,46 @@
 
   }
 
+  function anim(target, prop, transitionDuration, startTime, elapsedTime, fromValue, toValue){
+
+    function loop() {
+
+      window.requestAnimationFrame(function requestAnimationFunction(time){
+
+        if (startTime === 0) {
+          startTime = time;
+        }
+
+        anim(target, prop, transitionDuration, startTime, time, fromValue, toValue);
+
+      });
+    }
+
+    var percentual;
+
+    if (startTime === 0) {
+
+      return loop();
+
+    } else {
+
+      percentual = ((elapsedTime-startTime) * 100) / transitionDuration;
+
+      if (percentual < 100) {
+
+        target[prop] = ((percentual * toValue) / 100)/100;
+        loop();
+
+      } else {
+
+        target[prop] = toValue;
+      }
+    }
+
+  }
+
   var SimpleSlider = function(containerElem, options){
     this.containerElem = containerElem;
-    this.trVal = 0;
     this.interval = 0;
     if( !options ) options = {};
     this.trProp = getdef(options.transitionProperty, 'opacity');
@@ -119,26 +156,10 @@
 
   };
 
-  SimpleSlider.prototype.anim = function(target, diffValue, targetValue){
-    var nextValue = this.trVal+(diffValue/60);
-    this.trVal = nextValue;
-    target.style[this.trProp] = this.trVal/100;
-    var isPositive = diffValue>0 && nextValue<targetValue;
-    var isNegative = diffValue<=0 && nextValue>targetValue;
-    if( isPositive || isNegative ){
-      var scope = this;
-      window.setTimeout(function(){
-        scope.anim.apply(scope, [target, diffValue, targetValue]);
-      }, ( 1000 * scope.trTime ) / 60 );
-    } else {
-      target.style[this.trProp] = diffValue;
-    }
-  };
+  SimpleSlider.prototype.startAnim = function(target, fromValue, toValue){
 
-  SimpleSlider.prototype.startAnim = function(target, fromValue, targetValue){
-    this.trVal = fromValue;
-    var animEndValue = targetValue-this.trVal;
-    this.anim(target, animEndValue, targetValue);
+    anim(target.style, this.trProp, this.trTime * 1000, 0, 0, fromValue, toValue);
+
   };
 
   SimpleSlider.prototype.remove = function(index){
@@ -174,7 +195,6 @@
     this.imgs = null;
 
     this.containerElem = null;
-    this.trVal = null;
     this.interval = null;
     this.trProp = null;
     this.trTime = null;
