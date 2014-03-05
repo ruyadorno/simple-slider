@@ -43,24 +43,21 @@
     return val===undefined || val===null ? def : val;
   }
 
-  function getUnit(startVal, endVal) {
+  function getUnit(args) {
 
-    var startValUnit = '';
-    var endValUnit = '';
+    var item;
+    var count = args.length;
+    var unit = '';
 
-    if (typeof startVal === 'string') {
-      startValUnit = startVal.replace(parseInt(startVal, 10) + '', '');
+    while (--count >= 0) {
+      item = args[count];
+      if (typeof item === 'string') {
+        unit = item
+          .replace(parseInt(item, 10) + '', '');
+      }
     }
 
-    if (typeof endVal === 'string') {
-      endValUnit = endVal.replace(parseInt(endVal, 10) + '', '');
-    }
-
-    if (startValUnit !== '') {
-      return startValUnit;
-    } else {
-      return endValUnit;
-    }
+    return unit;
 
   }
 
@@ -111,7 +108,6 @@
 
       if (percentual < 1) {
 
-        console.log(toValue);
         target[prop] = ((percentual * toValue)) + unit;
         loop();
 
@@ -130,8 +126,9 @@
     this.trProp = getdef(options.transitionProperty, 'opacity');
     this.trTime = getdef(options.transitionTime, 0.5);
     this.delay = getdef(options.transitionDelay, 2);
-    this.unit = getUnit(options.startValue, options.endValue);
+    this.unit = getUnit([options.startValue, options.visibleValue, options.endValue]);
     this.startVal = parseInt(getdef(options.startValue, 100), 10);
+    this.visVal = parseInt(getdef(options.visibleValue, 100), 10);
     this.endVal = parseInt(getdef(options.endValue, 0), 10);
     this.autoPlay = getdef(options.autoPlay, true);
     this.init();
@@ -152,11 +149,11 @@
     this.imgs = [];
     while (i>=0) {
       this.imgs[i] = this.containerElem.children[i];
-      this.imgs[i].style[this.trProp] = this.endVal;
+      this.imgs[i].style[this.trProp] = this.endVal + this.unit;
       i--;
     }
 
-    this.imgs[0].style[this.trProp] = this.startVal;
+    this.imgs[0].style[this.trProp] = this.startVal + this.unit;
     this.actualIndex = 0;
   };
 
@@ -190,6 +187,7 @@
   };
 
   SimpleSlider.prototype.insert = function(index){
+    // Inserting element always get placed in front of others
     this.startAnim(this.imgs[index], this.endVal, this.startVal);
   };
 

@@ -120,7 +120,7 @@ describe('SimpleSlider', function() {
 
   });
 
-  it('should be able to get units correctly', function() {
+  it('should be able to get px units correctly', function() {
 
     var ss = getNewSlider({
       transitionProperty: 'left',
@@ -131,13 +131,30 @@ describe('SimpleSlider', function() {
 
     ss.dispose();
 
+  });
+
+  it('should be able to get em units correctly', function() {
+
     // Also tests with em and a smaller number
-    ss = getNewSlider({
+    var ss = getNewSlider({
       transitionProperty: 'width',
       startValue: '3em'
     }, 3);
 
     expect(ss.unit).toEqual('em');
+
+    ss.dispose();
+
+  });
+
+  it('should be able to get % units correctly', function() {
+
+    // Should also get when using visibleValue
+    var ss = getNewSlider({
+      visibleValue: '100%'
+    }, 3);
+
+    expect(ss.unit).toEqual('%');
 
     ss.dispose();
 
