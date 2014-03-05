@@ -3,6 +3,8 @@ SimpleSlider
 
 version: 0.0.2
 
+[![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.png?branch=develop)](https://travis-ci.org/ruyadorno/SimpleSlider)
+
 http://ruyadorno.github.com/SimpleSlider
 
 A simple javascript slider without any dependencies on third-party libraries.
