@@ -43,6 +43,27 @@
     return val===undefined || val===null ? def : val;
   }
 
+  function getUnit(startVal, endVal) {
+
+    var startValUnit = '';
+    var endValUnit = '';
+
+    if (typeof startVal === 'string') {
+      startValUnit = startVal.replace(parseInt(startVal, 10) + '', '');
+    }
+
+    if (typeof endVal === 'string') {
+      endValUnit = endVal.replace(parseInt(endVal, 10) + '', '');
+    }
+
+    if (startValUnit !== '') {
+      return startValUnit;
+    } else {
+      return endValUnit;
+    }
+
+  }
+
   // Test if have children and throw warning otherwise
   function testChildrenNum(value) {
 
@@ -63,7 +84,7 @@
 
   }
 
-  function anim(target, prop, transitionDuration, startTime, elapsedTime, fromValue, toValue){
+  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue){
 
     function loop() {
 
@@ -73,7 +94,7 @@
           startTime = time;
         }
 
-        anim(target, prop, transitionDuration, startTime, time, fromValue, toValue);
+        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue);
 
       });
     }
@@ -90,12 +111,13 @@
 
       if (percentual < 1) {
 
-        target[prop] = (percentual * toValue) / 100;
+        console.log(toValue);
+        target[prop] = ((percentual * toValue)) + unit;
         loop();
 
       } else {
 
-        target[prop] = toValue;
+        target[prop] = toValue + unit;
       }
     }
 
@@ -108,8 +130,9 @@
     this.trProp = getdef(options.transitionProperty, 'opacity');
     this.trTime = getdef(options.transitionTime, 0.5);
     this.delay = getdef(options.transitionDelay, 2);
-    this.startVal = getdef(options.startValue, 100);
-    this.endVal = getdef(options.endValue, 0);
+    this.unit = getUnit(options.startValue, options.endValue);
+    this.startVal = parseInt(getdef(options.startValue, 100), 10);
+    this.endVal = parseInt(getdef(options.endValue, 0), 10);
     this.autoPlay = getdef(options.autoPlay, true);
     this.init();
   };
@@ -158,7 +181,7 @@
 
   SimpleSlider.prototype.startAnim = function(target, fromValue, toValue){
 
-    anim(target.style, this.trProp, this.trTime * 1000, 0, 0, fromValue, toValue);
+    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue);
 
   };
 

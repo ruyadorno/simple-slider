@@ -120,6 +120,29 @@ describe('SimpleSlider', function() {
 
   });
 
+  it('should be able to get units correctly', function() {
+
+    var ss = getNewSlider({
+      transitionProperty: 'left',
+      endValue: '300px'
+    }, 5);
+
+    expect(ss.unit).toEqual('px');
+
+    ss.dispose();
+
+    // Also tests with em and a smaller number
+    ss = getNewSlider({
+      transitionProperty: 'width',
+      startValue: '3em'
+    }, 3);
+
+    expect(ss.unit).toEqual('em');
+
+    ss.dispose();
+
+  });
+
   describe('slideshow animation logic', function(done) {
 
     var ss = getNewSlider({}, 5);
