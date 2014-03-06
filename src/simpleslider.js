@@ -115,7 +115,7 @@
       } else {
 
         target[prop] = (toValue) + unit;
-        //target.zIndex = 0;
+        target.zIndex = 0;
       }
     }
 
@@ -130,7 +130,7 @@
     this.delay = getdef(options.transitionDelay, 2);
     this.unit = getUnit([options.startValue, options.visibleValue, options.endValue]);
     this.startVal = parseInt(getdef(options.startValue, 0), 10);
-    this.visVal = parseInt(getdef(options.visibleValue, 100), 10);
+    this.visVal = parseInt(getdef(options.visibleValue, 1), 10);
     this.endVal = parseInt(getdef(options.endValue, 0), 10);
     this.autoPlay = getdef(options.autoPlay, true);
     this.init();
