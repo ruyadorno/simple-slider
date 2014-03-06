@@ -115,6 +115,7 @@
       } else {
 
         target[prop] = (toValue) + unit;
+        //target.zIndex = 0;
       }
     }
 
@@ -150,11 +151,13 @@
     this.imgs = [];
     while (i>=0) {
       this.imgs[i] = this.containerElem.children[i];
-      this.imgs[i].style[this.trProp] = this.endVal + this.unit;
+      this.imgs[i].style[this.trProp] = this.startVal + this.unit;
+      this.imgs[i].style.zIndex = 0;
       i--;
     }
 
-    this.imgs[0].style[this.trProp] = this.startVal + this.unit;
+    this.imgs[0].style[this.trProp] = this.visVal + this.unit;
+    this.imgs[0].style.zIndex = 1;
     this.actualIndex = 0;
   };
 
@@ -184,10 +187,12 @@
   };
 
   SimpleSlider.prototype.remove = function(index){
+    this.imgs[index].style.zIndex = 1;
     this.startAnim(this.imgs[index], this.visVal, this.endVal);
   };
 
   SimpleSlider.prototype.insert = function(index){
+    this.imgs[index].style.zIndex = 2;
     this.startAnim(this.imgs[index], this.startVal, this.visVal);
   };
 
