@@ -290,6 +290,68 @@ describe('SimpleSlider', function() {
 
     });
 
+    it('should change values correctly after using change function', function(done) {
+
+      var ss = getNewSlider({
+        autoPlay: false,
+        transitionDelay: 0.5,
+        transitionDuration: 0.2
+      }, 5);
+
+      var nextIndex = ss.actualIndex+1;
+      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+      var timeEnoughToEndTransition = ss.trTime * 1000 + 100;
+
+      ss.change(1);
+
+      setTimeout(function() {
+
+        // Internal index value is correct
+        expect(ss.actualIndex).toEqual(nextIndex);
+
+        setTimeout(function() {
+
+          // Test values after finishing the first transition
+          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString());
+          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString());
+
+          done();
+
+        }, timeEnoughToEndTransition);
+      }, timeEnoughToStartTransition);
+
+    });
+
+    it('should not change values when using autoPlay:false option', function(done) {
+
+      var ss = getNewSlider({
+        autoPlay: false,
+        transitionDelay: 0.5,
+        transitionDuration: 0.2
+      }, 5);
+
+      var startIndex = ss.actualIndex;
+      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+      var timeEnoughToEndTransition = ss.trTime * 1000 + 100;
+
+      setTimeout(function() {
+
+        // Internal index value is correct
+        expect(ss.actualIndex).toEqual(startIndex);
+
+        setTimeout(function() {
+
+          // Ensure values still hold initial values after time enough to have changed
+          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString());
+          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString());
+
+          done();
+
+        }, timeEnoughToEndTransition);
+      }, timeEnoughToStartTransition);
+
+    });
+
   });
 
 });
