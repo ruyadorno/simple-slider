@@ -51,23 +51,29 @@ describe('SimpleSlider', function() {
 
   });
 
-  it('properties should be defined properly', function() {
+  it('default properties should match', function() {
 
     // Test default values
     var ss = getNewSlider();
     expect(ss.trProp).toEqual('opacity');
     expect(ss.trTime).toEqual(0.5);
     expect(ss.delay).toEqual(2);
-    expect(ss.startVal).toEqual(100);
+    expect(ss.startVal).toEqual(0);
+    expect(ss.visVal).toEqual(100);
     expect(ss.endVal).toEqual(0);
     expect(ss.autoPlay).toEqual(true);
 
+  });
+
+  it('properties should be defined properly', function() {
+
     // Test some custom values
-    ss = getNewSlider({
+    var ss = getNewSlider({
       transitionProperty: 'left',
       transitionTime: 1,
       transitionDelay: 2,
       startValue: 300,
+      visibleValue: 200,
       endValue: 100,
       autoPlay:false
     });
@@ -75,11 +81,16 @@ describe('SimpleSlider', function() {
     expect(ss.trTime).toEqual(1);
     expect(ss.delay).toEqual(2);
     expect(ss.startVal).toEqual(300);
+    expect(ss.visVal).toEqual(200);
     expect(ss.endVal).toEqual(100);
     expect(ss.autoPlay).toEqual(false);
 
+  });
+
+  it('should work when partialy declaring properties', function() {
+
     // Partially defined values
-    ss = getNewSlider({
+    var ss = getNewSlider({
       transitionProperty: 'top',
       startValue: -100,
       autoPlay:false
