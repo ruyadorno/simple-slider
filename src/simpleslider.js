@@ -168,13 +168,19 @@
     }
 
     if (this.autoPlay) {
+
       var scope = this;
+
       if (this.interval) {
+
         window.clearInterval(this.interval);
+
       } else {
+
         this.interval = window.setInterval(function(){
           scope.change(scope.nextIndex());
-        }, this.delay*1000);
+        }, this.delay * 1000);
+
       }
     }
 
@@ -212,10 +218,10 @@
 
   SimpleSlider.prototype.dispose = function(){
 
-    window.clearInterval(this.actualIndex);
+    window.clearInterval(this.interval);
 
     var i = this.imgs.length;
-    while (--i) {
+    while (--i >= 0) {
       this.imgs.pop();
     }
     this.imgs = null;
