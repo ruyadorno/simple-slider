@@ -81,7 +81,7 @@
 
   }
 
-  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue){
+  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, zIndex){
 
     function loop() {
 
@@ -91,7 +91,7 @@
           startTime = time;
         }
 
-        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue);
+        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, zIndex);
 
       });
     }
@@ -115,7 +115,7 @@
       } else {
 
         target[prop] = (toValue) + unit;
-        target.zIndex = 0;
+        target.zIndex = zIndex;
       }
     }
 
@@ -186,20 +186,20 @@
 
   };
 
-  SimpleSlider.prototype.startAnim = function(target, fromValue, toValue){
+  SimpleSlider.prototype.startAnim = function(target, fromValue, toValue, zIndex){
 
-    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue);
+    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, zIndex);
 
   };
 
   SimpleSlider.prototype.remove = function(index){
-    this.imgs[index].style.zIndex = 1;
-    this.startAnim(this.imgs[index], this.visVal, this.endVal);
+    this.imgs[index].style.zIndex = 3;
+    this.startAnim(this.imgs[index], this.visVal, this.endVal, 1);
   };
 
   SimpleSlider.prototype.insert = function(index){
-    this.imgs[index].style.zIndex = 2;
-    this.startAnim(this.imgs[index], this.startVal, this.visVal);
+    this.imgs[index].style.zIndex = 4;
+    this.startAnim(this.imgs[index], this.startVal, this.visVal, 2);
   };
 
   SimpleSlider.prototype.change = function(newIndex){
