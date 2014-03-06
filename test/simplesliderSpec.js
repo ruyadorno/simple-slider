@@ -76,7 +76,7 @@ describe('SimpleSlider', function() {
     // Test some custom values
     var ss = getNewSlider({
       transitionProperty: 'left',
-      transitionTime: 1,
+      transitionDuration: 1,
       transitionDelay: 2,
       startValue: 300,
       visibleValue: 200,
@@ -258,7 +258,7 @@ describe('SimpleSlider', function() {
         autoPlay:true,
         transitionProperty:'left',
         transitionDelay: 0.5,
-        transitionTime: 0.2,
+        transitionDuration: 0.2,
         startValue:'-612px',
         visibleValue:'0px',
         endValue:'612px'

@@ -126,7 +126,7 @@
     this.interval = 0;
     if( !options ) options = {};
     this.trProp = getdef(options.transitionProperty, 'opacity');
-    this.trTime = getdef(options.transitionTime, 0.5);
+    this.trTime = getdef(options.transitionDuration, 0.5);
     this.delay = getdef(options.transitionDelay, 2);
     this.unit = getUnit([options.startValue, options.visibleValue, options.endValue]);
     this.startVal = parseInt(getdef(options.startValue, 0), 10);
