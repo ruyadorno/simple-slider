@@ -108,12 +108,13 @@
 
       if (percentual < 1) {
 
-        target[prop] = ((percentual * toValue)) + unit;
+        var diffVal = toValue - fromValue;
+        target[prop] = (fromValue + (percentual * diffVal)) + unit;
         loop();
 
       } else {
 
-        target[prop] = toValue + unit;
+        target[prop] = (toValue) + unit;
       }
     }
 
@@ -127,7 +128,7 @@
     this.trTime = getdef(options.transitionTime, 0.5);
     this.delay = getdef(options.transitionDelay, 2);
     this.unit = getUnit([options.startValue, options.visibleValue, options.endValue]);
-    this.startVal = parseInt(getdef(options.startValue, 100), 10);
+    this.startVal = parseInt(getdef(options.startValue, 0), 10);
     this.visVal = parseInt(getdef(options.visibleValue, 100), 10);
     this.endVal = parseInt(getdef(options.endValue, 0), 10);
     this.autoPlay = getdef(options.autoPlay, true);
@@ -183,12 +184,11 @@
   };
 
   SimpleSlider.prototype.remove = function(index){
-    this.startAnim(this.imgs[index], this.startVal, this.endVal);
+    this.startAnim(this.imgs[index], this.visVal, this.endVal);
   };
 
   SimpleSlider.prototype.insert = function(index){
-    // Inserting element always get placed in front of others
-    this.startAnim(this.imgs[index], this.endVal, this.startVal);
+    this.startAnim(this.imgs[index], this.startVal, this.visVal);
   };
 
   SimpleSlider.prototype.change = function(newIndex){
