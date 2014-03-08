@@ -7,7 +7,7 @@
   } else if (typeof define == 'function' && define.amd) {
     define(definition);
   } else {
-    window.SimpleSlider = definition();
+    context.SimpleSlider = definition();
   }
 
 })(this, function () {
