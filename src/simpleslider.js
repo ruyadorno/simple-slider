@@ -43,6 +43,7 @@
     return val===undefined || val===null ? def : val;
   }
 
+  // Extracts the unit from a css value
   function getUnit(args) {
 
     var item;
@@ -87,6 +88,7 @@
 
       window.requestAnimationFrame(function requestAnimationFunction(time){
 
+        // Starts time in the first anim iteration
         if (startTime === 0) {
           startTime = time;
         }
@@ -120,6 +122,8 @@
     }
 
   }
+
+  // ------------------
 
   var SimpleSlider = function(containerElem, options){
     this.containerElem = containerElem;
