@@ -82,7 +82,7 @@
 
   }
 
-  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, zIndex){
+  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, zIndex, easeFunc){
 
     function loop() {
 
@@ -93,12 +93,12 @@
           startTime = time;
         }
 
-        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, zIndex);
+        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, zIndex, easeFunc);
 
       });
     }
 
-    var percentual;
+    var newValue;
 
     if (startTime === 0) {
 
@@ -106,12 +106,12 @@
 
     } else {
 
-      percentual = (elapsedTime - startTime) / transitionDuration;
+      newValue = easeFunc(elapsedTime - startTime, fromValue, toValue - fromValue, transitionDuration);
 
-      if (percentual < 1) {
+      if (newValue < toValue) {
 
-        var diffVal = toValue - fromValue;
-        target[prop] = (fromValue + (percentual * diffVal)) + unit;
+        target[prop] = newValue + unit;
+
         loop();
 
       } else {
@@ -137,7 +137,20 @@
     this.visVal = parseInt(getdef(options.visibleValue, 1), 10);
     this.endVal = parseInt(getdef(options.endValue, 0), 10);
     this.autoPlay = getdef(options.autoPlay, true);
+    this.ease = getdef(options.ease, SimpleSlider.defaultEase);
     this.init();
+  };
+
+  SimpleSlider.defaultEase = function (time, begin, change, duration) {
+    if ((time = time / (duration / 2)) < 1) {
+      return change / 2 * time * time * time + begin;
+    } else {
+      return change / 2 * ((time -= 2) * time * time + 2) + begin;
+    }
+  };
+
+  SimpleSlider.easeNone = function(time, begin, change, duration) {
+    return change * time / duration + begin;
   };
 
   SimpleSlider.prototype.init = function() {
@@ -192,7 +205,7 @@
 
   SimpleSlider.prototype.startAnim = function(target, fromValue, toValue, zIndex){
 
-    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, zIndex);
+    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, zIndex, SimpleSlider.defaultEase);
 
   };
 
