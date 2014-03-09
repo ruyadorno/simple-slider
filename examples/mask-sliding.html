@@ -1,10 +1,9 @@
 <!doctype html>
 <html>
   <head>
-    <title>Simple slider with images</title>
+    <title>Mask sliding example</title>
     <style>
-      #myslider { width:612px; height:612px; position:absolute; top:50%; left:50%; margin:-306px 0 0 -306px; overflow:hidden;}
-      #myslider div{ position:absolute; width:612px; height:612px; top:0; left:0; }
+      #myslider div{ width:612px; height:612px; }
     </style>
   </head>
   <body>
@@ -17,6 +16,15 @@
   </body>
   <script src="../src/simpleslider.js"></script>
   <script>
-    var imgSlider = new SimpleSlider( document.getElementById('myslider'), {autoPlay:true, transitionProperty:'width', startValue:'0px', visibleValue:'612px', endValue:'612px'} );
+    var imgSlider = new SimpleSlider(
+      document.getElementById('myslider'),
+      {
+        autoPlay:true,
+        transitionProperty:'width',
+        startValue:'0px',
+        visibleValue:'612px',
+        endValue:'612px'
+      }
+    );
   </script>
 </html>

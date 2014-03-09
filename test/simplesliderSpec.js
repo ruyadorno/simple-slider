@@ -122,6 +122,23 @@ describe('SimpleSlider', function() {
 
   });
 
+  it('should set initial styling on elements', function () {
+
+    var ss = getNewSlider({}, 5);
+
+    expect(ss.containerElem.style.position).toEqual('relative');
+    expect(ss.containerElem.style.overflow).toEqual('hidden');
+
+    var i = ss.containerElem.children.length;
+
+    while (--i >= 0) {
+      expect(ss.imgs[i].style.position).toEqual('absolute');
+      expect(ss.imgs[i].style.top).toEqual('0px');
+      expect(ss.imgs[i].style.left).toEqual('0px');
+    }
+
+  });
+
   it('should dispose created instances', function() {
 
     var ss = getNewSlider({

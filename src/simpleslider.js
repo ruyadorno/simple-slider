@@ -164,10 +164,17 @@
       return; // Do not follow reset logic if don't have children
     }
 
+    this.containerElem.style.position = 'relative';
+    this.containerElem.style.overflow = 'hidden';
+
     var i = this.containerElem.children.length-1;
+
     this.imgs = [];
     while (i>=0) {
       this.imgs[i] = this.containerElem.children[i];
+      this.imgs[i].style.position = 'absolute';
+      this.imgs[i].style.top = '0';
+      this.imgs[i].style.left = '0';
       this.imgs[i].style[this.trProp] = this.startVal + this.unit;
       this.imgs[i].style.zIndex = 0;
       i--;
