@@ -123,12 +123,40 @@
 
   }
 
+  function startSlides(container, unit, startValue, visibleValue, transitionProperty) {
+
+    var imgs = [];
+    var i = container.children.length;
+
+    while (--i >= 0) {
+      imgs[i] = container.children[i];
+      imgs[i].style.position = 'absolute';
+      imgs[i].style.top = '0' + unit;
+      imgs[i].style.left = '0' + unit;
+      imgs[i].style[transitionProperty] = startValue + unit;
+      imgs[i].style.zIndex = 0;
+    }
+
+    imgs[0].style[transitionProperty] = visibleValue + unit;
+    imgs[0].style.zIndex = 1;
+
+    return imgs;
+
+  }
+
   // ------------------
 
   var SimpleSlider = function(containerElem, options){
+
     this.containerElem = containerElem;
     this.interval = 0;
-    if( !options ) options = {};
+
+    // User might not send any custom options at all
+    if( !options ) {
+      options = {};
+    }
+
+    // Get user defined options or its default values
     this.trProp = getdef(options.transitionProperty, 'opacity');
     this.trTime = getdef(options.transitionDuration, 0.5);
     this.delay = getdef(options.transitionDelay, 2);
@@ -138,51 +166,46 @@
     this.endVal = parseInt(getdef(options.endValue, 0), 10);
     this.autoPlay = getdef(options.autoPlay, true);
     this.ease = getdef(options.ease, SimpleSlider.defaultEase);
+
     this.init();
   };
 
   SimpleSlider.defaultEase = function (time, begin, change, duration) {
+
     if ((time = time / (duration / 2)) < 1) {
       return change / 2 * time * time * time + begin;
     } else {
       return change / 2 * ((time -= 2) * time * time + 2) + begin;
     }
+
   };
 
   SimpleSlider.easeNone = function(time, begin, change, duration) {
+
     return change * time / duration + begin;
+
   };
 
   SimpleSlider.prototype.init = function() {
+
     this.reset();
     this.configSlideshow();
+
   };
 
   SimpleSlider.prototype.reset = function() {
 
     if (testChildrenNum(this.containerElem.children.length)) {
-      return; // Do not follow reset logic if don't have children
+      return; // Skip reset logic if don't have children
     }
 
     this.containerElem.style.position = 'relative';
     this.containerElem.style.overflow = 'hidden';
 
-    var i = this.containerElem.children.length-1;
+    this.imgs = startSlides(this.containerElem, this.unit, this.startVal, this.visVal, this.trProp);
 
-    this.imgs = [];
-    while (i>=0) {
-      this.imgs[i] = this.containerElem.children[i];
-      this.imgs[i].style.position = 'absolute';
-      this.imgs[i].style.top = '0';
-      this.imgs[i].style.left = '0';
-      this.imgs[i].style[this.trProp] = this.startVal + this.unit;
-      this.imgs[i].style.zIndex = 0;
-      i--;
-    }
-
-    this.imgs[0].style[this.trProp] = this.visVal + this.unit;
-    this.imgs[0].style.zIndex = 1;
     this.actualIndex = 0;
+
   };
 
   SimpleSlider.prototype.configSlideshow = function() {
@@ -217,27 +240,38 @@
   };
 
   SimpleSlider.prototype.remove = function(index){
+
     this.imgs[index].style.zIndex = 3;
     this.startAnim(this.imgs[index], this.visVal, this.endVal, 1);
+
   };
 
   SimpleSlider.prototype.insert = function(index){
+
     this.imgs[index].style.zIndex = 4;
     this.startAnim(this.imgs[index], this.startVal, this.visVal, 2);
+
   };
 
   SimpleSlider.prototype.change = function(newIndex){
+
     this.remove(this.actualIndex);
     this.insert(newIndex);
+
     this.actualIndex = newIndex;
+
   };
 
   SimpleSlider.prototype.nextIndex = function(){
+
     var newIndex = this.actualIndex+1;
-    if( newIndex >= this.imgs.length ){
+
+    if (newIndex >= this.imgs.length) {
       newIndex = 0;
     }
+
     return newIndex;
+
   };
 
   SimpleSlider.prototype.dispose = function(){
