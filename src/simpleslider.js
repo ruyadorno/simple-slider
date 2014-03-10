@@ -40,11 +40,11 @@
   // ------------------
 
   function getdef(val, def){
-    return val===undefined || val===null ? def : val;
+    return val===undefined || val===null || val==='' ? def : val;
   }
 
   // Extracts the unit from a css value
-  function getUnit(args) {
+  function getUnit(args, transitionProperty) {
 
     var item;
     var count = args.length;
@@ -56,6 +56,11 @@
         unit = item
           .replace(parseInt(item, 10) + '', '');
       }
+    }
+
+    // Defaults unit to px if transition property isn't opacity
+    if (transitionProperty !== 'opacity' && unit === '') {
+      unit = 'px';
     }
 
     return unit;
@@ -156,14 +161,16 @@
       options = {};
     }
 
+    var width = parseInt(this.containerElem.style.width || this.containerElem.offsetWidth, 10);
+
     // Get user defined options or its default values
-    this.trProp = getdef(options.transitionProperty, 'opacity');
+    this.trProp = getdef(options.transitionProperty, 'left');
     this.trTime = getdef(options.transitionDuration, 0.5);
-    this.delay = getdef(options.transitionDelay, 2);
-    this.unit = getUnit([options.startValue, options.visibleValue, options.endValue]);
-    this.startVal = parseInt(getdef(options.startValue, 0), 10);
-    this.visVal = parseInt(getdef(options.visibleValue, 1), 10);
-    this.endVal = parseInt(getdef(options.endValue, 0), 10);
+    this.delay = getdef(options.transitionDelay, 3);
+    this.unit = getUnit([options.startValue, options.visibleValue, options.endValue], this.trProp);
+    this.startVal = parseInt(getdef(options.startValue, -width + this.unit), 10);
+    this.visVal = parseInt(getdef(options.visibleValue, '0' + this.unit), 10);
+    this.endVal = parseInt(getdef(options.endValue, width + this.unit), 10);
     this.autoPlay = getdef(options.autoPlay, true);
     this.ease = getdef(options.ease, SimpleSlider.defaultEase);
 
@@ -201,6 +208,7 @@
 
     this.containerElem.style.position = 'relative';
     this.containerElem.style.overflow = 'hidden';
+    this.containerElem.style.display = 'block';
 
     this.imgs = startSlides(this.containerElem, this.unit, this.startVal, this.visVal, this.trProp);
 

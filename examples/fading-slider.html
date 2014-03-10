@@ -3,6 +3,9 @@
   <head>
     <title>Fade in/out transition example</title>
   </head>
+  <style>
+    #myslider { width:612px; height:612px; }
+  </style>
   <body>
     <div id="myslider">
       <img src="http://placekitten.com/g/612/612"/>
@@ -13,6 +16,14 @@
   </body>
   <script src="../src/simpleslider.js"></script>
   <script>
-    var imgSlider = new SimpleSlider( document.getElementById('myslider'), {autoPlay:true} );
+    var imgSlider = new SimpleSlider(
+      document.getElementById('myslider'),
+      {
+        transitionProperty: 'opacity',
+        startValue: 0,
+        visibleValue: 1,
+        endValue: 0
+      }
+    );
   </script>
 </html>

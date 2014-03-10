@@ -10,6 +10,8 @@ describe('SimpleSlider', function() {
 
     var newDiv = document.createElement('div');
     newDiv.id = 'test-div-' + testDivCount;
+    newDiv.style.width = '480px';
+    newDiv.style.height = '200px';
     testDivCount++;
 
     addChildrenDivs(newDiv, numChild);
@@ -59,13 +61,15 @@ describe('SimpleSlider', function() {
 
     // Test default values
     var ss = getNewSlider();
-    expect(ss.trProp).toEqual('opacity');
+    var width = parseInt(ss.containerElem.style.width, 10);
+    expect(ss.trProp).toEqual('left');
     expect(ss.trTime).toEqual(0.5);
-    expect(ss.delay).toEqual(2);
-    expect(ss.startVal).toEqual(0);
-    expect(ss.visVal).toEqual(1);
-    expect(ss.endVal).toEqual(0);
+    expect(ss.delay).toEqual(3);
+    expect(ss.startVal).toEqual(-width);
+    expect(ss.visVal).toEqual(0);
+    expect(ss.endVal).toEqual(width);
     expect(ss.autoPlay).toEqual(true);
+    expect(ss.ease).toEqual(SimpleSlider.defaultEase);
 
     ss.dispose();
 
@@ -134,7 +138,13 @@ describe('SimpleSlider', function() {
     while (--i >= 0) {
       expect(ss.imgs[i].style.position).toEqual('absolute');
       expect(ss.imgs[i].style.top).toEqual('0px');
-      expect(ss.imgs[i].style.left).toEqual('0px');
+
+      // Only the first one should be on visible state
+      if (i === 0) {
+        expect(ss.imgs[i].style.left).toEqual('0px');
+      } else {
+        expect(ss.imgs[i].style.left).toEqual('-480px');
+      }
     }
 
   });
@@ -219,8 +229,8 @@ describe('SimpleSlider', function() {
 
       var ss = getNewSlider({}, 5);
 
-      expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString());
-      expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString());
+      expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
+      expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString() + ss.unit);
 
       ss.dispose();
 
@@ -259,8 +269,8 @@ describe('SimpleSlider', function() {
         setTimeout(function() {
 
           // Test values after finishing the first transition
-          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString());
-          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString());
+          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString() + ss.unit);
+          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
 
           done();
 
@@ -329,8 +339,8 @@ describe('SimpleSlider', function() {
         setTimeout(function() {
 
           // Test values after finishing the first transition
-          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString());
-          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString());
+          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString() + ss.unit);
+          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
 
           done();
 
@@ -359,8 +369,8 @@ describe('SimpleSlider', function() {
         setTimeout(function() {
 
           // Ensure values still hold initial values after time enough to have changed
-          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString());
-          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString());
+          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
+          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString() + ss.unit);
 
           done();
 
