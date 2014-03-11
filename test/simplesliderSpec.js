@@ -280,6 +280,23 @@ describe('SimpleSlider', function() {
 
     });
 
+    it('should nullify inserted, removed objects', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      ss.change(3);
+
+      ss.reset();
+
+      expect(ss.inserted).toEqual(null);
+      expect(ss.removed).toEqual(null);
+
+      ss.dispose();
+
+    });
+
   });
 
   describe('.configSlideshow()', function() {
@@ -332,7 +349,7 @@ describe('SimpleSlider', function() {
 
       ss.remove(0);
 
-      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[0], ss.visVal, ss.endVal, 1);
+      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[0], ss.visVal, ss.endVal);
 
       ss.dispose();
 
@@ -352,7 +369,7 @@ describe('SimpleSlider', function() {
 
       ss.insert(1);
 
-      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[1], ss.startVal, ss.visVal, 2);
+      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[1], ss.startVal, ss.visVal);
 
       ss.dispose();
 

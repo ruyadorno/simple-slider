@@ -87,7 +87,7 @@
 
   }
 
-  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, zIndex, easeFunc){
+  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, easeFunc){
 
     function loop() {
 
@@ -98,7 +98,7 @@
           startTime = time;
         }
 
-        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, zIndex, easeFunc);
+        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, easeFunc);
 
       });
     }
@@ -122,7 +122,6 @@
       } else {
 
         target[prop] = (toValue) + unit;
-        target.zIndex = zIndex;
       }
     }
 
@@ -147,6 +146,28 @@
 
     return imgs;
 
+  }
+
+  function manageRemovingSlideOrder(oldSlide, newSlide) {
+
+    newSlide.style.zIndex = 3;
+
+    if (oldSlide) {
+      oldSlide.style.zIndex = 1;
+    }
+
+    return newSlide;
+  }
+
+  function manageInsertingSlideOrder(oldSlide, newSlide) {
+
+    newSlide.style.zIndex = 4;
+
+    if (oldSlide) {
+      oldSlide.style.zIndex = 2;
+    }
+
+    return newSlide;
   }
 
   // ------------------
@@ -213,6 +234,8 @@
     this.imgs = startSlides(this.containerElem, this.unit, this.startVal, this.visVal, this.trProp);
 
     this.actualIndex = 0;
+    this.inserted = null;
+    this.removed = null;
 
   };
 
@@ -237,23 +260,25 @@
 
   };
 
-  SimpleSlider.prototype.startAnim = function(target, fromValue, toValue, zIndex){
+  SimpleSlider.prototype.startAnim = function(target, fromValue, toValue){
 
-    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, zIndex, SimpleSlider.defaultEase);
+    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, SimpleSlider.defaultEase);
 
   };
 
   SimpleSlider.prototype.remove = function(index){
 
-    this.imgs[index].style.zIndex = 3;
-    this.startAnim(this.imgs[index], this.visVal, this.endVal, 1);
+    this.removed = manageRemovingSlideOrder(this.removed, this.imgs[index]);
+
+    this.startAnim(this.imgs[index], this.visVal, this.endVal);
 
   };
 
   SimpleSlider.prototype.insert = function(index){
 
-    this.imgs[index].style.zIndex = 4;
-    this.startAnim(this.imgs[index], this.startVal, this.visVal, 2);
+    this.inserted = manageInsertingSlideOrder(this.inserted, this.imgs[index]);
+
+    this.startAnim(this.imgs[index], this.startVal, this.visVal);
 
   };
 
@@ -299,6 +324,8 @@
     this.endVal = null;
     this.autoPlay = null;
     this.actualIndex = null;
+    this.inserted = null;
+    this.removed = null;
   };
 
   return SimpleSlider;
