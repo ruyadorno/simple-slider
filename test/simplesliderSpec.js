@@ -692,6 +692,38 @@ describe('SimpleSlider', function() {
 
     });
 
+    it('should handle z-index during transition without remove anim', function(done) {
+
+      var ss = getNewSlider({
+        autoPlay: true,
+        transitionProperty:'width',
+        startValue:'0px',
+        visibleValue:'612px',
+        endValue:'612px',
+        transitionDelay: 0.5,
+        transitionDuration: 0.2
+      }, 5);
+
+      // Simulates the state after a full carousel round
+      var i = ss.imgs.length;
+      while (--i >= 0) {
+        ss.imgs[i].style.zIndex = 1;
+      }
+
+      var startIndex = ss.actualIndex;
+      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+
+      setTimeout(function() {
+
+        expect(ss.imgs[0].style.zIndex).toBeGreaterThan(ss.imgs[4].style.zIndex);
+
+        ss.dispose();
+
+        done();
+
+      }, timeEnoughToStartTransition);
+
+    });
 
   });
 
