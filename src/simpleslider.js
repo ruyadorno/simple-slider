@@ -154,7 +154,7 @@
   var SimpleSlider = function(containerElem, options){
 
     this.containerElem = containerElem;
-    this.interval = 0;
+    this.interval = null;
 
     // User might not send any custom options at all
     if( !options ) {
@@ -222,21 +222,17 @@
       return;
     }
 
-    if (this.autoPlay) {
+    if (this.autoPlay && this.imgs.length > 1) {
 
       var scope = this;
 
       if (this.interval) {
-
         window.clearInterval(this.interval);
-
-      } else {
-
-        this.interval = window.setInterval(function(){
-          scope.change(scope.nextIndex());
-        }, this.delay * 1000);
-
       }
+
+      this.interval = window.setInterval(function(){
+        scope.change(scope.nextIndex());
+      }, this.delay * 1000);
     }
 
   };

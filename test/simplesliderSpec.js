@@ -23,9 +23,8 @@ describe('SimpleSlider', function() {
   var addChildrenDivs = function(newDiv, numChild) {
 
     var childrenNum = numChild ? numChild : Math.ceil( Math.random()*10 );
-    while (childrenNum >= 0) {
+    while (--childrenNum >= 0) {
       newDiv.appendChild(document.createElement('div'));
-      childrenNum--;
     }
 
   };
@@ -272,6 +271,8 @@ describe('SimpleSlider', function() {
           expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString() + ss.unit);
           expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
 
+          ss.dispose();
+
           done();
 
         }, timeEnoughToEndTransition);
@@ -310,6 +311,8 @@ describe('SimpleSlider', function() {
           expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
           expect(ss.imgs[2].style[ss.trProp]).toEqual(ss.startVal.toString() + ss.unit);
 
+          ss.dispose();
+
           done();
 
         }, timeEnoughToEndTransition);
@@ -341,6 +344,8 @@ describe('SimpleSlider', function() {
           // Test values after finishing the first transition
           expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString() + ss.unit);
           expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
+          
+          ss.dispose();
 
           done();
 
@@ -372,12 +377,97 @@ describe('SimpleSlider', function() {
           expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
           expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString() + ss.unit);
 
+          ss.dispose();
+
           done();
 
         }, timeEnoughToEndTransition);
       }, timeEnoughToStartTransition);
 
     });
+
+    it('should work well with just 2 slides', function(done) {
+
+      var ss = getNewSlider({
+        autoPlay: true,
+        transitionDelay: 0.5,
+        transitionDuration: 0.2
+      }, 2);
+
+      var startIndex = ss.actualIndex;
+      var nextIndex = ss.actualIndex + 1;
+      var timeEnoughToStartTransition = (ss.delay * 1000) + 10;
+      var timeEnoughToEndTransition = ss.trTime * 1000 + 10;
+
+      // Values should have correct initial values
+      expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
+      expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString() + ss.unit);
+
+      setTimeout(function() {
+
+        // Internal index value is correct
+        expect(ss.actualIndex).toEqual(nextIndex);
+
+        setTimeout(function() {
+
+          // Ensure values have changed
+          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString() + ss.unit);
+          expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
+
+          setTimeout(function() {
+
+            // Internal index value should be start value again
+            expect(ss.actualIndex).toEqual(startIndex);
+
+            setTimeout(function() {
+
+              // Ensure values now hold initial values after time enough to have changed
+              expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
+              expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.endVal.toString() + ss.unit);
+
+              ss.dispose();
+
+              done();
+
+            }, timeEnoughToEndTransition);
+          }, timeEnoughToStartTransition);
+
+        }, timeEnoughToEndTransition);
+      }, timeEnoughToStartTransition);
+
+    });
+
+    it('should not swap slides when there is only one image', function(done) {
+
+      var ss = getNewSlider({
+        autoPlay: true,
+        transitionDelay: 0.5,
+        transitionDuration: 0.2
+      }, 1);
+
+      var startIndex = ss.actualIndex;
+      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+      var timeEnoughToEndTransition = ss.trTime * 1000 + 100;
+
+      setTimeout(function() {
+
+        // Internal index value is correct
+        expect(ss.actualIndex).toEqual(startIndex);
+
+        setTimeout(function() {
+
+          // Ensure values still hold initial values after time enough to have changed
+          expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
+
+          ss.dispose();
+
+          done();
+
+        }, timeEnoughToEndTransition);
+      }, timeEnoughToStartTransition);
+
+    });
+
 
   });
 
