@@ -219,7 +219,7 @@
   SimpleSlider.prototype.configSlideshow = function() {
 
     if (!this.imgs) {
-      return;
+      return false;
     }
 
     if (this.autoPlay && this.imgs.length > 1) {
@@ -282,11 +282,13 @@
 
     window.clearInterval(this.interval);
 
-    var i = this.imgs.length;
-    while (--i >= 0) {
-      this.imgs.pop();
+    if (this.imgs) {
+      var i = this.imgs.length;
+      while (--i >= 0) {
+        this.imgs.pop();
+      }
+      this.imgs = null;
     }
-    this.imgs = null;
 
     this.containerElem = null;
     this.interval = null;

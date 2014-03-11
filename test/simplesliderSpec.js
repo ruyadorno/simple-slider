@@ -3,16 +3,25 @@ describe('SimpleSlider', function() {
   'use strict';
 
   var testDivCount = 0;
+  var _consoleWarn;
 
   // Helper functions to create dummy elements
 
-  var getNewDiv = function(numChild) {
+  var createEmptyDiv = function() {
 
     var newDiv = document.createElement('div');
     newDiv.id = 'test-div-' + testDivCount;
     newDiv.style.width = '480px';
     newDiv.style.height = '200px';
     testDivCount++;
+
+    return newDiv;
+
+  };
+
+  var getNewDiv = function(numChild) {
+
+    var newDiv = createEmptyDiv();
 
     addChildrenDivs(newDiv, numChild);
 
@@ -36,6 +45,20 @@ describe('SimpleSlider', function() {
 
     return ss;
 
+  };
+
+  var createEmptySlider = function() {
+
+    _consoleWarn = console.warn;
+    console.warn = function() {};
+
+    return new SimpleSlider(createEmptyDiv());
+
+  };
+
+  var disposeEmptySlider = function(ss) {
+    ss.dispose();
+    console.warn = _consoleWarn;
   };
 
   it('should be able to create a new instance', function() {
@@ -148,40 +171,6 @@ describe('SimpleSlider', function() {
 
   });
 
-  it('should dispose created instances', function() {
-
-    var ss = getNewSlider({
-      transitionProperty: 'opacity'
-    }, 5);
-
-    ss.dispose();
-
-    expect(ss.imgs).toEqual(null);
-    expect(ss.actualIndex).toEqual(null);
-    expect(ss.interval).toEqual(null);
-    expect(ss.containerElem).toEqual(null);
-
-  });
-
-  it('dispose should clear autoplay interval', function(done) {
-
-    var ss = getNewSlider({
-      autoPlay: true,
-      transitionProperty: 'opacity'
-    }, 5);
-
-    // spy on change method
-    spyOn(ss, 'change');
-
-    ss.dispose();
-
-    setTimeout(function() {
-      expect(ss.change).not.toHaveBeenCalled();
-      done();
-    }, (ss.delay * 1000) + 1);
-
-  });
-
   it('should be able to get px units correctly', function() {
 
     var ss = getNewSlider({
@@ -219,6 +208,241 @@ describe('SimpleSlider', function() {
     expect(ss.unit).toEqual('%');
 
     ss.dispose();
+
+  });
+
+  describe('.reset()', function() {
+
+    it('should reset original style values', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      ss.change(3);
+
+      ss.reset();
+
+      expect(ss.containerElem.style.position).toEqual('relative');
+      expect(ss.containerElem.style.overflow).toEqual('hidden');
+      expect(ss.containerElem.style.display).toEqual('block');
+
+      ss.dispose();
+
+    });
+
+    it('should start imgs control', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      ss.change(3);
+
+      ss.reset();
+
+      expect(ss.imgs.length).toEqual(5);
+
+      ss.dispose();
+
+    });
+
+    it('should set actualIndex to 0', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      ss.change(3);
+
+      ss.reset();
+
+      expect(ss.actualIndex).toEqual(0);
+
+      ss.dispose();
+
+    });
+
+    it('should set initial image properties values', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      ss.change(3);
+
+      ss.reset();
+
+      expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
+      expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString() + ss.unit);
+
+      ss.dispose();
+
+    });
+
+  });
+
+  describe('.configSlideshow()', function() {
+
+    it('should return false if there are no images', function() {
+
+      var ss = createEmptySlider();
+
+      expect(ss.configSlideshow()).toEqual(false);
+
+      disposeEmptySlider(ss);
+
+    });
+
+    it('should not create change image interval if there are no images', function() {
+
+      var ss = createEmptySlider();
+
+      ss.configSlideshow();
+
+      expect(ss.interval).toEqual(null);
+
+      disposeEmptySlider(ss);
+
+    });
+
+    it('should create interval when configuring a valid slider', function() {
+
+      var ss = getNewSlider({}, 5);
+
+      ss.configSlideshow();
+
+      expect(ss.interval).not.toEqual(null);
+
+      ss.dispose();
+
+    });
+
+  });
+
+  describe('.remove()', function() {
+
+    it('should trigger startAnim with correct values', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      spyOn(ss, 'startAnim');
+
+      ss.remove(0);
+
+      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[0], ss.visVal, ss.endVal, 1);
+
+      ss.dispose();
+
+    });
+
+  });
+
+  describe('.insert()', function() {
+
+    it('should trigger startAnim with correct values', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      spyOn(ss, 'startAnim');
+
+      ss.insert(1);
+
+      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[1], ss.startVal, ss.visVal, 2);
+
+      ss.dispose();
+
+    });
+
+  });
+
+  describe('.nextIndex()', function() {
+
+    it('should return next index value on carousel', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      // Original value should always be zero
+      expect(ss.actualIndex).toEqual(0);
+
+      // Next index should not increment actualIndex value
+      expect(ss.nextIndex()).toEqual(1);
+
+      ss.dispose();
+
+    });
+
+    it('should return first item index when it is on last item', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      ss.change(4);
+
+      expect(ss.nextIndex()).toEqual(0);
+
+      ss.dispose();
+
+    });
+
+    it('should not increment actualIndex value', function() {
+
+      var ss = getNewSlider({
+        autoPlay: false
+      }, 5);
+
+      // Next index should not increment actualIndex value
+      expect(ss.nextIndex()).toEqual(1);
+      expect(ss.nextIndex()).toEqual(1);
+
+      ss.dispose();
+
+    });
+
+  });
+
+  describe('.dispose()', function() {
+
+    it('should dispose created instances', function() {
+
+      var ss = getNewSlider({
+        transitionProperty: 'opacity'
+      }, 5);
+
+      ss.dispose();
+
+      expect(ss.imgs).toEqual(null);
+      expect(ss.actualIndex).toEqual(null);
+      expect(ss.interval).toEqual(null);
+      expect(ss.containerElem).toEqual(null);
+
+    });
+
+    it('dispose should clear autoplay interval', function(done) {
+
+      var ss = getNewSlider({
+        autoPlay: true,
+        transitionProperty: 'opacity'
+      }, 5);
+
+      // spy on change method
+      spyOn(ss, 'change');
+
+      ss.dispose();
+
+      setTimeout(function() {
+        expect(ss.change).not.toHaveBeenCalled();
+        done();
+      }, (ss.delay * 1000) + 1);
+
+    });
 
   });
 
@@ -344,7 +568,7 @@ describe('SimpleSlider', function() {
           // Test values after finishing the first transition
           expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.endVal.toString() + ss.unit);
           expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
-          
+
           ss.dispose();
 
           done();
