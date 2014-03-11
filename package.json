@@ -1,5 +1,5 @@
 {
-  "name": "SimpleSlider",
+  "name": "simple-slider",
   "version": "0.1.0",
   "description": "A simple javascript slider without any dependencies",
   "scripts": {
