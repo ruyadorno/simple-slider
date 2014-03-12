@@ -1,0 +1,16 @@
+body{ font-family:'Lato', 'Helvetica', Arial, sans-serif; font-weight:300; font-size:1.2em; color:#202020; margin:0px; }
+h1, h2, h3{ font-family: 'Josefin Sans', 'Helvetica', Arial, sans-serif; font-size: 2em; font-weight:300; }
+h1{ font-size:4em; font-weight:700; text-align:center; }
+pre{ background:#EEE; border:solid 1px #C3C3C3; padding:20px; font-family:"Lucida Console", Monaco, monospace; font-size:0.75em;  }
+hr{ background:#DDD; height:1px; width:800px; border:none; }
+
+header { width: 100%; height:300px; position:relative; }
+header h1 { position: absolute; font-size: 6.5em; top: 90px; left: 0px; width: 100%; margin:0px; color:white; padding:0px; z-index:5; }
+
+#header-slider { width: 100%; height: 300px; position: absolute; top:0px; left:0px; }
+#header-slider div { width:100%; height: 300px; position: absolute; top: 0px; left: 0px; }
+
+.wrapper{ width:740px; position:relative; left:50%; margin-left:-400px; padding:30px; }
+
+#myslider{ position:relative; width:612px; height:612px; }
+#myslider img{ position:absolute; top:0; left:0; }
