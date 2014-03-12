@@ -38,10 +38,7 @@
             <p>Just import the script on html and make sure it's available before starting it.</p>
             <pre>&lt;script src="simpleslider.min.js">&lt;/script>
 &lt;script>
-    var imgSlider = new SimpleSlider(
-        document.getElementById('myslider'),
-        { autoPlay: false }
-    );
+    var imgSlider = new SimpleSlider( document.getElementById('myslider') );
 &lt;/script>
 </pre>
             <p>It only requires a group of elements overlapped inside a main html tag. The best way to implement is like on the example above where a div with position:relative contains four img tags, with position:absolute.</p>
