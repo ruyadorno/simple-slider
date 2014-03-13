@@ -14,9 +14,8 @@
         <header>
             <h1>SimpleSlider</h1>
             <div id="header-slider">
-                <div style="background:url(img/sos.png)"></div>
                 <div style="background:url(img/sprinkles.png)"></div>
-                <div style="background:url(img/light_grey.png)"></div>
+                <div style="background:url(img/sos.png)"></div>
                 <div style="background:url(img/random_grey_variations.png)"></div>
             </div>
         </header>
@@ -47,24 +46,70 @@
 </code></pre>
             <p>It only requires a group of elements inside of a main <strong>div</strong> tag (or similar). The slider element will always use <strong>overflow:hidden</strong> and its childs will have <strong>position:absolute</strong>.</p>
             <br/>
+            <hr/>
+            <br/>
             <h2>More info</h2>
             <p>The goal of this small script is to enable an carousel-like html element adding the smallest piece of code possible.</p>
             <p>All the code is available on GitHub containing decent documentation, examples and unit tests. Please visit the <a href="https://github.com/ruyadorno/SimpleSlider">project repository</a> if you want to contribute or find more information about it.</p>
             <br/>
+            <hr/>
             <br/>
             <h2>This is so basic that it might just be an element</h2>
             <p>Precisely! The goal of the project is to be simple after all. To help with that, SimpleSlider also have an AngularJS directive (<a href="https://github.com/ruyadorno/angular-simple-slider">angular-simple-slider</a>) and a Polymer element (<a href="https://github.com/ruyadorno/polymer-simple-slider">polymer-simple-slider</a>) implementations that just wrap the javascript into simpler html elements. Please visit these repositories for more information if you're interested in one of those.</p>
             <br/>
             <hr/>
             <br/>
+            <h2>Can we see more Cat-Examples?</h2>
+            <p>Of course, silly me, let me just get out of the way and show you some more examples.</p>
+            <p style="font-style:italic">With kitties</p>
+            <br/>
+            <strong>Masked sliding transition</strong>
+            <div id="masked-slider" style="width:740px; height:300px">
+                <div style="width:740px; height:300px; background:url(http://placekitten.com/g/740/300)"></div>
+                <div style="width:740px; height:300px; background:url(http://placekitten.com/g/740/303)"></div>
+                <div style="width:740px; height:300px; background:url(http://placekitten.com/g/740/302)"></div>
+            </div>
+            <br/>
+            <hr/>
+            <br/>
+            <strong>Top-to-bottom transition</strong>
+            <div id="top-to-bottom-slider" style="width:740px; height:300px">
+                <img src="http://placekitten.com/g/750/300"/>
+                <img src="http://placekitten.com/g/750/301"/>
+                <img src="http://placekitten.com/g/750/302"/>
+            </div>
+            <br/>
+            <hr/>
+            <br/>
+            <strong>Select slide example</strong>
+            <div id="selector-example">
+                <div id="select-slider" style="width:740px; height:300px">
+                    <img src="http://placekitten.com/g/760/300"/>
+                    <img src="http://placekitten.com/g/760/301"/>
+                    <img src="http://placekitten.com/g/760/302"/>
+                </div>
+                <select id="slide-selector">
+                    <option value="0">Slide 1</option>
+                    <option value="1">Slide 2</option>
+                    <option value="2">Slide 3</option>
+                </select>
+            </div>
+            <br/>
+            <hr/>
+            <br/>
+            <h2>That's it</h2>
+            <p>If you want more information, documentation and even more examples of use go check <a href="https://github.com/ruyadorno/SimpleSlider">SimpleSlider on GitHub</a>. Again, contributions are most welcomed.</p>
+            <br/>
+            <hr/>
+            <br/>
             <h2>About the author:</h2>
-            <p><a href="https://twitter.com/ruyadorno">Ruy Adorno</a> is a Brazilian/Canadian front-end developer.</p>
+            <p><a href="https://twitter.com/ruyadorno">Ruy Adorno</a> is a Brazilian/Canadian front-end developer living in Montreal and trying to be more active in the open-source community.</p>
         </div>
         <a href="https://github.com/ruyadorno/SimpleSlider"><img style="position: absolute; z-index: 10; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
     <script src="simpleslider.min.js"></script>
     <script>
 
-        var headerSlider = new SimpleSlider(
+        new SimpleSlider(
             document.getElementById('header-slider'),
             {
                 transitionProperty: 'width',
@@ -76,7 +121,7 @@
             }
         );
 
-        var imgSlider = new SimpleSlider(
+        new SimpleSlider(
             document.getElementById('myslider'),
             {
                 autoPlay: true,
@@ -88,6 +133,46 @@
                 endValue: 0
             }
         );
+
+        new SimpleSlider(
+            document.getElementById('masked-slider'),
+            {
+                autoPlay:true,
+                transitionProperty:'width',
+                startValue:'0px',
+                visibleValue:'740px',
+                endValue:'740px'
+            }
+        );
+
+        new SimpleSlider(
+            document.getElementById('top-to-bottom-slider'),
+            {
+                autoPlay:true,
+                transitionDelay:1.5,
+                transitionDuration: 1,
+                transitionProperty:'top',
+                startValue:'-300px',
+                visibleValue:'0px',
+                endValue:'300px'
+            }
+        );
+
+        var sliderSelector = new SimpleSlider(
+            document.getElementById('select-slider'),
+            {
+                autoPlay:false,
+                transitionDuration: 0.5,
+                transitionProperty:'left',
+                startValue:'-740px',
+                visibleValue:'0px',
+                endValue:'740px'
+            }
+        );
+
+        document.getElementById('slide-selector').onchange = function(e){
+            sliderSelector.change(e.target.value);
+        };
 
     </script>
     <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
