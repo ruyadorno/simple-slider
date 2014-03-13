@@ -97,6 +97,19 @@
             <br/>
             <hr/>
             <br/>
+            <strong>Button navigation example</strong>
+            <div id="nav-example">
+                <div id="nav-slider" style="width:740px; height:300px">
+                    <img src="http://placekitten.com/780/300"/>
+                    <img src="http://placekitten.com/780/301"/>
+                    <img src="http://placekitten.com/780/302"/>
+                </div>
+                <a id="prev-button" href="#" class="slide-button">&lt;</a>
+                <a id="next-button" href="#" class="slide-button">&gt;</a>
+            </div>
+            <br/>
+            <hr/>
+            <br/>
             <h2>That's it</h2>
             <p>If you want more information, documentation and even more examples of use go check <a href="https://github.com/ruyadorno/SimpleSlider">SimpleSlider on GitHub</a>. Again, contributions are most welcomed.</p>
             <br/>
@@ -172,6 +185,29 @@
 
         document.getElementById('slide-selector').onchange = function(e){
             sliderSelector.change(e.target.value);
+        };
+
+        var sliderNav = new SimpleSlider(
+            document.getElementById('nav-slider'),
+            {
+                autoPlay: true,
+                transitionDelay: 6,
+                transitionDuration: 0.7,
+                transitionProperty: 'opacity',
+                startValue: 0,
+                visibleValue: 1,
+                endValue: 0
+            }
+        );
+
+        document.getElementById('prev-button').onclick = function(e) {
+            sliderNav.prev();
+            e.preventDefault();
+        };
+
+        document.getElementById('next-button').onclick = function(e) {
+            sliderNav.next();
+            e.preventDefault();
         };
 
     </script>
