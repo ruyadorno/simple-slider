@@ -15,4 +15,18 @@ header h1 { position: absolute; font-size: 6.5em; top: 90px; left: 0px; width: 1
 .description { width:100%; text-align: center; }
 
 #myslider{ margin-left: 64px; width:612px; height:612px; }
-#myslider img{ position:absolute; top:0; left:0; }
+#myslider img{ min-width: 100%; height: auto; position:absolute; top:0; left:0; }
+
+@media (max-width: 800px) {
+    header { height: 250px; }
+    header h1 { font-size: 4em; }
+
+    #header-slider { height: 250px; }
+
+    .wrapper { width: 100%; left: 0px; margin-left: 0px; padding: 30px 0px; overflow:hidden; }
+
+    #myslider { margin-left: 0px; width:100%; }
+
+    pre{ width: 100%; overflow:scroll; }
+
+}
