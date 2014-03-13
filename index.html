@@ -22,25 +22,29 @@
             </div>
         </header>
         <div class="wrapper">
-            <p>A simple javascript slider without any dependencies on third-party libraries.</p>
+            <p class="description">A simple javascript slider without any dependencies on third-party libraries.</p>
             <br/>
             <hr/>
             <br/>
             <h2>Example:</h2>
             <div id="myslider">
                 <img src="http://placekitten.com/g/612/612"/>
-                <img src="http://distilleryimage5.s3.amazonaws.com/de66967ac72111e2a23222000aaa0537_7.jpg"/>
-                <img src="http://distilleryimage8.s3.amazonaws.com/a042749ac72111e28c3c22000a1fb85a_7.jpg"/>
-                <img src="http://distilleryimage4.s3.amazonaws.com/8d32600ec72111e29f1422000a1fbc0e_7.jpg"/>
+                <img src="http://placekitten.com/g/612/613"/>
+                <img src="http://placekitten.com/g/612/614"/>
             </div>
             <br/>
             <h2>Usage</h2>
             <p>Just import the script on html and make sure it's available before starting it.</p>
-            <pre>&lt;script src="simpleslider.min.js">&lt;/script>
+            <pre><code class="html">&lt;div id="myslider" style="width:612px; height:612px">
+    &lt;img src="http://placekitten.com/g/612/612"/>
+    &lt;img src="http://placekitten.com/g/612/613"/>
+    &lt;img src="http://placekitten.com/g/612/614"/>
+&lt;/div>
+&lt;script src="simpleslider.min.js">&lt;/script>
 &lt;script>
     var imgSlider = new SimpleSlider( document.getElementById('myslider') );
 &lt;/script>
-</pre>
+</code></pre>
             <p>It only requires a group of elements overlapped inside a main html tag. The best way to implement is like on the example above where a div with position:relative contains four img tags, with position:absolute.</p>
             <br/>
             <h2>More info</h2>
@@ -50,7 +54,7 @@
             <hr/>
             <br/>
             <h2>About the author:</h2>
-            <p><a href="https://github.com/ruyadorno">Ruy Adorno</a> is a Brazilian/Canadian developer, focused on high-end creative web development.</p>
+            <p><a href="https://github.com/ruyadorno">Ruy Adorno</a> is a Brazilian/Canadian front-end developer.</p>
         </div>
         <a href="https://github.com/ruyadorno/SimpleSlider"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
     <script src="simpleslider.min.js"></script>
@@ -59,23 +63,31 @@
         var headerSlider = new SimpleSlider(
             document.getElementById('header-slider'),
             {
-                transitionProperty:'width',
+                transitionProperty: 'width',
                 transitionDuration: 1,
                 transitionDelay: 3,
-                startValue:'0%',
-                visibleValue:'100%',
-                endValue:'100%'
+                startValue: '0%',
+                visibleValue: '100%',
+                endValue: '100%'
             }
         );
 
         var imgSlider = new SimpleSlider(
             document.getElementById('myslider'),
             {
-                autoPlay:true,
-                transitionDelay:3
+                autoPlay: true,
+                transitionDelay: 3,
+                transitionDuration: 1,
+                transitionProperty: 'opacity',
+                startValue: 0,
+                visibleValue: 1,
+                endValue: 0
             }
         );
 
     </script>
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+    <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     </body>
 </html>
