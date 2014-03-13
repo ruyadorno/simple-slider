@@ -337,6 +337,40 @@ describe('SimpleSlider', function() {
 
   });
 
+  describe('.next()', function() {
+
+    it('should change to next slide', function() {
+
+      var ss = getNewSlider({autoPlay:false}, 5);
+      var initialIndex = ss.actualIndex;
+
+      ss.next();
+
+      expect(ss.actualIndex).toEqual(initialIndex + 1);
+
+      ss.dispose();
+
+    });
+
+  });
+
+  describe('.prev()', function() {
+
+    it('should change to next slide', function() {
+
+      var ss = getNewSlider({autoPlay:false}, 5);
+      var initialIndex = ss.actualIndex;
+
+      ss.prev();
+
+      expect(ss.actualIndex).toEqual(ss.imgs.length - 1);
+
+      ss.dispose();
+
+    });
+
+  });
+
   describe('.remove()', function() {
 
     it('should trigger startAnim with correct values', function() {
@@ -750,11 +784,11 @@ describe('SimpleSlider', function() {
         startValue:'612px',
         visibleValue:'0px',
         endValue:'-612px',
-        transitionDelay: 0,
-        transitionDuration: 0.2
+        transitionDelay: 0.1,
+        transitionDuration: 0.4
       }, 5);
 
-      var timeEnoughToHalftransition = ((ss.trTime / 2) * 1000);
+      var timeEnoughToHalftransition = ((ss.delay + (ss.trTime / 2)) * 1000);
 
       setTimeout(function() {
 
@@ -782,10 +816,10 @@ describe('SimpleSlider', function() {
         visibleValue: 1,
         endValue: 0,
         transitionDelay: 0,
-        transitionDuration: 0.2
+        transitionDuration: 0.6
       }, 5);
 
-      var timeEnoughToHalftransition = ((ss.trTime / 2) * 1000);
+      var timeEnoughToHalftransition = ((ss.delay + (ss.trTime / 2)) * 1000);
 
       setTimeout(function() {
 

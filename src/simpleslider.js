@@ -291,12 +291,36 @@
 
   };
 
+  SimpleSlider.prototype.next = function(){
+
+    this.change(this.nextIndex());
+
+  };
+
+  SimpleSlider.prototype.prev = function(){
+
+    this.change(this.prevIndex());
+
+  };
+
   SimpleSlider.prototype.nextIndex = function(){
 
     var newIndex = this.actualIndex+1;
 
     if (newIndex >= this.imgs.length) {
       newIndex = 0;
+    }
+
+    return newIndex;
+
+  };
+
+  SimpleSlider.prototype.prevIndex = function(){
+
+    var newIndex = this.actualIndex-1;
+
+    if (newIndex <= 0) {
+      newIndex = this.imgs.length-1;
     }
 
     return newIndex;
