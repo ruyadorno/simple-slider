@@ -113,7 +113,7 @@
 
       newValue = easeFunc(elapsedTime - startTime, fromValue, toValue - fromValue, transitionDuration);
 
-      if (newValue < toValue) {
+      if (elapsedTime - startTime <= transitionDuration) {
 
         target[prop] = newValue + unit;
 

@@ -742,6 +742,65 @@ describe('SimpleSlider', function() {
 
     });
 
+    it('should allow transition to lower values than visible value', function(done) {
+
+      var ss = getNewSlider({
+        autoPlay: true,
+        transitionProperty:'left',
+        startValue:'612px',
+        visibleValue:'0px',
+        endValue:'-612px',
+        transitionDelay: 0,
+        transitionDuration: 0.2
+      }, 5);
+
+      var timeEnoughToHalftransition = ((ss.trTime / 2) * 1000);
+
+      setTimeout(function() {
+
+        // Should be somewhere in the middle of animation values
+        expect(parseInt(ss.imgs[0].style.left, 10)).toBeLessThan(0);
+        expect(parseInt(ss.imgs[0].style.left, 10)).toBeGreaterThan(-612);
+
+        expect(parseInt(ss.imgs[1].style.left, 10)).toBeLessThan(612);
+        expect(parseInt(ss.imgs[1].style.left, 10)).toBeGreaterThan(0);
+
+        ss.dispose();
+
+        done();
+
+      }, timeEnoughToHalftransition);
+
+    });
+
+    it('should allow opacity remove transition', function(done) {
+
+      var ss = getNewSlider({
+        autoPlay: true,
+        transitionProperty:'opacity',
+        startValue: 0,
+        visibleValue: 1,
+        endValue: 0,
+        transitionDelay: 0,
+        transitionDuration: 0.2
+      }, 5);
+
+      var timeEnoughToHalftransition = ((ss.trTime / 2) * 1000);
+
+      setTimeout(function() {
+
+        // Should be somewhere in the middle of remove animation
+        expect(ss.imgs[0].style.opacity).toBeLessThan(1);
+        expect(ss.imgs[0].style.opacity).toBeGreaterThan(0);
+
+        ss.dispose();
+
+        done();
+
+      }, timeEnoughToHalftransition);
+
+    });
+
   });
 
 });
