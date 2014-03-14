@@ -5,9 +5,9 @@
   if (typeof module != 'undefined' && module.exports) {
     module.exports = definition();
   } else if (typeof define == 'function' && define.amd) {
-    define(definition);
+    define(context.SimpleSlider = definition());
   } else {
-    window.SimpleSlider = definition();
+    context.SimpleSlider = definition();
   }
 
 })(this, function () {
@@ -40,10 +40,11 @@
   // ------------------
 
   function getdef(val, def){
-    return val===undefined || val===null ? def : val;
+    return val===undefined || val===null || val==='' ? def : val;
   }
 
-  function getUnit(args) {
+  // Extracts the unit from a css value
+  function getUnit(args, transitionProperty) {
 
     var item;
     var count = args.length;
@@ -55,6 +56,11 @@
         unit = item
           .replace(parseInt(item, 10) + '', '');
       }
+    }
+
+    // Defaults unit to px if transition property isn't opacity
+    if (transitionProperty !== 'opacity' && unit === '') {
+      unit = 'px';
     }
 
     return unit;
@@ -81,22 +87,23 @@
 
   }
 
-  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, zIndex){
+  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, easeFunc){
 
     function loop() {
 
       window.requestAnimationFrame(function requestAnimationFunction(time){
 
+        // Starts time in the first anim iteration
         if (startTime === 0) {
           startTime = time;
         }
 
-        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, zIndex);
+        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, easeFunc);
 
       });
     }
 
-    var percentual;
+    var newValue;
 
     if (startTime === 0) {
 
@@ -104,127 +111,233 @@
 
     } else {
 
-      percentual = (elapsedTime - startTime) / transitionDuration;
+      newValue = easeFunc(elapsedTime - startTime, fromValue, toValue - fromValue, transitionDuration);
 
-      if (percentual < 1) {
+      if (elapsedTime - startTime <= transitionDuration) {
 
-        var diffVal = toValue - fromValue;
-        target[prop] = (fromValue + (percentual * diffVal)) + unit;
+        target[prop] = newValue + unit;
+
         loop();
 
       } else {
 
         target[prop] = (toValue) + unit;
-        target.zIndex = zIndex;
       }
     }
 
   }
 
+  function startSlides(container, unit, startValue, visibleValue, transitionProperty) {
+
+    var imgs = [];
+    var i = container.children.length;
+
+    while (--i >= 0) {
+      imgs[i] = container.children[i];
+      imgs[i].style.position = 'absolute';
+      imgs[i].style.top = '0' + unit;
+      imgs[i].style.left = '0' + unit;
+      imgs[i].style[transitionProperty] = startValue + unit;
+      imgs[i].style.zIndex = 0;
+    }
+
+    imgs[0].style[transitionProperty] = visibleValue + unit;
+    imgs[0].style.zIndex = 1;
+
+    return imgs;
+
+  }
+
+  function manageRemovingSlideOrder(oldSlide, newSlide) {
+
+    newSlide.style.zIndex = 3;
+
+    if (oldSlide) {
+      oldSlide.style.zIndex = 1;
+    }
+
+    return newSlide;
+  }
+
+  function manageInsertingSlideOrder(oldSlide, newSlide) {
+
+    newSlide.style.zIndex = 4;
+
+    if (oldSlide) {
+      oldSlide.style.zIndex = 2;
+    }
+
+    return newSlide;
+  }
+
+  // ------------------
+
   var SimpleSlider = function(containerElem, options){
+
     this.containerElem = containerElem;
-    this.interval = 0;
-    if( !options ) options = {};
-    this.trProp = getdef(options.transitionProperty, 'opacity');
+    this.interval = null;
+
+    // User might not send any custom options at all
+    if( !options ) {
+      options = {};
+    }
+
+    var width = parseInt(this.containerElem.style.width || this.containerElem.offsetWidth, 10);
+
+    // Get user defined options or its default values
+    this.trProp = getdef(options.transitionProperty, 'left');
     this.trTime = getdef(options.transitionDuration, 0.5);
-    this.delay = getdef(options.transitionDelay, 2);
-    this.unit = getUnit([options.startValue, options.visibleValue, options.endValue]);
-    this.startVal = parseInt(getdef(options.startValue, 0), 10);
-    this.visVal = parseInt(getdef(options.visibleValue, 1), 10);
-    this.endVal = parseInt(getdef(options.endValue, 0), 10);
+    this.delay = getdef(options.transitionDelay, 3);
+    this.unit = getUnit([options.startValue, options.visibleValue, options.endValue], this.trProp);
+    this.startVal = parseInt(getdef(options.startValue, -width + this.unit), 10);
+    this.visVal = parseInt(getdef(options.visibleValue, '0' + this.unit), 10);
+    this.endVal = parseInt(getdef(options.endValue, width + this.unit), 10);
     this.autoPlay = getdef(options.autoPlay, true);
+    this.ease = getdef(options.ease, SimpleSlider.defaultEase);
+
     this.init();
   };
 
+  SimpleSlider.defaultEase = function (time, begin, change, duration) {
+
+    if ((time = time / (duration / 2)) < 1) {
+      return change / 2 * time * time * time + begin;
+    } else {
+      return change / 2 * ((time -= 2) * time * time + 2) + begin;
+    }
+
+  };
+
+  SimpleSlider.easeNone = function(time, begin, change, duration) {
+
+    return change * time / duration + begin;
+
+  };
+
   SimpleSlider.prototype.init = function() {
+
     this.reset();
     this.configSlideshow();
+
   };
 
   SimpleSlider.prototype.reset = function() {
 
     if (testChildrenNum(this.containerElem.children.length)) {
-      return; // Do not follow reset logic if don't have children
+      return; // Skip reset logic if don't have children
     }
 
-    var i = this.containerElem.children.length-1;
-    this.imgs = [];
-    while (i>=0) {
-      this.imgs[i] = this.containerElem.children[i];
-      this.imgs[i].style[this.trProp] = this.startVal + this.unit;
-      this.imgs[i].style.zIndex = 0;
-      i--;
-    }
+    this.containerElem.style.position = 'relative';
+    this.containerElem.style.overflow = 'hidden';
+    this.containerElem.style.display = 'block';
 
-    this.imgs[0].style[this.trProp] = this.visVal + this.unit;
-    this.imgs[0].style.zIndex = 1;
+    this.imgs = startSlides(this.containerElem, this.unit, this.startVal, this.visVal, this.trProp);
+
     this.actualIndex = 0;
+    this.inserted = null;
+    this.removed = null;
+
   };
 
   SimpleSlider.prototype.configSlideshow = function() {
 
     if (!this.imgs) {
-      return;
+      return false;
     }
 
-    if (this.autoPlay) {
+    if (this.autoPlay && this.imgs.length > 1) {
 
       var scope = this;
 
       if (this.interval) {
-
         window.clearInterval(this.interval);
-
-      } else {
-
-        this.interval = window.setInterval(function(){
-          scope.change(scope.nextIndex());
-        }, this.delay * 1000);
-
       }
+
+      this.interval = window.setInterval(function(){
+        scope.change(scope.nextIndex());
+      }, this.delay * 1000);
     }
 
   };
 
-  SimpleSlider.prototype.startAnim = function(target, fromValue, toValue, zIndex){
+  SimpleSlider.prototype.startAnim = function(target, fromValue, toValue){
 
-    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, zIndex);
+    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, SimpleSlider.defaultEase);
 
   };
 
   SimpleSlider.prototype.remove = function(index){
-    this.imgs[index].style.zIndex = 3;
-    this.startAnim(this.imgs[index], this.visVal, this.endVal, 1);
+
+    this.removed = manageRemovingSlideOrder(this.removed, this.imgs[index]);
+
+    this.startAnim(this.imgs[index], this.visVal, this.endVal);
+
   };
 
   SimpleSlider.prototype.insert = function(index){
-    this.imgs[index].style.zIndex = 4;
-    this.startAnim(this.imgs[index], this.startVal, this.visVal, 2);
+
+    this.inserted = manageInsertingSlideOrder(this.inserted, this.imgs[index]);
+
+    this.startAnim(this.imgs[index], this.startVal, this.visVal);
+
   };
 
   SimpleSlider.prototype.change = function(newIndex){
+
     this.remove(this.actualIndex);
     this.insert(newIndex);
+
     this.actualIndex = newIndex;
+
+  };
+
+  SimpleSlider.prototype.next = function(){
+
+    this.change(this.nextIndex());
+
+  };
+
+  SimpleSlider.prototype.prev = function(){
+
+    this.change(this.prevIndex());
+
   };
 
   SimpleSlider.prototype.nextIndex = function(){
+
     var newIndex = this.actualIndex+1;
-    if( newIndex >= this.imgs.length ){
+
+    if (newIndex >= this.imgs.length) {
       newIndex = 0;
     }
+
     return newIndex;
+
+  };
+
+  SimpleSlider.prototype.prevIndex = function(){
+
+    var newIndex = this.actualIndex-1;
+
+    if (newIndex <= 0) {
+      newIndex = this.imgs.length-1;
+    }
+
+    return newIndex;
+
   };
 
   SimpleSlider.prototype.dispose = function(){
 
     window.clearInterval(this.interval);
 
-    var i = this.imgs.length;
-    while (--i >= 0) {
-      this.imgs.pop();
+    if (this.imgs) {
+      var i = this.imgs.length;
+      while (--i >= 0) {
+        this.imgs.pop();
+      }
+      this.imgs = null;
     }
-    this.imgs = null;
 
     this.containerElem = null;
     this.interval = null;
@@ -235,6 +348,8 @@
     this.endVal = null;
     this.autoPlay = null;
     this.actualIndex = null;
+    this.inserted = null;
+    this.removed = null;
   };
 
   return SimpleSlider;
