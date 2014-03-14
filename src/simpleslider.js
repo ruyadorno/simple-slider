@@ -170,6 +170,16 @@
     return newSlide;
   }
 
+  function parseStringToBoolean(value) {
+
+    if (value === 'false') {
+      return false;
+    } else {
+      return value;
+    }
+
+  }
+
   // ------------------
 
   var SimpleSlider = function(containerElem, options){
@@ -192,7 +202,7 @@
     this.startVal = parseInt(getdef(options.startValue, -width + this.unit), 10);
     this.visVal = parseInt(getdef(options.visibleValue, '0' + this.unit), 10);
     this.endVal = parseInt(getdef(options.endValue, width + this.unit), 10);
-    this.autoPlay = getdef(options.autoPlay, true);
+    this.autoPlay = getdef(parseStringToBoolean(options.autoPlay), true);
     this.ease = getdef(options.ease, SimpleSlider.defaultEase);
 
     this.init();

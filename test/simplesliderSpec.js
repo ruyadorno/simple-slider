@@ -74,8 +74,10 @@ describe('SimpleSlider', function() {
   it('should throw an warning if using an empty html element', function() {
 
     spyOn(console, 'warn');
-    new SimpleSlider(document.createElement('div'));
+    var ss = new SimpleSlider(document.createElement('div'));
     expect(console.warn).toHaveBeenCalled();
+
+    ss.dispose();
 
   });
 
@@ -117,6 +119,20 @@ describe('SimpleSlider', function() {
     expect(ss.endVal).toEqual(100);
     expect(ss.autoPlay).toEqual(false);
 
+    ss.dispose();
+
+  });
+
+  it('should accept strings for boolean values', function() {
+
+    // Test some custom values
+    var ss = getNewSlider({
+      autoPlay:'false'
+    });
+    expect(ss.autoPlay).toEqual(false);
+
+    ss.dispose();
+
   });
 
   it('should work when partialy declaring properties', function() {
@@ -130,6 +146,8 @@ describe('SimpleSlider', function() {
     expect(ss.trProp).toEqual('top');
     expect(ss.startVal).toEqual(-100);
     expect(ss.autoPlay).toEqual(false);
+
+    ss.dispose();
 
   });
 
@@ -145,6 +163,8 @@ describe('SimpleSlider', function() {
       expect(ss.imgs).toContain(newDiv.children[countChildren]);
       countChildren--;
     }
+
+    ss.dispose();
 
   });
 
@@ -168,6 +188,8 @@ describe('SimpleSlider', function() {
         expect(ss.imgs[i].style.left).toEqual('-480px');
       }
     }
+
+    ss.dispose();
 
   });
 
