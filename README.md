@@ -10,14 +10,23 @@ http://ruyadorno.github.com/SimpleSlider
 A simple javascript slider without any dependencies on third-party libraries.
 
 
-## About ##
+## About
 
 The main goal of the project is to provide a flexible yet simple solution for the common slider/carousel/gallery functionality. It is important to note that the script does not take care of any styling, it is all up to the front-end developer to configure the css in a proper way, although many sample uses can be found in the example folder.
 
 This package is also only supporting the simple javascript usage, I plan to wrap it around more high-level implementations in the near future, such as an AngularJS directive, Polymer element that can also include more styling by default.
 
 
-## Usage ##
+## Features
+
+- Support to [UMD](https://github.com/umdjs/umd): AMD, CommonJS and global definition
+- Uses [requireAnimationFrame](https://developer.mozilla.org/en/docs/Web/API/window.requestAnimationFrame) and its polyfills for animation
+- Accept [ease functions](https://github.com/jimjeffers/Easie/blob/master/easie.js) to customize the transition animation
+- Lots of examples, just check the `example` folder included on this repo
+- Animates any numerical css property
+
+
+## Usage
 
 Just import the script on html and create a new slider instance.
 
@@ -59,7 +68,7 @@ Options can be set to help you customize your slider, just set a second paramete
 There are many more usage samples in the examples folder, including all the available options for the slider.
 
 
-## License ##
+## License
 
 Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
 
