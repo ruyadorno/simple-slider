@@ -5,7 +5,9 @@
   if (typeof module != 'undefined' && module.exports) {
     module.exports = definition();
   } else if (typeof define == 'function' && define.amd) {
-    define(context.SimpleSlider = definition());
+    define(function() {
+      return (window.SimpleSlider = definition());
+    });
   } else {
     context.SimpleSlider = definition();
   }
