@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Slider occupying full page</title>
+    <style>
+      #myslider { width:100%; }
+      #myslider img { width:100%; height:auto; }
+    </style>
+  </head>
+  <body>
+    <div id="myslider">
+      <img src="http://placekitten.com/g/612/612"/>
+      <img src="http://distilleryimage5.s3.amazonaws.com/de66967ac72111e2a23222000aaa0537_7.jpg"/>
+      <img src="http://distilleryimage8.s3.amazonaws.com/a042749ac72111e28c3c22000a1fb85a_7.jpg"/>
+      <img src="http://distilleryimage4.s3.amazonaws.com/8d32600ec72111e29f1422000a1fbc0e_7.jpg"/>
+    </div>
+  </body>
+  <script src="../src/simpleslider.js"></script>
+  <script>
+    var container = document.getElementById('myslider');
+    var height = isNaN(window.innerHeight) ? window.clientHeight : window.innerHeight;
+    var imgSlider = new SimpleSlider(
+      container,
+      {
+        autoPlay:true,
+        transitionProperty:'left',
+        startValue:'-100%',
+        visibleValue:'0%',
+        endValue:'100%'
+      }
+    );
+    container.style.height = height + 'px';
+  </script>
+</html>

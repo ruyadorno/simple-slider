@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Text content example</title>
+    <style>
+      #myslider { width:612px; height:612px; }
+      #myslider div { width:552px; height:612px; background:#D8EDEC; padding:30px; }
+    </style>
+  </head>
+  <body>
+    <div id="myslider">
+      <div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac orci aliquet, mattis ipsum in, auctor magna. In commodo elit vel elit suscipit molestie. Vivamus congue, tortor ut congue volutpat, lacus nulla posuere tortor, sit amet aliquam est nibh non dolor. Etiam egestas auctor euismod. Nam id luctus nunc. Praesent tempor lorem non magna dapibus, at laoreet lorem scelerisque. Mauris laoreet, risus ut adipiscing bibendum, nibh justo facilisis lectus, vitae pharetra elit nibh dignissim elit. Vestibulum euismod libero tellus, sed iaculis enim bibendum ut. Donec fringilla, leo in hendrerit mollis, est purus rutrum ligula, a tristique dui est eget ante.</p>
+        <p>Mauris ullamcorper dolor sit amet quam molestie, id euismod diam consectetur. Donec vel mattis dui, eget accumsan lectus. In consequat gravida metus, eget commodo erat consequat sit amet. Phasellus congue libero dui, a lacinia ipsum volutpat vitae. Suspendisse potenti. Curabitur vitae orci eu lacus tincidunt consequat a ultrices magna. Ut risus libero, consequat eget dolor sit amet, dignissim consectetur nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</p>
+      </div>
+      <div style="background:#BAE3E1">
+        <p>Praesent semper est elit, id luctus arcu mattis ac. Fusce a ligula nulla. Vestibulum fermentum pellentesque metus, non tincidunt lectus. Duis nec risus nibh. Curabitur mollis lacus non adipiscing cursus. Nunc rutrum, tortor eget molestie euismod, justo tellus tincidunt lectus, vitae molestie felis orci vitae leo. Nulla aliquam dui mauris, sed imperdiet eros faucibus quis. Fusce semper ligula ac velit varius pellentesque. Mauris non nisi tempus, malesuada diam in, feugiat eros. Ut commodo imperdiet quam, quis lacinia velit congue ut. Donec eu auctor magna, quis imperdiet nisl. Donec vitae sapien a nunc gravida convallis eu at ante.</p>
+      </div>
+      <div style="background:#99CFCC">
+        <p>Mauris ullamcorper dolor sit amet quam molestie, id euismod diam consectetur. Donec vel mattis dui, eget accumsan lectus. In consequat gravida metus, eget commodo erat consequat sit amet. Phasellus congue libero dui, a lacinia ipsum volutpat vitae. Suspendisse potenti. Curabitur vitae orci eu lacus tincidunt consequat a ultrices magna. Ut risus libero, consequat eget dolor sit amet, dignissim consectetur nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        <p>Praesent semper est elit, id luctus arcu mattis ac. Fusce a ligula nulla. Vestibulum fermentum pellentesque metus, non tincidunt lectus. Duis nec risus nibh. Curabitur mollis lacus non adipiscing cursus. Nunc rutrum, tortor eget molestie euismod, justo tellus tincidunt lectus, vitae molestie felis orci vitae leo. Nulla aliquam dui mauris, sed imperdiet eros faucibus quis. Fusce semper ligula ac velit varius pellentesque. Mauris non nisi tempus, malesuada diam in, feugiat eros. Ut commodo imperdiet quam, quis lacinia velit congue ut. Donec eu auctor magna, quis imperdiet nisl. Donec vitae sapien a nunc gravida convallis eu at ante.</p>
+        <p>Donec lectus purus, imperdiet ac sagittis ac, vulputate eget diam. Etiam bibendum sed arcu in hendrerit. Nulla a nunc sit amet nibh ultricies elementum eget sit amet orci. Nunc iaculis lorem a leo hendrerit auctor tempus fringilla dui. Nunc lacinia orci eget commodo porttitor. Curabitur aliquam arcu quam, vitae facilisis eros tempus nec. Vivamus blandit odio justo. Donec eu dictum leo, a aliquet eros. Sed consectetur porttitor dolor, eu dapibus justo auctor in.</p>
+      </div>
+    </div>
+  </body>
+  <script src="../src/simpleslider.js"></script>
+  <script>
+    var imgSlider = new SimpleSlider(
+      document.getElementById('myslider'),
+      {
+        autoPlay:true,
+        transitionProperty:'left',
+        startValue:'-612px',
+        visibleValue:'0px',
+        endValue:'612px'
+      }
+    );
+  </script>
+</html>
