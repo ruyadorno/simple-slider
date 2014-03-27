@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>SimpleSlider</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="content">
+
+<br/>
+<h1>SimpleSlider</h1>
+
+<p>version: 0.2.3</p>
+
+<p><a href="https://travis-ci.org/ruyadorno/SimpleSlider"><img src="https://travis-ci.org/ruyadorno/SimpleSlider.png?branch=develop" alt="Build Status" title="" /></a></p>
+
+<p><a href='http://ruyadorno.github.com/SimpleSlider'>http://ruyadorno.github.com/SimpleSlider</a></p>
+
+<p>A simple javascript slider without any dependencies on third-party libraries.</p>
+
+<h2>About</h2>
+
+<p>The main goal of the project is to provide a flexible yet simple solution for the common slider/carousel/gallery functionality. It is important to note that the script does not want to take care of any styling but the minimal in order to have a functional slider. It is all up to the front-end developer to configure its css in a proper way. To help with that, many sample uses are provided in the <a href="https://github.com/ruyadorno/SimpleSlider/tree/master/examples">example</a> folder.</p>
+
+<p>This package only supports the Javascript basic usage. If you are using modern frameworks like <strong>AngularJS</strong> or <strong>Polymer</strong> please take your time to check the following <strong>SimpleSlider</strong> element implementations:</p>
+
+<ul>
+<li><a href="https://github.com/ruyadorno/angular-simple-slider">angular-simple-slider</a></li>
+<li><a href="https://github.com/ruyadorno/polymer-simple-slider">polymer-simple-slider</a></li>
+</ul>
+
+<h2>Features</h2>
+
+<ul>
+<li>Support to <a href="https://github.com/umdjs/umd">UMD</a>: AMD, CommonJS and global definition</li>
+<li>Uses <a href="https://developer.mozilla.org/en/docs/Web/API/window.requestAnimationFrame">requireAnimationFrame</a> and its polyfills for animation</li>
+<li>Accept <a href="https://github.com/jimjeffers/Easie/blob/master/easie.js">ease functions</a> to customize the transition animation</li>
+<li>Lots of examples, just check the <a href="https://github.com/ruyadorno/SimpleSlider/tree/master/examples">example</a> folder included on this repo</li>
+<li>Animates any numerical css property</li>
+<li>Support to ie9 and <em>possibly ie8</em> (needs testing, somebody please?)</li>
+</ul>
+
+<h2>Usage</h2>
+
+<p>Just import the script on html and create a new slider instance. You always have to define width and height values to your container element.</p>
+
+<p>Basically the slider takes the element that handles the gallery as the first parameter, this will be usually a <em>div</em> or <em>ul</em> containing the elements to be transitioned.</p>
+
+<pre class="brush:html">
+
+&lt;div id="myslider" style="width:612px; height:612px">
+  &lt;img src="http://placekitten.com/g/612/612"/>
+  &lt;img src="http://placekitten.com/g/612/613"/>
+&lt;/div>
+
+&lt;script src="simpleslider.min.js">&lt;/script>
+&lt;script>
+  var slider = new SimpleSlider( document.getElementById('myslider') );
+&lt;/script>
+
+</pre>
+
+<p><em>In this previous example we did not specified any addition option, so the slider will use its default left-to-right sliding animation.</em></p>
+
+<h3>Options</h3>
+
+<p>Options can be set to help you customize your slider, just set a second parameter specifying values such as duration of the transition, css property to be animated, etc.</p>
+
+<pre class="brush:html">
+
+&lt;div id="myslider" style="width:612px; height:612px">
+  &lt;img src="http://placekitten.com/g/612/612"/>
+  &lt;img src="http://placekitten.com/g/612/613"/>
+&lt;/div>
+
+&lt;script src="simpleslider.min.js">&lt;/script>
+&lt;script>
+  var slider = new SimpleSlider( document.getElementById('myslider'), {
+    autoPlay:false,
+    transitionTime:1,
+    transitionDelay:3.5
+  } );
+&lt;/script>
+
+</pre>
+
+<h2>Available Options</h2>
+
+<p>Here is the list of available values to use on the constructor and customize your animation:</p>
+
+<ul>
+<li><strong>autoPlay</strong>: <Boolean> Value determining if the slide transition should happen automatically</li>
+<li><strong>transitionProperty</strong>: <String> Determines the css property to be animated</li>
+<li><strong>transitionDuration</strong>: <Number> Value setting the duration of animation transition</li>
+<li><strong>transitionDelay</strong>: <Number> Value determining the wait between each animation when you use <strong>autoPlay:true</strong></li>
+<li><strong>startValue</strong>: <String/Number> Initial value of slide elements when starting a transition animation</li>
+<li><strong>visibleValue</strong>: <String/Number> The value a slide element should have when it is displayed</li>
+<li><strong>endValue</strong>: <String/Number> The value a slide will move to during a transition animation</li>
+<li><strong>ease</strong>: <Function> An ease function, you can use any of <a href="https://github.com/jimjeffers/Easie/blob/master/easie.js">these</a></li>
+</ul>
+
+<h3>Default values</h3>
+
+<pre><code>{
+  autoPlay: true,
+  transitionProperty: 'left',
+  transitionDuration: 0.5,
+  transitionDelay: 3,
+  startValue: -elem.width,
+  visibleValue: 0,
+  endValue: elem.width,
+  ease: SimpleSlider.defaultEase
+}
+</code></pre>
+
+<h3>More examples</h3>
+
+<p>There are many more usage samples in the <a href="https://github.com/ruyadorno/SimpleSlider/tree/master/examples">examples</a> folder, including all the available options for the slider.</p>
+
+<h2>License</h2>
+
+<p>Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>.</p>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
+

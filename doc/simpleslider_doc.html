@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>SimpleSlider : SimpleSlider</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="content">
+
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1>SimpleSlider</h1>
+
+<p>The SimpleSlider object basically holds references to the DOM elements to animate and the transition system.</p>
+
+<p>Some useful methods are exposed to give developers more flexibility when working with the sliders.</p>
+
+<h2>Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+
+<ul>
+<li><a href="#SimpleSlider.actualIndex">SimpleSlider.actualIndex</a></li>
+<li><a href="#SimpleSlider.change">SimpleSlider.change()</a></li>
+<li><a href="#SimpleSlider.next">SimpleSlider.next()</a></li>
+<li><a href="#SimpleSlider.prev">SimpleSlider.prev()</a></li>
+<li><a href="#SimpleSlider.prevIndex">SimpleSlider.prevIndex()</a></li>
+<li><a href="#SimpleSlider.nextIndex">SimpleSlider.nextIndex()</a></li>
+<li><a href="#SimpleSlider.dispose">SimpleSlider.dispose()</a></li>
+<li><a href="#Ease functions">Ease functions</a></li>
+</ul>
+
+<h2>SimpleSlider.actualIndex <a href="#SimpleSlider.actualIndex" id="SimpleSlider.actualIndex" class="deep-link">#</a></h2>
+
+<p>The index value on the slides list of the actual displaying slide.</p>
+
+<h2>SimpleSlider.change(index) <a href="#SimpleSlider.change" id="SimpleSlider.change" class="deep-link">#</a></h2>
+
+<p>Change displaying slides, it will perform the remove animation of the actual displaying slide and insert the slide that corresponds to the provided <em>index</em> value.</p>
+
+<h3>Example:</h3>
+
+<pre class="brush:js">
+
+    var slider = new SimpleSlider(document.getElementById('slider'));
+
+    // Jumps to third slide:
+    slider.change(2);
+</pre>
+
+<h2>SimpleSlider.next() <a href="#SimpleSlider.next" id="SimpleSlider.next" class="deep-link">#</a></h2>
+
+<p>Perform the remove animation of the actual displaying slide and insert the next one from the slide list.</p>
+
+<h3>Example:</h3>
+
+<pre class="brush:js">
+
+    var slider = new SimpleSlider(document.getElementById('slider'));
+
+    // Changes into next slide
+    slider.next();
+</pre>
+
+<h2>SimpleSlider.prev() <a href="#SimpleSlider.prev" id="SimpleSlider.prev" class="deep-link">#</a></h2>
+
+<p>Perform the remove animation of the actual displaying slide and insert the previous one from the slide list.</p>
+
+<h3>Example:</h3>
+
+<pre class="brush:js">
+
+    var slider = new SimpleSlider(document.getElementById('slider'));
+
+    // Changes into next slide
+    slider.prev();
+</pre>
+
+<h2>SimpleSlider.prevIndex() <a href="#SimpleSlider.prevIndex" id="SimpleSlider.prevIndex" class="deep-link">#</a></h2>
+
+<p>Gets the index value from the previous item on the list.</p>
+
+<h2>SimpleSlider.nextIndex() <a href="#SimpleSlider.nextIndex" id="SimpleSlider.nextIndex" class="deep-link">#</a></h2>
+
+<p>Gets the index value of the next item on the list.</p>
+
+<h2>SimpleSlider.dispose() <a href="#SimpleSlider.dispose" id="SimpleSlider.dispose" class="deep-link">#</a></h2>
+
+<p>Removes all internal objects and listeners</p>
+
+<pre class="brush:js">
+
+    var slider = new SimpleSlider(document.getElementById('slider'));
+
+    // Free memory used by slider
+    slider.dispose();
+</pre>
+
+<h2>Ease functions <a href="#Ease functions" id="Ease functions" class="deep-link">#</a></h2>
+
+<p>Two ease functions are available for simplifying the usage process of sliders.</p>
+
+<h3>SimpleSlider.defaultEase</h3>
+
+<p>Default ease used by all created sliders, equivalent to <a href="https://github.com/danro/jquery-easing/blob/master/jquery.easing.js#L38">easeInOutCubic</a>.</p>
+
+<h3>SimpleSlider.easeNone</h3>
+
+<p>Specifies no easing for the transition, give better results when using <em>fade</em> transitions.</p>
+
+<h3>Examples:</h3>
+
+<pre class="brush:js">
+
+    // Create a slider with no transition easing
+    var slider = new SimpleSlider(document.getElementById('slider'), {ease:SimpleSlider.easeNone});
+</pre>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
+
