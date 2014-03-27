@@ -100,6 +100,11 @@ Here is the list of available values to use on the constructor and customize you
 There are many more usage samples in the [examples](https://github.com/ruyadorno/SimpleSlider/tree/master/examples) folder, including all the available options for the slider.
 
 
+## [Documentation](http://ruyadorno.github.io/SimpleSlider/doc/simpleslider_doc.html)
+
+More documentation about the methods and properties of a can be found at the <a href="http://ruyadorno.github.io/SimpleSlider/doc/simpleslider_doc.html">SimpleSlider official documentation</a>.
+
+
 ## License
 
 Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
