@@ -257,18 +257,23 @@
       return false;
     }
 
-    if (this.autoPlay && this.imgs.length > 1) {
+    this.startInterval();
 
-      var scope = this;
+  };
 
-      if (this.interval) {
-        window.clearInterval(this.interval);
-      }
+  SimpleSlider.prototype.startInterval = function () {
 
-      this.interval = window.setInterval(function(){
-        scope.change(scope.nextIndex());
-      }, this.delay * 1000);
+    if (!this.autoPlay || this.imgs.length <= 1) {
+      return;
     }
+
+    if (this.interval) {
+      window.clearInterval(this.interval);
+    }
+
+    this.interval = window.setInterval(function(){
+      this.change(this.nextIndex());
+    }.bind(this), this.delay * 1000);
 
   };
 
@@ -307,11 +312,15 @@
 
     this.change(this.nextIndex());
 
+    this.startInterval();
+
   };
 
   SimpleSlider.prototype.prev = function(){
 
     this.change(this.prevIndex());
+
+    this.startInterval();
 
   };
 
