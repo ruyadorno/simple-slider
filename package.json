@@ -1,6 +1,6 @@
 {
   "name": "simple-slider",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A simple javascript slider without any dependencies",
   "scripts": {
     "test": "grunt jasmine"

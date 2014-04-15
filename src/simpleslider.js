@@ -331,7 +331,7 @@
 
     var newIndex = this.actualIndex-1;
 
-    if (newIndex <= 0) {
+    if (newIndex < 0) {
       newIndex = this.imgs.length-1;
     }
 
