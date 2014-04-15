@@ -263,6 +263,8 @@
 
   SimpleSlider.prototype.startInterval = function () {
 
+    var self = this;
+
     if (!this.autoPlay || this.imgs.length <= 1) {
       return;
     }
@@ -272,8 +274,8 @@
     }
 
     this.interval = window.setInterval(function(){
-      this.change(this.nextIndex());
-    }.bind(this), this.delay * 1000);
+      self.change(self.nextIndex());
+    }, this.delay * 1000);
 
   };
 
