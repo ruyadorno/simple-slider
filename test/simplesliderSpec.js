@@ -378,14 +378,15 @@ describe('SimpleSlider', function() {
 
   describe('.prev()', function() {
 
-    it('should change to next slide', function() {
+    it('should change to previous slide', function() {
 
       var ss = getNewSlider({autoPlay:false}, 5);
-      var initialIndex = ss.actualIndex;
+
+      ss.actualIndex = 1;
 
       ss.prev();
 
-      expect(ss.actualIndex).toEqual(ss.imgs.length - 1);
+      expect(ss.actualIndex).toEqual(0);
 
       ss.dispose();
 
