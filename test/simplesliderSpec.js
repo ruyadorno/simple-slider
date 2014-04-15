@@ -374,6 +374,20 @@ describe('SimpleSlider', function() {
 
     });
 
+    it('should change to first slide when current slide is the last in the set', function() {
+
+      var ss = getNewSlider({autoPlay:false}, 5);
+
+      ss.actualIndex = 4;
+
+      ss.next();
+
+      expect(ss.actualIndex).toEqual(0);
+
+      ss.dispose();
+
+    });
+
   });
 
   describe('.prev()', function() {
@@ -387,6 +401,18 @@ describe('SimpleSlider', function() {
       ss.prev();
 
       expect(ss.actualIndex).toEqual(0);
+
+      ss.dispose();
+
+    });
+
+    it('should change to last slide when current slide is the first in the set', function() {
+
+      var ss = getNewSlider({autoPlay:false}, 5);
+
+      ss.prev();
+
+      expect(ss.actualIndex).toEqual(ss.imgs.length - 1);
 
       ss.dispose();
 
