@@ -1,7 +1,7 @@
 SimpleSlider
 ============
 
-version: 0.2.5
+version: 0.3.0
 
 [![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.png?branch=develop)](https://travis-ci.org/ruyadorno/SimpleSlider)
 
