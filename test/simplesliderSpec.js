@@ -448,6 +448,16 @@ describe('SimpleSlider', function() {
 
     });
 
+    it('should do nothing when autoPlay is disabled', function() {
+
+      var ss = getNewSlider({autoPlay:false}, 5);
+
+      ss.pauseAutoPlay();
+
+      ss.dispose();
+
+    });
+
   });
 
   describe('.resumeAutoPlay()', function() {
@@ -463,6 +473,16 @@ describe('SimpleSlider', function() {
       ss.resumeAutoPlay();
 
       expect(ss.interval).not.toEqual(null);
+
+      ss.dispose();
+
+    });
+
+    it('should do nothing when autoPlay is disabled', function() {
+
+      var ss = getNewSlider({autoPlay:false}, 5);
+
+      ss.resumeAutoPlay();
 
       ss.dispose();
 

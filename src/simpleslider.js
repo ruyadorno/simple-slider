@@ -266,7 +266,7 @@
 
     var self = this;
 
-    if (!this.autoPlay || this.imgs.length <= 1) {
+    if (!this.isAutoPlayable()) {
       return;
     }
 
@@ -285,7 +285,15 @@
 
   };
 
+  SimpleSlider.prototype.isAutoPlayable = function () {
+    return this.autoPlay && this.imgs.length > 1;
+  };
+
   SimpleSlider.prototype.pauseAutoPlay = function () {
+
+    if (!this.isAutoPlayable()) {
+      return;
+    }
 
     this.remainingTime = (this.delay) - (Date.now() - this.intervalStartTime);
 
