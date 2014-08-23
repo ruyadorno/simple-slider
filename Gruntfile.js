@@ -2,26 +2,19 @@
 
 module.exports = function (grunt) {
 
-  grunt.loadNpmTasks('grunt-bump');
+  grunt.loadNpmTasks('grunt-sg-release');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.initConfig({
 
-    bump: {
+    sg_release: {
       options: {
+        skipBowerInstall: true,
         files: ['package.json', 'bower.json', 'README.md'],
-        updateConfigs: [],
-        commit: true,
-        commitMessage: 'Release v%VERSION%',
-        commitFiles: ['-a'], // '-a' for all files
-        createTag: true,
-        tagName: 'v%VERSION%',
-        tagMessage: 'Version %VERSION%',
-        push: true,
+        commitFiles: ['-a'],
         pushTo: 'origin master',
-        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d' // options to use with '$ git describe'
       }
     },
 
@@ -60,7 +53,7 @@ module.exports = function (grunt) {
   grunt.registerTask('release', [
     'uglify:dist',
     'concat:dist',
-    'bump'
+    'sg_release'
   ]);
 
 };
