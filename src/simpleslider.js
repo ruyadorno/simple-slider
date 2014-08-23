@@ -295,17 +295,23 @@
     }
 
     if (this.interval) {
-      window.clearInterval(this.interval);
+      window.clearTimeout(this.interval);
     }
 
-    this.intervalStartTime = Date.now();
-    this.interval = window.setInterval(function(){
-
+    (function setInterval() {
       self.intervalStartTime = Date.now();
+      self.interval = window.setTimeout(function(){
 
-      self.change(self.nextIndex());
+        self.intervalStartTime = Date.now();
+        self.remainingTime = self.delay;
 
-    }, this.delay);
+        self.change(self.nextIndex());
+
+        // loops
+        setInterval();
+
+      }, self.remainingTime);
+    })();
 
     // Handles user leaving/activating the current page/tab
     (function handleVisibilityChange() {
@@ -336,7 +342,7 @@
 
     this.remainingTime = (this.delay) - (Date.now() - this.intervalStartTime);
 
-    window.clearInterval(this.interval);
+    window.clearTimeout(this.interval);
     this.interval = null;
 
   };
@@ -420,7 +426,7 @@
 
   SimpleSlider.prototype.dispose = function(){
 
-    window.clearInterval(this.interval);
+    window.clearTimeout(this.interval);
 
     if (this.imgs) {
       var i = this.imgs.length;
