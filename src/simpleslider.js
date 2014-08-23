@@ -248,6 +248,7 @@
     this.actualIndex = 0;
     this.inserted = null;
     this.removed = null;
+    this.remainingTime = this.delay * 1000;
 
   };
 
@@ -273,9 +274,29 @@
       window.clearInterval(this.interval);
     }
 
+    this.intervalStartTime = Date.now();
     this.interval = window.setInterval(function(){
+
+      self.intervalStartTime = Date.now();
+
       self.change(self.nextIndex());
+
     }, this.delay * 1000);
+
+  };
+
+  SimpleSlider.prototype.pauseAutoPlay = function () {
+
+    this.remainingTime = (this.delay * 1000) - (Date.now() - this.intervalStartTime);
+
+    window.clearInterval(this.interval);
+    this.interval = null;
+
+  };
+
+  SimpleSlider.prototype.resumeAutoPlay = function () {
+
+    this.startInterval();
 
   };
 
@@ -373,8 +394,10 @@
     this.actualIndex = null;
     this.inserted = null;
     this.removed = null;
+    this.remainingTime = null;
   };
 
   return SimpleSlider;
 
 });
+

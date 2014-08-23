@@ -420,6 +420,56 @@ describe('SimpleSlider', function() {
 
   });
 
+  describe('.pauseAutoPlay()', function() {
+
+    it('should clear slide change setInterval', function() {
+
+      var ss = getNewSlider({}, 5);
+
+      expect(ss.interval).not.toEqual(null);
+
+      ss.pauseAutoPlay();
+
+      expect(ss.interval).toEqual(null);
+
+      ss.dispose();
+
+    });
+
+    it('should define this.remainingTime variable', function() {
+
+      var ss = getNewSlider({}, 5);
+
+      ss.pauseAutoPlay();
+
+      expect(ss.remainingTime).toEqual(ss.delay * 1000);
+
+      ss.dispose();
+
+    });
+
+  });
+
+  describe('.resumeAutoPlay()', function() {
+
+    it('should re-enable slide changing setInterval', function () {
+
+      var ss = getNewSlider({}, 5);
+
+      ss.pauseAutoPlay();
+
+      expect(ss.interval).toEqual(null);
+
+      ss.resumeAutoPlay();
+
+      expect(ss.interval).not.toEqual(null);
+
+      ss.dispose();
+
+    });
+
+  });
+
   describe('.remove()', function() {
 
     it('should trigger startAnim with correct values', function() {
@@ -885,6 +935,31 @@ describe('SimpleSlider', function() {
           expect(ss.imgs[0].style.opacity).toBeLessThan(1);
           expect(ss.imgs[0].style.opacity).toBeGreaterThan(0);
         }
+
+        ss.dispose();
+
+        done();
+
+      }, timeEnoughToHalftransition);
+
+    });
+
+    it('should be able to pause autoplay', function(done) {
+
+      var initialTime = new Date().getTime();
+      var ss = getNewSlider({
+        autoPlay: true,
+        transitionDelay: 0.5,
+        transitionDuration: 0.5
+      }, 5);
+
+      var timeEnoughToHalftransition = ((ss.delay + (ss.trTime / 2)) * 1000);
+
+      setTimeout(function() {
+
+        ss.pauseAutoPlay();
+
+        expect(ss.remainingTime).toBeLessThan(timeEnoughToHalftransition);
 
         ss.dispose();
 
