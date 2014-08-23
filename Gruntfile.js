@@ -14,7 +14,7 @@ module.exports = function (grunt) {
         skipBowerInstall: true,
         files: ['package.json', 'bower.json', 'README.md'],
         commitFiles: ['-a'],
-        pushTo: 'origin master',
+        pushTo: 'origin',
       }
     },
 
