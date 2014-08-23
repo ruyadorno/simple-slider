@@ -24,10 +24,10 @@ This package only supports the Javascript basic usage. If you are using modern f
 
 - Support to [UMD](https://github.com/umdjs/umd): AMD, CommonJS and global definition
 - Uses [requireAnimationFrame](https://developer.mozilla.org/en/docs/Web/API/window.requestAnimationFrame) and its polyfills for animation
+- Supports [Page visibility API](https://developer.mozilla.org/en-US/docs/Web/Events/visibilitychange) to pause/resume autoPlay when user navigates away from the page
 - Accept [ease functions](https://github.com/jimjeffers/Easie/blob/master/easie.js) to customize the transition animation
 - Lots of examples, just check the [example](https://github.com/ruyadorno/SimpleSlider/tree/master/examples) folder included on this repo
 - Animates any numerical css property
-- Supports [Page visibility API](https://developer.mozilla.org/en-US/docs/Web/Events/visibilitychange) to pause/resume autoPlay when user navigates away from the page
 - Support to ie9 and partially *ie8 (only position animations, no fading out animations for old ies)*
 
 
