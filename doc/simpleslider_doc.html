@@ -26,6 +26,7 @@
 <h2>Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 
 <ul>
+<li><a href="#SimpleSlider.constructor">new SimpleSlider</a></li>
 <li><a href="#SimpleSlider.actualIndex">SimpleSlider.actualIndex</a></li>
 <li><a href="#SimpleSlider.change">SimpleSlider.change()</a></li>
 <li><a href="#SimpleSlider.next">SimpleSlider.next()</a></li>
@@ -35,6 +36,33 @@
 <li><a href="#SimpleSlider.dispose">SimpleSlider.dispose()</a></li>
 <li><a href="#Ease functions">Ease functions</a></li>
 </ul>
+
+<h2>new SimpleSlider(container, options) <a href="#SimpleSlider.constructor" id="SimpleSlider.constructor" class="deep-link">#</a></h2>
+
+<p>Constructor, creates a new SimpleSlider instance, using child elements of container as slides to be used.</p>
+
+<h3>Example:</h3>
+
+<pre class="brush:js">
+    var options = { autoPlay: true };
+    var slider = new SimpleSlider(document.getElementById('slider'), options);
+</pre>
+
+<p>Default <strong>options</strong> object values:
+
+<pre class="brush:js">
+    {
+      autoPlay: true,
+      transitionProperty: 'left',
+      transitionDuration: 0.5,
+      transitionDelay: 3,
+      startValue: -elem.width,
+      visibleValue: 0,
+      endValue: elem.width,
+      ease: SimpleSlider.defaultEase
+    }
+</pre>
+
 
 <h2>SimpleSlider.actualIndex <a href="#SimpleSlider.actualIndex" id="SimpleSlider.actualIndex" class="deep-link">#</a></h2>
 
@@ -89,6 +117,14 @@
 <h2>SimpleSlider.nextIndex() <a href="#SimpleSlider.nextIndex" id="SimpleSlider.nextIndex" class="deep-link">#</a></h2>
 
 <p>Gets the index value of the next item on the list.</p>
+
+<h2>SimpleSlider.pauseAutoPlay()<a href="#SimpleSlider.pauseAutoPlay" id="SimpleSlider.pauseAutoPlay" class="deep-link">#</a></h2>
+
+Pauses the autoPlay <em>AKA slideshow</em> feature.
+
+<h2>SimpleSlider.resumeAutoPlay()<a href="#SimpleSlider.resumeAutoPlay" id="SimpleSlider.resumeAutoPlay" class="deep-link">#</a></h2>
+
+Resumes the autoPlay <em>AKA slideshow</em> feature.
 
 <h2>SimpleSlider.dispose() <a href="#SimpleSlider.dispose" id="SimpleSlider.dispose" class="deep-link">#</a></h2>
 
