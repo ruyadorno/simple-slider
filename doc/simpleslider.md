@@ -61,6 +61,13 @@ Gets the index value from the previous item on the list.
 
 Gets the index value of the next item on the list.
 
+## SimpleSlider.pauseAutoPlay()
+
+Pauses the autoPlay feature.
+
+## SimpleSlider.resumeAutoPlay()
+
+Resumes the autoPlay feature.
 
 ## SimpleSlider.dispose()
 
