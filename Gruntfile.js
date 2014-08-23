@@ -19,10 +19,18 @@ module.exports = function (grunt) {
     },
 
     jasmine: {
-      src: 'src/**/*.js',
       options: {
         specs: ['test/unit-tests.js', 'test/functional-tests.js']
-      }
+      },
+      dev: {
+        src: 'src/simpleslider.js',
+      },
+      concat: {
+        src: 'dist/simpleslider.js',
+      },
+      minified: {
+        src: 'dist/simpleslider.min.js',
+      },
     },
 
     uglify: {
@@ -51,8 +59,11 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('release', [
+    'jasmine:dev',
     'uglify:dist',
     'concat:dist',
+    'jasmine:concat',
+    'jasmine:minified',
     'sg_release'
   ]);
 

@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "description": "A simple javascript slider without any dependencies",
   "scripts": {
-    "test": "grunt jasmine"
+    "test": "grunt jasmine:dev"
   },
   "dependencies": {},
   "devDependencies": {
