@@ -88,11 +88,11 @@ Gets the index value of the next item on the list.
 
 ## SimpleSlider.pauseAutoPlay()
 
-Pauses the autoPlay feature.
+Pauses the autoPlay *AKA slideshow* feature.
 
 ## SimpleSlider.resumeAutoPlay()
 
-Resumes the autoPlay feature.
+Resumes the autoPlay *AKA slideshow* feature.
 
 ## SimpleSlider.dispose()
 
