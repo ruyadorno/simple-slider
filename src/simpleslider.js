@@ -199,7 +199,7 @@
     // Get user defined options or its default values
     this.trProp = getdef(options.transitionProperty, 'left');
     this.trTime = getdef(options.transitionDuration, 0.5);
-    this.delay = getdef(options.transitionDelay, 3);
+    this.delay = getdef(options.transitionDelay, 3) * 1000;
     this.unit = getUnit([options.startValue, options.visibleValue, options.endValue], this.trProp);
     this.startVal = parseInt(getdef(options.startValue, -width + this.unit), 10);
     this.visVal = parseInt(getdef(options.visibleValue, '0' + this.unit), 10);
@@ -248,7 +248,7 @@
     this.actualIndex = 0;
     this.inserted = null;
     this.removed = null;
-    this.remainingTime = this.delay * 1000;
+    this.remainingTime = this.delay;
 
   };
 
@@ -281,13 +281,13 @@
 
       self.change(self.nextIndex());
 
-    }, this.delay * 1000);
+    }, this.delay);
 
   };
 
   SimpleSlider.prototype.pauseAutoPlay = function () {
 
-    this.remainingTime = (this.delay * 1000) - (Date.now() - this.intervalStartTime);
+    this.remainingTime = (this.delay) - (Date.now() - this.intervalStartTime);
 
     window.clearInterval(this.interval);
     this.interval = null;

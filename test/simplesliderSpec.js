@@ -88,7 +88,7 @@ describe('SimpleSlider', function() {
     var width = parseInt(ss.containerElem.style.width, 10);
     expect(ss.trProp).toEqual('left');
     expect(ss.trTime).toEqual(0.5);
-    expect(ss.delay).toEqual(3);
+    expect(ss.delay).toEqual(3000);
     expect(ss.startVal).toEqual(-width);
     expect(ss.visVal).toEqual(0);
     expect(ss.endVal).toEqual(width);
@@ -113,7 +113,7 @@ describe('SimpleSlider', function() {
     });
     expect(ss.trProp).toEqual('left');
     expect(ss.trTime).toEqual(1);
-    expect(ss.delay).toEqual(2);
+    expect(ss.delay).toEqual(2000);
     expect(ss.startVal).toEqual(300);
     expect(ss.visVal).toEqual(200);
     expect(ss.endVal).toEqual(100);
@@ -442,7 +442,7 @@ describe('SimpleSlider', function() {
 
       ss.pauseAutoPlay();
 
-      expect(ss.remainingTime).toEqual(ss.delay * 1000);
+      expect(ss.remainingTime).toEqual(ss.delay);
 
       ss.dispose();
 
@@ -590,7 +590,7 @@ describe('SimpleSlider', function() {
       setTimeout(function() {
         expect(ss.change).not.toHaveBeenCalled();
         done();
-      }, (ss.delay * 1000) + 1);
+      }, (ss.delay) + 1);
 
     });
 
@@ -631,7 +631,7 @@ describe('SimpleSlider', function() {
       var ss = getNewSlider({}, 5);
 
       var nextIndex = ss.actualIndex+1;
-      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+      var timeEnoughToStartTransition = (ss.delay) + 100;
       var timeEnoughToEndTransition = ss.trTime * 1000 + 100;
 
       setTimeout(function() {
@@ -667,7 +667,7 @@ describe('SimpleSlider', function() {
       }, 5);
 
       var nextIndex = ss.actualIndex+1;
-      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+      var timeEnoughToStartTransition = (ss.delay) + 100;
       var timeEnoughToEndTransition = ss.trTime * 1000 + 100;
 
       expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
@@ -703,7 +703,7 @@ describe('SimpleSlider', function() {
       }, 5);
 
       var nextIndex = ss.actualIndex+1;
-      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+      var timeEnoughToStartTransition = (ss.delay) + 100;
       var timeEnoughToEndTransition = ss.trTime * 1000 + 100;
 
       ss.change(1);
@@ -737,7 +737,7 @@ describe('SimpleSlider', function() {
       }, 5);
 
       var startIndex = ss.actualIndex;
-      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+      var timeEnoughToStartTransition = (ss.delay) + 100;
       var timeEnoughToEndTransition = ss.trTime * 1000 + 100;
 
       setTimeout(function() {
@@ -770,7 +770,7 @@ describe('SimpleSlider', function() {
 
       var startIndex = ss.actualIndex;
       var nextIndex = ss.actualIndex + 1;
-      var timeEnoughToStartTransition = (ss.delay * 1000) + 10;
+      var timeEnoughToStartTransition = (ss.delay) + 10;
       var timeEnoughToEndTransition = ss.trTime * 1000 + 10;
 
       // Values should have correct initial values
@@ -820,7 +820,7 @@ describe('SimpleSlider', function() {
       }, 1);
 
       var startIndex = ss.actualIndex;
-      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+      var timeEnoughToStartTransition = (ss.delay) + 100;
       var timeEnoughToEndTransition = ss.trTime * 1000 + 100;
 
       setTimeout(function() {
@@ -861,7 +861,7 @@ describe('SimpleSlider', function() {
       }
 
       var startIndex = ss.actualIndex;
-      var timeEnoughToStartTransition = (ss.delay * 1000) + 100;
+      var timeEnoughToStartTransition = (ss.delay) + 100;
 
       setTimeout(function() {
 
@@ -888,7 +888,7 @@ describe('SimpleSlider', function() {
         transitionDuration: 0.5
       }, 5);
 
-      var timeEnoughToHalftransition = ((ss.delay + (ss.trTime / 2)) * 1000);
+      var timeEnoughToHalftransition = ss.delay + ((ss.trTime / 2) * 1000);
 
       setTimeout(function() {
 
@@ -924,7 +924,7 @@ describe('SimpleSlider', function() {
         transitionDuration: 0.5
       }, 5);
 
-      var timeEnoughToHalftransition = ((ss.delay + (ss.trTime / 2)) * 1000);
+      var timeEnoughToHalftransition = ss.delay + ((ss.trTime / 2) * 1000);
 
       setTimeout(function() {
 
@@ -953,7 +953,7 @@ describe('SimpleSlider', function() {
         transitionDuration: 0.5
       }, 5);
 
-      var timeEnoughToHalftransition = ((ss.delay + (ss.trTime / 2)) * 1000);
+      var timeEnoughToHalftransition = ((ss.delay + (ss.trTime / 2)));
 
       setTimeout(function() {
 
