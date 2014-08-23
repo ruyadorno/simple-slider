@@ -12,7 +12,8 @@ Constructor, creates a new SimpleSlider instance, using child elements of contai
 ### Example:
 
 ```js
-    var slider = new SimpleSlider(document.getElementById('slider'));
+    var options = { autoPlay: true };
+    var slider = new SimpleSlider(document.getElementById('slider'), options);
 ```
 
 Default **options** object values:
