@@ -1,7 +1,7 @@
 SimpleSlider
 ============
 
-version: 0.3.0
+version: 0.4.0
 
 [![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.png?branch=develop)](https://travis-ci.org/ruyadorno/SimpleSlider)
 
@@ -24,10 +24,11 @@ This package only supports the Javascript basic usage. If you are using modern f
 
 - Support to [UMD](https://github.com/umdjs/umd): AMD, CommonJS and global definition
 - Uses [requireAnimationFrame](https://developer.mozilla.org/en/docs/Web/API/window.requestAnimationFrame) and its polyfills for animation
+- Supports [Page visibility API](https://developer.mozilla.org/en-US/docs/Web/Events/visibilitychange) to pause/resume autoPlay when user navigates away from the page
 - Accept [ease functions](https://github.com/jimjeffers/Easie/blob/master/easie.js) to customize the transition animation
 - Lots of examples, just check the [example](https://github.com/ruyadorno/SimpleSlider/tree/master/examples) folder included on this repo
 - Animates any numerical css property
-- Support to ie9 and *possibly ie8* (needs testing, somebody please?)
+- Support to ie9 and partially *ie8 (only position animations, no fading out animations for old ies)*
 
 
 ## Usage

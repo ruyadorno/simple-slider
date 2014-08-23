@@ -5,6 +5,31 @@ The SimpleSlider object basically holds references to the DOM elements to animat
 Some useful methods are exposed to give developers more flexibility when working with the sliders.
 
 
+## new SimpleSlider(container, options)
+
+Constructor, creates a new SimpleSlider instance, using child elements of container as slides to be used.
+
+### Example:
+
+```js
+    var options = { autoPlay: true };
+    var slider = new SimpleSlider(document.getElementById('slider'), options);
+```
+
+Default **options** object values:
+
+    {
+      autoPlay: true,
+      transitionProperty: 'left',
+      transitionDuration: 0.5,
+      transitionDelay: 3,
+      startValue: -elem.width,
+      visibleValue: 0,
+      endValue: elem.width,
+      ease: SimpleSlider.defaultEase
+    }
+
+
 ## SimpleSlider.actualIndex
 
 The index value on the slides list of the actual displaying slide.
@@ -61,6 +86,13 @@ Gets the index value from the previous item on the list.
 
 Gets the index value of the next item on the list.
 
+## SimpleSlider.pauseAutoPlay()
+
+Pauses the autoPlay *AKA slideshow* feature.
+
+## SimpleSlider.resumeAutoPlay()
+
+Resumes the autoPlay *AKA slideshow* feature.
 
 ## SimpleSlider.dispose()
 

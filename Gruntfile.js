@@ -2,34 +2,35 @@
 
 module.exports = function (grunt) {
 
-  grunt.loadNpmTasks('grunt-bump');
+  grunt.loadNpmTasks('grunt-sg-release');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.initConfig({
 
-    bump: {
+    sg_release: {
       options: {
+        skipBowerInstall: true,
         files: ['package.json', 'bower.json', 'README.md'],
-        updateConfigs: [],
-        commit: true,
-        commitMessage: 'Release v%VERSION%',
-        commitFiles: ['-a'], // '-a' for all files
-        createTag: true,
-        tagName: 'v%VERSION%',
-        tagMessage: 'Version %VERSION%',
-        push: true,
+        commitFiles: ['-a'],
         pushTo: 'origin master',
-        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d' // options to use with '$ git describe'
       }
     },
 
     jasmine: {
-      src: 'src/**/*.js',
       options: {
-        specs: 'test/*Spec.js'
-      }
+        specs: ['test/unit-tests.js', 'test/functional-tests.js']
+      },
+      dev: {
+        src: 'src/simpleslider.js',
+      },
+      concat: {
+        src: 'dist/simpleslider.js',
+      },
+      minified: {
+        src: 'dist/simpleslider.min.js',
+      },
     },
 
     uglify: {
@@ -58,9 +59,12 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('release', [
+    'jasmine:dev',
     'uglify:dist',
     'concat:dist',
-    'bump'
+    'jasmine:concat',
+    'jasmine:minified',
+    'sg_release'
   ]);
 
 };

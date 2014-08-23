@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Pause slide change example</title>
+    <style>
+      #myslider { width:612px; height:612px; }
+    </style>
+  </head>
+  <body>
+    <div id="myslider">
+      <img src="http://placekitten.com/g/612/612"/>
+      <img src="http://distilleryimage5.s3.amazonaws.com/de66967ac72111e2a23222000aaa0537_7.jpg"/>
+      <img src="http://distilleryimage8.s3.amazonaws.com/a042749ac72111e28c3c22000a1fb85a_7.jpg"/>
+      <img src="http://distilleryimage4.s3.amazonaws.com/8d32600ec72111e29f1422000a1fbc0e_7.jpg"/>
+    </div>
+    <button id="pause">Pause</button>
+    <button id="resume">Resume</button>
+  </body>
+  <script src="../src/simpleslider.js"></script>
+  <script>
+    var imgSlider = new SimpleSlider(
+      document.getElementById('myslider'),
+      {
+        autoPlay:true,
+        transitionProperty:'left',
+        startValue:'-612px',
+        visibleValue:'0px',
+        endValue:'612px'
+      }
+    );
+    document.getElementById('pause').onclick = function () {
+      imgSlider.pauseAutoPlay();
+    };
+    document.getElementById('resume').onclick = function () {
+      imgSlider.resumeAutoPlay();
+    };
+  </script>
+</html>
