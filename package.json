@@ -1,6 +1,6 @@
 {
   "name": "simple-slider",
-  "version": "0.4.0",
+  "version": "0.4.1-rc",
   "description": "A simple javascript slider without any dependencies",
   "scripts": {
     "test": "grunt jasmine:dev"
