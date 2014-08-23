@@ -436,13 +436,18 @@ describe('SimpleSlider', function() {
 
     });
 
-    it('should define this.remainingTime variable', function() {
+    it('should define this.remainingTime value', function() {
 
       var ss = getNewSlider({}, 5);
 
       ss.pauseAutoPlay();
 
-      expect(ss.remainingTime).toEqual(ss.delay);
+      // Adds half a second of tolerances
+      // it might be some miliseconds off sometimes
+      expect(ss.remainingTime).toBeGreaterThan(ss.delay - 500);
+
+      // But should never be over the origin delay
+      expect(ss.remainingTime).toBeLessThan(ss.delay + 1);
 
       ss.dispose();
 
