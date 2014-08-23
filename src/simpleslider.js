@@ -39,6 +39,22 @@
     window.cancelAnimationFrame = clearTimeout;
   }
 
+  // visibilitychange setup, from: https://developer.mozilla.org/en-US/docs/Web/Guide/User_experience/Using_the_Page_Visibility_API
+  var hidden, visibilityChange, hasVisibilityHandler;
+  if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
+    hidden = "hidden";
+    visibilityChange = "visibilitychange";
+  } else if (typeof document.mozHidden !== "undefined") {
+    hidden = "mozHidden";
+    visibilityChange = "mozvisibilitychange";
+  } else if (typeof document.msHidden !== "undefined") {
+    hidden = "msHidden";
+    visibilityChange = "msvisibilitychange";
+  } else if (typeof document.webkitHidden !== "undefined") {
+    hidden = "webkitHidden";
+    visibilityChange = "webkitvisibilitychange";
+  }
+
   // ------------------
 
   function getdef(val, def){
@@ -182,6 +198,14 @@
 
   }
 
+  function updateVisibility(slider) {
+    if (document[hidden]) {
+      slider.pauseAutoPlay();
+    } else {
+      slider.resumeAutoPlay();
+    }
+  }
+
   // ------------------
 
   var SimpleSlider = function(containerElem, options){
@@ -282,6 +306,21 @@
       self.change(self.nextIndex());
 
     }, this.delay);
+
+    // Handles user leaving/activating the current page/tab
+    (function handleVisibilityChange() {
+
+      if (!hasVisibilityHandler && typeof document.addEventListener !== "undefined") {
+
+        document.addEventListener(visibilityChange, function onVisibilityChange() {
+
+          updateVisibility(self);
+        }, false);
+
+        // only assign handler once
+        hasVisibilityHandler = true;
+      }
+    })();
 
   };
 
