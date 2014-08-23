@@ -298,12 +298,13 @@
       window.clearTimeout(this.interval);
     }
 
+    // Slideshow/autoPlay timing logic
     (function setInterval() {
       self.intervalStartTime = Date.now();
       self.interval = window.setTimeout(function(){
 
         self.intervalStartTime = Date.now();
-        self.remainingTime = self.delay;
+        self.remainingTime = self.delay; // resets time, used by pause/resume logic
 
         self.change(self.nextIndex());
 
