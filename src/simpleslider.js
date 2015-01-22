@@ -230,6 +230,7 @@
     this.endVal = parseInt(getdef(options.endValue, width + this.unit), 10);
     this.autoPlay = getdef(parseStringToBoolean(options.autoPlay), true);
     this.ease = getdef(options.ease, SimpleSlider.defaultEase);
+    this.onChange = getdef(options.onChange , null);
 
     this.init();
   };
@@ -382,6 +383,10 @@
     this.insert(newIndex);
 
     this.actualIndex = newIndex;
+
+    if (this.onChange !== null) {
+      this.onChange();
+    }
 
   };
 
