@@ -233,6 +233,31 @@ describe('SimpleSlider', function() {
 
   });
 
+  describe('.onChange()', function () {
+
+    it('should call onChange function if defined', function(done) {
+
+      var callback = function () {
+
+        expect(true).toBeTruthy();
+
+        ss.dispose();
+
+        done();
+
+      };
+
+      // Should also get when using visibleValue
+      var ss = getNewSlider({
+        onChange: callback
+      }, 3);
+
+      ss.change(2);
+
+    });
+
+  });
+
   describe('.reset()', function() {
 
     it('should reset original style values', function() {
