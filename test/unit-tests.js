@@ -256,6 +256,28 @@ describe('SimpleSlider', function() {
 
     });
 
+    it('should have prevIndex and nextIndex parameters', function(done) {
+
+      var callback = function (prevIndex, nextIndex) {
+
+        expect(prevIndex).toBe(0);
+        expect(nextIndex).toBe(1);
+
+        ss.dispose();
+
+        done();
+
+      };
+
+      // Should also get when using visibleValue
+      var ss = getNewSlider({
+        onChange: callback
+      }, 3);
+
+      ss.next();
+
+    });
+
   });
 
   describe('.reset()', function() {

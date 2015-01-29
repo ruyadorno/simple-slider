@@ -379,13 +379,17 @@
 
   SimpleSlider.prototype.change = function(newIndex){
 
+    var prevIndex = this.actualIndex;
+
     this.remove(this.actualIndex);
     this.insert(newIndex);
 
     this.actualIndex = newIndex;
 
-    if (this.onChange !== null) {
-      this.onChange();
+    if (this.onChange ||
+      Object.prototype.toString.call(this.onChange) == '[object Function]') {
+
+      this.onChange(prevIndex, this.actualIndex);
     }
 
   };
