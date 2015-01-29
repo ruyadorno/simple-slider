@@ -2,6 +2,7 @@
 
 module.exports = function (grunt) {
 
+  grunt.loadNpmTasks('grunt-menu');
   grunt.loadNpmTasks('grunt-sg-release');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -66,6 +67,8 @@ module.exports = function (grunt) {
     'jasmine:minified',
     'sg_release'
   ]);
+
+  grunt.registerTask('default', ['menu']);
 
 };
 
