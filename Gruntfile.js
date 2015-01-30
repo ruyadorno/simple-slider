@@ -2,6 +2,7 @@
 
 module.exports = function (grunt) {
 
+  grunt.loadNpmTasks('grunt-menu');
   grunt.loadNpmTasks('grunt-sg-release');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -14,7 +15,7 @@ module.exports = function (grunt) {
         skipBowerInstall: true,
         files: ['package.json', 'bower.json', 'README.md'],
         commitFiles: ['-a'],
-        pushTo: 'origin master',
+        pushTo: 'origin',
       }
     },
 
@@ -66,6 +67,8 @@ module.exports = function (grunt) {
     'jasmine:minified',
     'sg_release'
   ]);
+
+  grunt.registerTask('default', ['menu']);
 
 };
 

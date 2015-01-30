@@ -233,6 +233,53 @@ describe('SimpleSlider', function() {
 
   });
 
+  describe('.onChange()', function () {
+
+    it('should call onChange function if defined', function(done) {
+
+      var callback = function () {
+
+        expect(true).toBeTruthy();
+
+        ss.dispose();
+
+        done();
+
+      };
+
+      // Should also get when using visibleValue
+      var ss = getNewSlider({
+        onChange: callback
+      }, 3);
+
+      ss.change(2);
+
+    });
+
+    it('should have prevIndex and nextIndex parameters', function(done) {
+
+      var callback = function (prevIndex, nextIndex) {
+
+        expect(prevIndex).toBe(0);
+        expect(nextIndex).toBe(1);
+
+        ss.dispose();
+
+        done();
+
+      };
+
+      // Should also get when using visibleValue
+      var ss = getNewSlider({
+        onChange: callback
+      }, 3);
+
+      ss.next();
+
+    });
+
+  });
+
   describe('.reset()', function() {
 
     it('should reset original style values', function() {

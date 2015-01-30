@@ -1,17 +1,17 @@
 {
   "name": "simple-slider",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A simple javascript slider without any dependencies",
   "scripts": {
     "test": "grunt jasmine:dev"
   },
-  "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.x",
-    "grunt-sg-release": "~0.2.x",
-    "grunt-contrib-uglify": "~0.3.x",
+    "grunt-contrib-concat": "~0.3.x",
     "grunt-contrib-jasmine": "~0.6.x",
-    "grunt-contrib-concat": "~0.3.x"
+    "grunt-contrib-uglify": "~0.3.x",
+    "grunt-menu": "^1.x.x",
+    "grunt-sg-release": "~0.2.x"
   },
   "repository": {
     "type": "git",
