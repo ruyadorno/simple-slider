@@ -16,7 +16,7 @@
 <br/>
 <h1>SimpleSlider</h1>
 
-<p>version: 0.4.0</p>
+<p>version: 0.5.0</p>
 
 <p><a href="https://travis-ci.org/ruyadorno/SimpleSlider"><img src="https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master" alt="Build Status" title="" /></a></p>
 
@@ -104,6 +104,7 @@
 <li><strong>visibleValue</strong>: <String/Number> The value a slide element should have when it is displayed</li>
 <li><strong>endValue</strong>: <String/Number> The value a slide will move to during a transition animation</li>
 <li><strong>ease</strong>: <Function> An ease function, you can use any of <a href="https://github.com/jimjeffers/Easie/blob/master/easie.js">these</a></li>
+<li><strong>onChange</strong>: <Function> A callback function to be invoked each time a slide changes</li>
 </ul>
 
 <h3>Default values</h3>
@@ -116,7 +117,8 @@
   startValue: -elem.width,
   visibleValue: 0,
   endValue: elem.width,
-  ease: SimpleSlider.defaultEase
+  ease: SimpleSlider.defaultEase,
+  onChange: null
 }
 </pre>
 
