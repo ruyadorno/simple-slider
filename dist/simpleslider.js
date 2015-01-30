@@ -230,6 +230,7 @@
     this.endVal = parseInt(getdef(options.endValue, width + this.unit), 10);
     this.autoPlay = getdef(parseStringToBoolean(options.autoPlay), true);
     this.ease = getdef(options.ease, SimpleSlider.defaultEase);
+    this.onChange = getdef(options.onChange, null);
 
     this.init();
   };
@@ -378,10 +379,18 @@
 
   SimpleSlider.prototype.change = function(newIndex){
 
+    var prevIndex = this.actualIndex;
+
     this.remove(this.actualIndex);
     this.insert(newIndex);
 
     this.actualIndex = newIndex;
+
+    if (this.onChange ||
+      Object.prototype.toString.call(this.onChange) == '[object Function]') {
+
+      this.onChange(prevIndex, this.actualIndex);
+    }
 
   };
 
