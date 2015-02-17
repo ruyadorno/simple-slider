@@ -102,6 +102,7 @@ describe('SimpleSlider', function() {
   it('properties should be defined properly', function() {
 
     // Test some custom values
+    var customEasingStub = function(){return true};
     var ss = getNewSlider({
       transitionProperty: 'left',
       transitionDuration: 1,
@@ -109,7 +110,8 @@ describe('SimpleSlider', function() {
       startValue: 300,
       visibleValue: 200,
       endValue: 100,
-      autoPlay:false
+      autoPlay:false,
+      ease: customEasingStub
     });
     expect(ss.trProp).toEqual('left');
     expect(ss.trTime).toEqual(1);
@@ -118,6 +120,7 @@ describe('SimpleSlider', function() {
     expect(ss.visVal).toEqual(200);
     expect(ss.endVal).toEqual(100);
     expect(ss.autoPlay).toEqual(false);
+    expect(ss.ease).toEqual(customEasingStub);
 
     ss.dispose();
 
