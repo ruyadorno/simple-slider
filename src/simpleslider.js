@@ -357,7 +357,7 @@
 
   SimpleSlider.prototype.startAnim = function(target, fromValue, toValue){
 
-    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, SimpleSlider.defaultEase);
+    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, this.ease);
 
   };
 
