@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Simple horizontal slider example</title>
+    <style>
+      .nav-example { position: relative; width: 612px; height: 612px; }
+      .nav-slider { position: absolute; top: 0px; left: 0px; z-index: 1;}
+      #myslider { width:612px; height:612px; }
+      a.slide-button { position: absolute; padding: 300px 0px 0px 15px; top: 0px; left: 0px; z-index: 12; width: 30px; height: 612px; color: #FFF; background-color: rgba(0,0,0,0.4); text-decoration: none; font-weight: 600; box-sizing: border-box; }
+      #next-button { left: auto; right: 0px; }
+    </style>
+  </head>
+  <body>
+    <div class="nav-example">
+      <div id="myslider" class="nav-slider">
+        <img src="http://placekitten.com/g/612/612"/>
+        <img src="http://distilleryimage5.s3.amazonaws.com/de66967ac72111e2a23222000aaa0537_7.jpg"/>
+        <img src="http://distilleryimage8.s3.amazonaws.com/a042749ac72111e28c3c22000a1fb85a_7.jpg"/>
+        <img src="http://distilleryimage4.s3.amazonaws.com/8d32600ec72111e29f1422000a1fbc0e_7.jpg"/>
+      </div>
+      <a id="prev-button" href="#" class="slide-button">&lt;</a>
+      <a id="next-button" href="#" class="slide-button">&gt;</a>
+    </div>
+  </body>
+  <script src="../src/simpleslider.js"></script>
+  <script>
+    var imgSlider = new SimpleSlider(
+      document.getElementById('myslider'),
+      {
+        autoPlay:true,
+        transitionProperty:'left',
+        startValue:'-612px',
+        visibleValue:'0px',
+        endValue:'612px'
+      }
+    );
+
+    document.getElementById('prev-button').onclick = function(e) {
+        imgSlider.startVal = 612;
+        imgSlider.endVal = -612;
+        imgSlider.prev();
+        e.preventDefault();
+    };
+
+    document.getElementById('next-button').onclick = function(e) {
+        imgSlider.startVal = -612;
+        imgSlider.endVal = 612;
+        imgSlider.next();
+        e.preventDefault();
+    };
+
+  </script>
+</html>
