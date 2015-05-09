@@ -3,7 +3,7 @@ SimpleSlider
 
 version: 0.5.3-rc
 
-[![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.png?branch=develop)](https://travis-ci.org/ruyadorno/SimpleSlider)
+[![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master)](https://travis-ci.org/ruyadorno/SimpleSlider)
 
 http://ruyadorno.github.com/SimpleSlider
 
