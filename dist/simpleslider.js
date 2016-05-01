@@ -105,9 +105,9 @@
 
   }
 
-  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, easeFunc){
+  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, easeFunc, scope, cb){
 
-    function loop() {
+    function loop(_cb) {
 
       window.requestAnimationFrame(function requestAnimationFunction(time){
 
@@ -116,18 +116,14 @@
           startTime = time;
         }
 
-        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, easeFunc);
+        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, easeFunc, scope, _cb);
 
       });
     }
 
     var newValue;
 
-    if (startTime === 0) {
-
-      return loop();
-
-    } else {
+    if (startTime > 0) {
 
       newValue = easeFunc(elapsedTime - startTime, fromValue, toValue - fromValue, transitionDuration);
 
@@ -135,13 +131,19 @@
 
         target[prop] = newValue + unit;
 
-        loop();
-
       } else {
 
         target[prop] = (toValue) + unit;
+
+        if (scope && cb) {
+          cb.call(scope);
+          cb = null;
+        }
+        return;
       }
     }
+
+    loop(cb);
 
   }
 
@@ -231,6 +233,7 @@
     this.autoPlay = getdef(parseStringToBoolean(options.autoPlay), true);
     this.ease = getdef(options.ease, SimpleSlider.defaultEase);
     this.onChange = getdef(options.onChange, null);
+    this.onChangeEnd = getdef(options.onChangeEnd, null);
 
     this.init();
   };
@@ -355,9 +358,19 @@
 
   };
 
-  SimpleSlider.prototype.startAnim = function(target, fromValue, toValue){
+  SimpleSlider.prototype.startAnim = function(target, fromValue, toValue, cb){
 
-    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, this.ease);
+    anim(target.style, this.trProp, this.unit, this.trTime * 1000, 0, 0, fromValue, toValue, this.ease, this, cb);
+
+  };
+
+  SimpleSlider.prototype.endAnim = function() {
+
+    if (this.onChangeEnd ||
+      Object.prototype.toString.call(this.onChangeEnd) == '[object Function]') {
+
+      this.onChangeEnd(this.actualIndex, this.nextIndex());
+    }
 
   };
 
@@ -373,7 +386,7 @@
 
     this.inserted = manageInsertingSlideOrder(this.inserted, this.imgs[index]);
 
-    this.startAnim(this.imgs[index], this.startVal, this.visVal);
+    this.startAnim(this.imgs[index], this.startVal, this.visVal, this.endAnim);
 
   };
 
