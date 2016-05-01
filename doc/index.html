@@ -105,6 +105,7 @@
 <li><strong>endValue</strong>: <String/Number> The value a slide will move to during a transition animation</li>
 <li><strong>ease</strong>: <Function> An ease function, you can use any of <a href="https://github.com/jimjeffers/Easie/blob/master/easie.js">these</a></li>
 <li><strong>onChange</strong>: <Function> A callback function to be invoked each time a slide changes</li>
+<li><strong>onChangeEnd</strong>: <Function> A callback function to be invoked at the end of the slide transition</li>
 </ul>
 
 <h3>Default values</h3>
@@ -118,7 +119,8 @@
   visibleValue: 0,
   endValue: elem.width,
   ease: SimpleSlider.defaultEase,
-  onChange: null
+  onChange: null,
+  onChangeEnd: null
 }
 </pre>
 
