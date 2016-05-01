@@ -83,6 +83,7 @@ Here is the list of available values to use on the constructor and customize you
 - **endValue**: <String/Number> The value a slide will move to during a transition animation
 - **ease**: <Function> An ease function, you can use any of [these](https://github.com/jimjeffers/Easie/blob/master/easie.js)
 - **onChange**: <Function> A callback function to be invoked each time a slide changes
+- **onChangeEnd**: <Function> A callback function to be invoked at the end of the slide transition
 
 ### Default values
 
@@ -95,7 +96,8 @@ Here is the list of available values to use on the constructor and customize you
       visibleValue: 0,
       endValue: elem.width,
       ease: SimpleSlider.defaultEase,
-      onChange: null
+      onChange: null,
+      onChangeEnd: null
     }
 
 ### More examples

@@ -283,6 +283,54 @@ describe('SimpleSlider', function() {
 
   });
 
+  describe('.onChangeEnd()', function () {
+
+    it('should call onChangeEnd function if defined', function(done) {
+
+      var callback = function () {
+
+        expect(true).toBeTruthy();
+
+        ss.dispose();
+
+        done();
+
+      };
+
+      // Should also get when using visibleValue
+      var ss = getNewSlider({
+        transitionDuration: 0.1,
+        onChangeEnd: callback
+      }, 3);
+
+      ss.change(2);
+
+    });
+
+    it('should have currentIndex and nextIndex parameters', function(done) {
+
+      var callback = function (currIndex, nextIndex) {
+
+        expect(currIndex).toBe(1);
+        expect(nextIndex).toBe(2);
+
+        ss.dispose();
+
+        done();
+
+      };
+
+      // Should also get when using visibleValue
+      var ss = getNewSlider({
+        onChangeEnd: callback
+      }, 3);
+
+      ss.next();
+
+    });
+
+  });
+
   describe('.reset()', function() {
 
     it('should reset original style values', function() {
@@ -577,7 +625,7 @@ describe('SimpleSlider', function() {
 
       ss.insert(1);
 
-      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[1], ss.startVal, ss.visVal);
+      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[1], ss.startVal, ss.visVal, ss.endAnim);
 
       ss.dispose();
 

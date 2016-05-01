@@ -26,13 +26,25 @@ Default **options** object values:
       startValue: -elem.width,
       visibleValue: 0,
       endValue: elem.width,
-      ease: SimpleSlider.defaultEase
+      ease: SimpleSlider.defaultEase,
+      onChange: null,
+      onChangeEnd: null
     }
 
 
 ## SimpleSlider.actualIndex
 
 The index value on the slides list of the actual displaying slide.
+
+
+## SimpleSlider.onChange(prevIndex, nextIndex)
+
+A callback function to be defined by the user. This function will be called everytime a slide changes and will contain two arguments, the first one is the index value of the previous active slide and the second is the index value of the next slide to be inserted.
+
+
+## SimpleSlider.onChangeEnd(currentIndex, nextIndex)
+
+A callback function to be defined by the user. Called everytime the animation transition is completed, it has the current displaying slide index value and the next slide index value passed as parameters.
 
 
 ## SimpleSlider.change(index)
