@@ -471,6 +471,8 @@
     this.inserted = null;
     this.removed = null;
     this.remainingTime = null;
+    this.onChange = null;
+    this.onChangeEnd = null;
   };
 
   return SimpleSlider;
