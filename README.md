@@ -3,7 +3,7 @@ SimpleSlider
 
 version: 0.6.2-rc
 
-[![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master)](https://travis-ci.org/ruyadorno/SimpleSlider)
+[![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master)](https://travis-ci.org/ruyadorno/SimpleSlider) ![File Size: < 8kB](https://badge-size.herokuapp.com/ruyadorno/SimpleSlider/master/dist/simpleslider.min.js)
 
 http://ruyadorno.github.com/SimpleSlider
 
