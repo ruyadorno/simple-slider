@@ -26,6 +26,21 @@ This package only supports the Javascript basic usage. If you are using modern f
 - Support to ie9 and partially *ie8 (only position animations, no fading out animations for old ies)*
 
 
+## Install
+
+Available on **npm**:
+
+```sh
+npm install --save simple-slider
+```
+
+and also available on **Bower**:
+
+```sh
+bower install --save SimpleSlider
+```
+
+
 ## Usage
 
 > version: 0.6.2-rc
