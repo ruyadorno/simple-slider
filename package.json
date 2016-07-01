@@ -1,12 +1,19 @@
 {
   "name": "simple-slider",
   "version": "0.6.3-rc",
-  "description": "A simple javascript slider without any dependencies",
+  "description": "A simple javascript carousel with zero dependencies",
+  "homepage": "http://ruyadorno.github.io/SimpleSlider/",
+  "main": "dist/simpleslider.js",
+  "files": [
+    "dist/simpleslider.js",
+    "dist/simpleslider.min.js"
+  ],
+  "repository": "ruyadorno/SimpleSlider",
   "scripts": {
     "test": "grunt jasmine:dev"
   },
   "devDependencies": {
-    "grunt": "~0.4.x",
+    "grunt": "^1.x.x",
     "grunt-contrib-concat": "~1.x.x",
     "grunt-contrib-jasmine": "^1.x.x",
     "grunt-contrib-uglify": "~1.x.x",
@@ -20,5 +27,6 @@
   "author": "Ruy Adorno",
   "engines": {
     "node": ">=0.10.12"
-  }
+  },
+  "license": "MIT"
 }
