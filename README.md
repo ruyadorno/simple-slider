@@ -1,9 +1,4 @@
-SimpleSlider
-============
-
-version: 0.6.2-rc
-
-[![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master)](https://travis-ci.org/ruyadorno/SimpleSlider) ![File Size: < 8kB](https://badge-size.herokuapp.com/ruyadorno/SimpleSlider/master/dist/simpleslider.min.js)
+# SimpleSlider [![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider) [![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master)](https://travis-ci.org/ruyadorno/SimpleSlider) ![File Size: < 8kB](https://badge-size.herokuapp.com/ruyadorno/SimpleSlider/master/dist/simpleslider.min.js)
 
 http://ruyadorno.github.com/SimpleSlider
 
@@ -32,6 +27,8 @@ This package only supports the Javascript basic usage. If you are using modern f
 
 
 ## Usage
+
+> version: 0.6.2-rc
 
 Just import the script on html and create a new slider instance. You always have to define width and height values to your container element.
 
@@ -87,18 +84,20 @@ Here is the list of available values to use on the constructor and customize you
 
 ### Default values
 
-    {
-      autoPlay: true,
-      transitionProperty: 'left',
-      transitionDuration: 0.5,
-      transitionDelay: 3,
-      startValue: -elem.width,
-      visibleValue: 0,
-      endValue: elem.width,
-      ease: SimpleSlider.defaultEase,
-      onChange: null,
-      onChangeEnd: null
-    }
+```js
+{
+  autoPlay: true,
+  transitionProperty: 'left',
+  transitionDuration: 0.5,
+  transitionDelay: 3,
+  startValue: -elem.width,
+  visibleValue: 0,
+  endValue: elem.width,
+  ease: SimpleSlider.defaultEase,
+  onChange: null,
+  onChangeEnd: null
+}
+```
 
 ### More examples
 
