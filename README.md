@@ -39,7 +39,7 @@ npm install --save simple-slider
 and also available on **Bower**:
 
 ```sh
-bower install --save SimpleSlider
+bower install --save simple-slider
 ```
 
 
