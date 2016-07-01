@@ -43,7 +43,7 @@ bower install --save SimpleSlider
 
 ## Usage
 
-> version: 0.6.2
+> version: 0.6.3-rc
 
 Just import the script on html and create a new slider instance. You always have to define width and height values to your container element.
 
