@@ -1,13 +1,15 @@
-# SimpleSlider [![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider) [![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master)](https://travis-ci.org/ruyadorno/SimpleSlider) ![File Size: < 8kB](https://badge-size.herokuapp.com/ruyadorno/SimpleSlider/master/dist/simpleslider.min.js)
+# SimpleSlider
+
+[![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider) [![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master)](https://travis-ci.org/ruyadorno/SimpleSlider) ![File Size: < 8kB](https://badge-size.herokuapp.com/ruyadorno/SimpleSlider/master/dist/simpleslider.min.js)
 
 http://ruyadorno.github.com/SimpleSlider
 
-A simple javascript slider without any dependencies on third-party libraries.
+A simple javascript carousel with zero dependencies on third-party libraries.
 
 
 ## About
 
-The main goal of the project is to provide a flexible yet simple solution for the common slider/carousel/gallery functionality. It is important to note that the script does not want to take care of any styling but the minimal in order to have a functional slider. It is all up to the front-end developer to configure its css in a proper way. To help with that, many sample uses are provided in the [example](https://github.com/ruyadorno/SimpleSlider/tree/master/examples) folder.
+The main goal of the project is to provide a flexible yet simple solution for the common image slider/carousel/gallery functionality. It is important to note that the script does not want to take care of any styling but the minimal in order to have a functional slider. It is all up to the front-end developer to configure its css in a proper way. To help with that, many sample uses are provided in the [example](https://github.com/ruyadorno/SimpleSlider/tree/master/examples) folder.
 
 This package only supports the Javascript basic usage. If you are using modern frameworks like **AngularJS** or **Polymer** please take your time to check the following **SimpleSlider** element implementations:
 
@@ -37,13 +39,13 @@ npm install --save simple-slider
 and also available on **Bower**:
 
 ```sh
-bower install --save SimpleSlider
+bower install --save simple-slider
 ```
 
 
 ## Usage
 
-> version: 0.6.2
+> version: 0.6.3
 
 Just import the script on html and create a new slider instance. You always have to define width and height values to your container element.
 
