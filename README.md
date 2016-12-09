@@ -1,6 +1,6 @@
 # SimpleSlider
 
-[![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider) [![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master)](https://travis-ci.org/ruyadorno/SimpleSlider) ![File Size: < 8kB](https://badge-size.herokuapp.com/ruyadorno/SimpleSlider/master/dist/simpleslider.min.js)
+[![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider) [![Build Status](https://travis-ci.org/ruyadorno/SimpleSlider.svg?branch=master)](https://travis-ci.org/ruyadorno/SimpleSlider) ![File Size: < 2.3kB gzipped](https://badge-size.herokuapp.com/ruyadorno/SimpleSlider/master/dist/simpleslider.min.js?compression=gzip)
 
 http://ruyadorno.github.com/SimpleSlider
 
