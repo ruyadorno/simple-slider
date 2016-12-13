@@ -8,7 +8,6 @@
     "dist/simpleslider.js",
     "dist/simpleslider.min.js"
   ],
-  "repository": "ruyadorno/SimpleSlider",
   "scripts": {
     "test": "grunt jasmine:dev"
   },
