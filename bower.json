@@ -22,8 +22,5 @@
     "test",
     "tests"
   ],
-  "dependencies": {},
-  "devDependencies": {
-    "requestAnimationFrame": "https://github.com/darius/requestAnimationFrame.git"
-  }
+  "dependencies": {}
 }
