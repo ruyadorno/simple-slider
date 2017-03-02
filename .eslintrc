@@ -1,0 +1,14 @@
+{
+    "extends": "eslint-config-xo",
+    "env": {
+      "browser": true
+    },
+    "rules": {
+        "func-names": 0,
+        "operator-linebreak": 0,
+        "new-cap": 0,
+        "indent": ["error", 2],
+        "brace-style": 0
+    }
+}
+

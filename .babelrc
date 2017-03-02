@@ -1,0 +1,9 @@
+{
+  "presets": ["babel-preset-latest"],
+  "plugins": [
+    ["conditional-compilation", {
+      "TEST": 1
+    }]
+  ]
+}
+

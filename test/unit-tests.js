@@ -1,3 +1,8 @@
+import getSlider from '../src/simpleslider';
+import { polyfill } from 'raf';
+
+polyfill();
+
 describe('SimpleSlider', function() {
 
   'use strict';
@@ -41,9 +46,7 @@ describe('SimpleSlider', function() {
   var getNewSlider = function(options, numChild) {
 
     var testDiv = getNewDiv(numChild);
-    var ss = new SimpleSlider(testDiv, options);
-
-    return ss;
+    return getSlider(testDiv, options);
 
   };
 
@@ -52,7 +55,7 @@ describe('SimpleSlider', function() {
     _consoleWarn = console.warn;
     console.warn = function() {};
 
-    return new SimpleSlider(createEmptyDiv());
+    return getSlider(createEmptyDiv());
 
   };
 
@@ -65,7 +68,6 @@ describe('SimpleSlider', function() {
 
     var ss = getNewSlider();
     expect(typeof ss).toEqual('object');
-    expect(ss instanceof SimpleSlider).toBeTruthy();
 
     ss.dispose();
 
@@ -74,7 +76,7 @@ describe('SimpleSlider', function() {
   it('should throw an warning if using an empty html element', function() {
 
     spyOn(console, 'warn');
-    var ss = new SimpleSlider(document.createElement('div'));
+    var ss = getSlider(document.createElement('div'));
     expect(console.warn).toHaveBeenCalled();
 
     ss.dispose();
@@ -85,15 +87,15 @@ describe('SimpleSlider', function() {
 
     // Test default values
     var ss = getNewSlider();
-    var width = parseInt(ss.containerElem.style.width, 10);
-    expect(ss.trProp).toEqual('left');
-    expect(ss.trTime).toEqual(0.5);
-    expect(ss.delay).toEqual(3000);
-    expect(ss.startVal).toEqual(-width);
-    expect(ss.visVal).toEqual(0);
-    expect(ss.endVal).toEqual(width);
-    expect(ss.autoPlay).toEqual(true);
-    expect(ss.ease).toEqual(SimpleSlider.defaultEase);
+    var width = parseInt(ss.internalState.getContainerElem().style.width, 10);
+    expect(ss.internalState.autoPlay).toEqual(true);
+    expect(ss.internalState.trProp).toEqual('left');
+    expect(ss.internalState.trTime).toEqual(0.5);
+    expect(ss.internalState.delay).toEqual(3000);
+    expect(ss.internalState.startVal).toEqual(-width);
+    expect(ss.internalState.visVal).toEqual(0);
+    expect(ss.internalState.endVal).toEqual(width);
+    expect(ss.internalState.ease).toEqual(getSlider.defaultEase);
 
     ss.dispose();
 
@@ -113,14 +115,14 @@ describe('SimpleSlider', function() {
       autoPlay:false,
       ease: customEasingStub
     });
-    expect(ss.trProp).toEqual('left');
-    expect(ss.trTime).toEqual(1);
-    expect(ss.delay).toEqual(2000);
-    expect(ss.startVal).toEqual(300);
-    expect(ss.visVal).toEqual(200);
-    expect(ss.endVal).toEqual(100);
-    expect(ss.autoPlay).toEqual(false);
-    expect(ss.ease).toEqual(customEasingStub);
+    expect(ss.isAutoPlay()).toEqual(false);
+    expect(ss.internalState.trProp).toEqual('left');
+    expect(ss.internalState.trTime).toEqual(1);
+    expect(ss.internalState.delay).toEqual(2000);
+    expect(ss.internalState.startVal).toEqual(300);
+    expect(ss.internalState.visVal).toEqual(200);
+    expect(ss.internalState.endVal).toEqual(100);
+    expect(ss.internalState.ease).toEqual(customEasingStub);
 
     ss.dispose();
 
@@ -132,7 +134,7 @@ describe('SimpleSlider', function() {
     var ss = getNewSlider({
       autoPlay:'false'
     });
-    expect(ss.autoPlay).toEqual(false);
+    expect(ss.isAutoPlay()).toEqual(false);
 
     ss.dispose();
 
@@ -146,9 +148,9 @@ describe('SimpleSlider', function() {
       startValue: -100,
       autoPlay:false
     });
-    expect(ss.trProp).toEqual('top');
-    expect(ss.startVal).toEqual(-100);
-    expect(ss.autoPlay).toEqual(false);
+    expect(ss.internalState.trProp).toEqual('top');
+    expect(ss.internalState.startVal).toEqual(-100);
+    expect(ss.isAutoPlay()).toEqual(false);
 
     ss.dispose();
 
@@ -157,13 +159,13 @@ describe('SimpleSlider', function() {
   it('after init should contain imgs data', function() {
 
     var newDiv = getNewDiv();
-    var ss = new SimpleSlider(newDiv);
+    var ss = getSlider(newDiv);
     var countChildren = newDiv.children.length-1;
 
-    expect(ss.imgs.length).toEqual(newDiv.children.length);
+    expect(ss.internalState.getImgs().length).toEqual(newDiv.children.length);
 
     while (countChildren>=0) {
-      expect(ss.imgs).toContain(newDiv.children[countChildren]);
+      expect(ss.internalState.getImgs()).toContain(newDiv.children[countChildren]);
       countChildren--;
     }
 
@@ -175,20 +177,20 @@ describe('SimpleSlider', function() {
 
     var ss = getNewSlider({}, 5);
 
-    expect(ss.containerElem.style.position).toEqual('relative');
-    expect(ss.containerElem.style.overflow).toEqual('hidden');
+    expect(ss.internalState.getContainerElem().style.position).toEqual('relative');
+    expect(ss.internalState.getContainerElem().style.overflow).toEqual('hidden');
 
-    var i = ss.containerElem.children.length;
+    var i = ss.internalState.getContainerElem().children.length;
 
     while (--i >= 0) {
-      expect(ss.imgs[i].style.position).toEqual('absolute');
-      expect(ss.imgs[i].style.top).toEqual('0px');
+      expect(ss.internalState.getImgs()[i].style.position).toEqual('absolute');
+      expect(ss.internalState.getImgs()[i].style.top).toEqual('0px');
 
       // Only the first one should be on visible state
       if (i === 0) {
-        expect(ss.imgs[i].style.left).toEqual('0px');
+        expect(ss.internalState.getImgs()[i].style.left).toEqual('0px');
       } else {
-        expect(ss.imgs[i].style.left).toEqual('-480px');
+        expect(ss.internalState.getImgs()[i].style.left).toEqual('-480px');
       }
     }
 
@@ -203,7 +205,7 @@ describe('SimpleSlider', function() {
       endValue: '300px'
     }, 5);
 
-    expect(ss.unit).toEqual('px');
+    expect(ss.internalState.unit).toEqual('px');
 
     ss.dispose();
 
@@ -217,7 +219,7 @@ describe('SimpleSlider', function() {
       startValue: '3em'
     }, 3);
 
-    expect(ss.unit).toEqual('em');
+    expect(ss.internalState.unit).toEqual('em');
 
     ss.dispose();
 
@@ -230,7 +232,7 @@ describe('SimpleSlider', function() {
       visibleValue: '100%'
     }, 3);
 
-    expect(ss.unit).toEqual('%');
+    expect(ss.internalState.unit).toEqual('%');
 
     ss.dispose();
 
@@ -331,7 +333,7 @@ describe('SimpleSlider', function() {
 
   });
 
-  describe('.reset()', function() {
+  describe('*internal .reset()', function() {
 
     it('should reset original style values', function() {
 
@@ -341,11 +343,11 @@ describe('SimpleSlider', function() {
 
       ss.change(3);
 
-      ss.reset();
+      ss.internalState.reset();
 
-      expect(ss.containerElem.style.position).toEqual('relative');
-      expect(ss.containerElem.style.overflow).toEqual('hidden');
-      expect(ss.containerElem.style.display).toEqual('block');
+      expect(ss.internalState.getContainerElem().style.position).toEqual('relative');
+      expect(ss.internalState.getContainerElem().style.overflow).toEqual('hidden');
+      expect(ss.internalState.getContainerElem().style.display).toEqual('block');
 
       ss.dispose();
 
@@ -359,9 +361,9 @@ describe('SimpleSlider', function() {
 
       ss.change(3);
 
-      ss.reset();
+      ss.internalState.reset();
 
-      expect(ss.imgs.length).toEqual(5);
+      expect(ss.internalState.getImgs().length).toEqual(5);
 
       ss.dispose();
 
@@ -375,9 +377,9 @@ describe('SimpleSlider', function() {
 
       ss.change(3);
 
-      ss.reset();
+      ss.internalState.reset();
 
-      expect(ss.actualIndex).toEqual(0);
+      expect(ss.currentIndex()).toEqual(0);
 
       ss.dispose();
 
@@ -391,10 +393,10 @@ describe('SimpleSlider', function() {
 
       ss.change(3);
 
-      ss.reset();
+      ss.internalState.reset();
 
-      expect(ss.imgs[0].style[ss.trProp]).toEqual(ss.visVal.toString() + ss.unit);
-      expect(ss.imgs[1].style[ss.trProp]).toEqual(ss.startVal.toString() + ss.unit);
+      expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
+      expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
 
       ss.dispose();
 
@@ -408,10 +410,10 @@ describe('SimpleSlider', function() {
 
       ss.change(3);
 
-      ss.reset();
+      ss.internalState.reset();
 
-      expect(ss.inserted).toEqual(null);
-      expect(ss.removed).toEqual(null);
+      expect(ss.internalState.inserted).toEqual(null);
+      expect(ss.internalState.removed).toEqual(null);
 
       ss.dispose();
 
@@ -419,13 +421,13 @@ describe('SimpleSlider', function() {
 
   });
 
-  describe('.configSlideshow()', function() {
+  describe('*internal .configSlideshow()', function() {
 
     it('should return false if there are no images', function() {
 
       var ss = createEmptySlider();
 
-      expect(ss.configSlideshow()).toEqual(false);
+      expect(ss.internalState.configSlideshow()).toEqual(undefined);
 
       disposeEmptySlider(ss);
 
@@ -435,9 +437,9 @@ describe('SimpleSlider', function() {
 
       var ss = createEmptySlider();
 
-      ss.configSlideshow();
+      ss.internalState.configSlideshow();
 
-      expect(ss.interval).toEqual(null);
+      expect(ss.internalState.getInterval()).toEqual(undefined);
 
       disposeEmptySlider(ss);
 
@@ -447,9 +449,9 @@ describe('SimpleSlider', function() {
 
       var ss = getNewSlider({}, 5);
 
-      ss.configSlideshow();
+      ss.internalState.configSlideshow();
 
-      expect(ss.interval).not.toEqual(null);
+      expect(ss.internalState.getInterval()).not.toEqual(null);
 
       ss.dispose();
 
@@ -462,11 +464,11 @@ describe('SimpleSlider', function() {
     it('should change to next slide', function() {
 
       var ss = getNewSlider({autoPlay:false}, 5);
-      var initialIndex = ss.actualIndex;
+      var initialIndex = ss.currentIndex();
 
       ss.next();
 
-      expect(ss.actualIndex).toEqual(initialIndex + 1);
+      expect(ss.currentIndex()).toEqual(initialIndex + 1);
 
       ss.dispose();
 
@@ -476,11 +478,11 @@ describe('SimpleSlider', function() {
 
       var ss = getNewSlider({autoPlay:false}, 5);
 
-      ss.actualIndex = 4;
+      ss.internalState.setActualIndex(4);
 
       ss.next();
 
-      expect(ss.actualIndex).toEqual(0);
+      expect(ss.currentIndex()).toEqual(0);
 
       ss.dispose();
 
@@ -494,11 +496,11 @@ describe('SimpleSlider', function() {
 
       var ss = getNewSlider({autoPlay:false}, 5);
 
-      ss.actualIndex = 1;
+      ss.internalState.setActualIndex(1);
 
       ss.prev();
 
-      expect(ss.actualIndex).toEqual(0);
+      expect(ss.currentIndex()).toEqual(0);
 
       ss.dispose();
 
@@ -510,7 +512,7 @@ describe('SimpleSlider', function() {
 
       ss.prev();
 
-      expect(ss.actualIndex).toEqual(ss.imgs.length - 1);
+      expect(ss.currentIndex()).toEqual(ss.internalState.getImgs().length - 1);
 
       ss.dispose();
 
@@ -518,34 +520,34 @@ describe('SimpleSlider', function() {
 
   });
 
-  describe('.pauseAutoPlay()', function() {
+  describe('.pause()', function() {
 
     it('should clear slide change setInterval', function() {
 
       var ss = getNewSlider({}, 5);
 
-      expect(ss.interval).not.toEqual(null);
+      expect(ss.internalState.getInterval()).not.toEqual(null);
 
-      ss.pauseAutoPlay();
+      ss.pause();
 
-      expect(ss.interval).toEqual(null);
+      expect(ss.internalState.getInterval()).toEqual(null);
 
       ss.dispose();
 
     });
 
-    it('should define this.remainingTime value', function() {
+    it('*internal should define this.remainingTime value', function() {
 
       var ss = getNewSlider({}, 5);
 
-      ss.pauseAutoPlay();
+      ss.pause();
 
       // Adds half a second of tolerances
       // it might be some miliseconds off sometimes
-      expect(ss.remainingTime).toBeGreaterThan(ss.delay - 500);
+      expect(ss.internalState.getRemainingTime()).toBeGreaterThan(ss.internalState.delay - 500);
 
       // But should never be over the origin delay
-      expect(ss.remainingTime).toBeLessThan(ss.delay + 1);
+      expect(ss.internalState.getRemainingTime()).toBeLessThan(ss.internalState.delay + 1);
 
       ss.dispose();
 
@@ -555,7 +557,7 @@ describe('SimpleSlider', function() {
 
       var ss = getNewSlider({autoPlay:false}, 5);
 
-      ss.pauseAutoPlay();
+      ss.pause();
 
       ss.dispose();
 
@@ -563,19 +565,19 @@ describe('SimpleSlider', function() {
 
   });
 
-  describe('.resumeAutoPlay()', function() {
+  describe('.resume()', function() {
 
     it('should re-enable slide changing setInterval', function () {
 
       var ss = getNewSlider({}, 5);
 
-      ss.pauseAutoPlay();
+      ss.pause();
 
-      expect(ss.interval).toEqual(null);
+      expect(ss.internalState.getInterval()).toEqual(null);
 
-      ss.resumeAutoPlay();
+      ss.resume();
 
-      expect(ss.interval).not.toEqual(null);
+      expect(ss.internalState.getInterval()).not.toEqual(null);
 
       ss.dispose();
 
@@ -585,7 +587,7 @@ describe('SimpleSlider', function() {
 
       var ss = getNewSlider({autoPlay:false}, 5);
 
-      ss.resumeAutoPlay();
+      ss.resume();
 
       ss.dispose();
 
@@ -593,19 +595,26 @@ describe('SimpleSlider', function() {
 
   });
 
-  describe('.remove()', function() {
+  describe('*internal .remove()', function() {
 
-    it('should trigger startAnim with correct values', function() {
+    it('should trigger startAnim with correct values', function(done) {
 
       var ss = getNewSlider({
         autoPlay: false
       }, 5);
 
-      spyOn(ss, 'startAnim');
+      ss.internalState.setStartAnim(function(img, visVal, endVal) {
+        expect(img).toEqual(ss.internalState.getImgs()[0]);
+        expect(visVal).toEqual(ss.internalState.visVal);
+        expect(endVal).toEqual(ss.internalState.endVal);
 
-      ss.remove(0);
+        ss.dispose();
+        done();
+      });
 
-      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[0], ss.visVal, ss.endVal);
+      ss.internalState.remove(0);
+
+      expect(ss.internalState.startAnim).toHaveBeenCalledWith(ss.internalState.getImgs()[0], ss.visVal, ss.endVal);
 
       ss.dispose();
 
@@ -613,21 +622,25 @@ describe('SimpleSlider', function() {
 
   });
 
-  describe('.insert()', function() {
+  describe('*internal .insert()', function() {
 
-    it('should trigger startAnim with correct values', function() {
+    it('should trigger startAnim with correct values', function(done) {
 
       var ss = getNewSlider({
         autoPlay: false
       }, 5);
 
-      spyOn(ss, 'startAnim');
+      ss.internalState.setStartAnim(function(img, startVal, visVal, endAnim) {
+        expect(img).toEqual(ss.internalState.getImgs()[1]);
+        expect(startVal).toEqual(ss.internalState.startVal);
+        expect(visVal).toEqual(ss.internalState.visVal);
+        expect(endAnim).toEqual(ss.internalState.endAnim);
 
-      ss.insert(1);
+        ss.dispose();
+        done();
+      });
 
-      expect(ss.startAnim).toHaveBeenCalledWith(ss.imgs[1], ss.startVal, ss.visVal, ss.endAnim);
-
-      ss.dispose();
+      ss.internalState.insert(1);
 
     });
 
@@ -642,9 +655,9 @@ describe('SimpleSlider', function() {
       }, 5);
 
       // Original value should always be zero
-      expect(ss.actualIndex).toEqual(0);
+      expect(ss.currentIndex()).toEqual(0);
 
-      // Next index should not increment actualIndex value
+      // Next index should not increment currentIndex() value
       expect(ss.nextIndex()).toEqual(1);
 
       ss.dispose();
@@ -665,13 +678,13 @@ describe('SimpleSlider', function() {
 
     });
 
-    it('should not increment actualIndex value', function() {
+    it('should not increment currentIndex() value', function() {
 
       var ss = getNewSlider({
         autoPlay: false
       }, 5);
 
-      // Next index should not increment actualIndex value
+      // Next index should not increment currentIndex() value
       expect(ss.nextIndex()).toEqual(1);
       expect(ss.nextIndex()).toEqual(1);
 
@@ -691,10 +704,10 @@ describe('SimpleSlider', function() {
 
       ss.dispose();
 
-      expect(ss.imgs).toEqual(null);
-      expect(ss.actualIndex).toEqual(null);
-      expect(ss.interval).toEqual(null);
-      expect(ss.containerElem).toEqual(null);
+      expect(ss.internalState.getImgs()).toEqual(null);
+      expect(ss.currentIndex()).toEqual(null);
+      expect(ss.internalState.getInterval()).toEqual(null);
+      expect(ss.internalState.getContainerElem()).toEqual(null);
 
     });
 

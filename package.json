@@ -9,20 +9,49 @@
     "dist/simpleslider.min.js"
   ],
   "scripts": {
-    "test": "grunt jasmine:dev"
+    "build:transpile": "node scripts/transpile.js > dist/simpleslider.js",
+    "build:minify": "uglifyjs --compress --mangle --screw-ie8 dist/simpleslider.js -o dist/simpleslider.min.js",
+    "build": "run-s build:transpile build:minify",
+    "test:lint": "eslint src/",
+    "test:build": "webpack",
+    "test:run": "webpack",
+    "test": "run-s test:lint test:build test:run"
   },
   "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-conditional-compilation": "=0.0.1",
+    "babel-plugin-transform-es2015-modules-umd": "^6.23.0",
+    "babel-preset-es2017": "^6.22.0",
+    "babel-preset-latest": "^6.22.0",
+    "eslint": "^3.16.1",
+    "eslint-config-xo": "^0.17.0",
     "grunt": "^1.x.x",
     "grunt-contrib-concat": "~1.x.x",
     "grunt-contrib-jasmine": "^1.x.x",
     "grunt-contrib-uglify": "~1.x.x",
     "grunt-menu": "^1.x.x",
-    "grunt-sg-release": "~0.2.x"
+    "grunt-sg-release": "~0.2.x",
+    "grunt-template-jasmine-nml": "^2.0.1",
+    "jasmine": "^2.5.3",
+    "jest": "^19.0.2",
+    "micro-raf": "^1.0.0",
+    "npm-run-all": "^4.0.2",
+    "raf": "^3.3.0",
+    "uglify-js": "^2.8.10",
+    "webpack": "^2.2.1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ruyadorno/SimpleSlider.git"
   },
+  "jest": {
+    "verbose": true
+  },
   "author": "Ruy Adorno",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "babel-plugin-remove-comments": "^2.0.0"
+  }
 }
