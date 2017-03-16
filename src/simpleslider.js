@@ -13,8 +13,7 @@ function getUnit(args, transitionProperty) {
   while (--count >= 0) {
     item = args[count];
     if (typeof item === 'string') {
-      unit = item
-        .replace(String(parseInt(item, 10)), '');
+      unit = item.replace(String(parseInt(item)), '');
     }
   }
 
@@ -26,21 +25,7 @@ function getUnit(args, transitionProperty) {
   return unit;
 }
 
-// Test if have children and throw warning otherwise
-function testChildrenNum(value) {
-  if (value <= 0) {
-    console.warn(
-      'A SimpleSlider main container element' +
-      'should have at least one child.'
-    );
-
-    return true;
-  }
-
-  return false;
-}
-
-function startSlides(containerElem, unit, startVal, visVal, trProp) { // eslint-disable-line max-params
+function startSlides(containerElem, unit, startVal, visVal, trProp) {
   const imgs = [];
   let i = containerElem.children.length;
   let style;
@@ -49,7 +34,7 @@ function startSlides(containerElem, unit, startVal, visVal, trProp) { // eslint-
     imgs[i] = containerElem.children[i];
     style = imgs[i].style;
     style.position = 'absolute';
-    style.top = '0' + unit;
+    style.top =
     style.left = '0' + unit;
     style[trProp] = startVal + unit;
     style.zIndex = 0;
@@ -61,58 +46,36 @@ function startSlides(containerElem, unit, startVal, visVal, trProp) { // eslint-
   return imgs;
 }
 
-function manageRemovingSlideOrder(oldSlide, newSlide) {
-  newSlide.style.zIndex = 3;
+function manageSlideOrder(oldSlide, oldSlidePos, newSlide, newSlidePos) {
+  newSlide.style.zIndex = newSlidePos;
 
   if (oldSlide) {
-    oldSlide.style.zIndex = 1;
+    oldSlide.style.zIndex = oldSlidePos;
   }
 
   return newSlide;
-}
-
-function manageInsertingSlideOrder(oldSlide, newSlide) {
-  newSlide.style.zIndex = 4;
-
-  if (oldSlide) {
-    oldSlide.style.zIndex = 2;
-  }
-
-  return newSlide;
-}
-
-function parseStringToBoolean(value) {
-  return value === 'false' ? false : value;
-}
-
-function updateVisibility(slider) {
-  if (window.document.hidden) {
-    slider.pause();
-  } else {
-    slider.resume();
-  }
 }
 
 function getSlider(containerElem, options) {
   options = options || {};
   let actualIndex, hasVisibilityHandler, inserted, interval, intervalStartTime, imgs, remainingTime, removed; // eslint-disable-line one-var
-  let width = parseInt(containerElem.style.width || containerElem.offsetWidth, 10);
+  let width = parseInt(containerElem.style.width || containerElem.offsetWidth);
 
   // Get user defined options or its default values
   let trProp = getdef(options.transitionProperty, 'left');
   let trTime = getdef(options.transitionDuration, 0.5);
   let delay = getdef(options.transitionDelay, 3) * 1000;
   let unit = getUnit([options.startValue, options.visibleValue, options.endValue], trProp);
-  let startVal = parseInt(getdef(options.startValue, -width + unit), 10);
-  let visVal = parseInt(getdef(options.visibleValue, '0' + unit), 10);
-  let endVal = parseInt(getdef(options.endValue, width + unit), 10);
-  let autoPlay = getdef(parseStringToBoolean(options.autoPlay), true);
+  let startVal = parseInt(getdef(options.startValue, -width + unit));
+  let visVal = parseInt(getdef(options.visibleValue, '0' + unit));
+  let endVal = parseInt(getdef(options.endValue, width + unit));
+  let still = options.still; // eslint-disable-line
   let ease = getdef(options.ease, getSlider.defaultEase);
   let onChange = getdef(options.onChange, null);
   let onChangeEnd = getdef(options.onChangeEnd, null);
 
   function reset() {
-    if (testChildrenNum(containerElem.children.length)) {
+    if (containerElem.children.length <= 0) {
       return; // Skip reset logic if don't have children
     }
 
@@ -128,25 +91,19 @@ function getSlider(containerElem, options) {
     remainingTime = delay;
   }
 
-  function configSlideshow() {
-    if (imgs) {
-      startInterval();
-    }
-  }
-
   function startInterval() {
     if (!isAutoPlay()) {
       return;
     }
 
     if (interval) {
-      window.clearTimeout(interval);
+      clearTimeout(interval);
     }
 
     // Slideshow/autoPlay timing logic
     (function setAutoPlayLoop() {
       intervalStartTime = Date.now();
-      interval = window.setTimeout(() => {
+      interval = setTimeout(() => {
         intervalStartTime = Date.now();
         remainingTime = delay; // resets time, used by pause/resume logic
 
@@ -159,7 +116,7 @@ function getSlider(containerElem, options) {
 
     // Handles user leaving/activating the current page/tab
     if (!hasVisibilityHandler) {
-      window.document.addEventListener('visibilitychange', updateVisibility, false);
+      document.addEventListener('visibilitychange', () => document.hidden ? pause() : reset(), false);
 
       // only assign handler once
       hasVisibilityHandler = true;
@@ -167,13 +124,13 @@ function getSlider(containerElem, options) {
   }
 
   function isAutoPlay() {
-    return autoPlay && imgs.length > 1;
+    return !still && imgs.length > 1;
   }
 
   function pause() {
     if (isAutoPlay()) {
       remainingTime = delay - (Date.now() - intervalStartTime);
-      window.clearTimeout(interval);
+      clearTimeout(interval);
       interval = null;
     }
   }
@@ -193,7 +150,7 @@ function getSlider(containerElem, options) {
   }
 
   function remove(index) {
-    removed = manageRemovingSlideOrder(removed, imgs[index]);
+    removed = manageSlideOrder(removed, 1, imgs[index], 3);
     startAnim(imgs[index], visVal, endVal);
   }
 
@@ -211,7 +168,7 @@ function getSlider(containerElem, options) {
   }
 
   function insert(index) {
-    inserted = manageInsertingSlideOrder(inserted, imgs[index]);
+    inserted = manageSlideOrder(inserted, 2, imgs[index], 4);
     startAnim(imgs[index], startVal, visVal, endAnim);
   }
 
@@ -246,7 +203,7 @@ function getSlider(containerElem, options) {
   }
 
   function dispose() {
-    window.clearTimeout(interval);
+    clearTimeout(interval);
 
     imgs =
     containerElem =
@@ -256,7 +213,7 @@ function getSlider(containerElem, options) {
     delay =
     startVal =
     endVal =
-    autoPlay =
+    still =
     actualIndex =
     inserted =
     removed =
@@ -269,18 +226,7 @@ function getSlider(containerElem, options) {
     return actualIndex;
   }
 
-  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, easeFunc, cb) { // eslint-disable-line max-params
-    function loop(_cb) {
-      window.requestAnimationFrame(function requestAnimationFunction(time) {
-        // Starts time in the first anim iteration
-        if (startTime === 0) {
-          startTime = time;
-        }
-
-        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, easeFunc, _cb);
-      });
-    }
-
+  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, easeFunc, cb) {
     var newValue;
 
     if (startTime > 0) {
@@ -300,11 +246,21 @@ function getSlider(containerElem, options) {
       }
     }
 
-    loop(cb);
+    requestAnimationFrame(function requestAnimationFunction(time) {
+      // Starts time in the first anim iteration
+      if (startTime === 0) {
+        startTime = time;
+      }
+
+      anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, easeFunc, cb);
+    });
   }
 
   reset();
-  configSlideshow();
+
+  if (imgs) {
+    startInterval();
+  }
 
   "#if TEST > 0"; // eslint-disable-line
   return {
@@ -320,7 +276,6 @@ function getSlider(containerElem, options) {
       reset,
       insert,
       remove,
-      configSlideshow,
       inserted,
       removed,
       trProp,
@@ -330,7 +285,7 @@ function getSlider(containerElem, options) {
       startVal,
       visVal,
       endVal,
-      autoPlay,
+      still,
       ease
     },
     currentIndex,

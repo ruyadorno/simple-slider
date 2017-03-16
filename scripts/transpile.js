@@ -1,9 +1,13 @@
 'use strict';
 
 const babel = require('babel-core');
+const fs = require('fs');
+const path = require('path');
 
 babel.transformFile('src/simpleslider.js', {
+  presets: ['babel-preset-latest'],
   plugins: [
+    ['transform-es2015-modules-umd'],
     ['conditional-compilation', {
       TEST: 0
     }],
@@ -14,6 +18,7 @@ babel.transformFile('src/simpleslider.js', {
     console.error(err);
     process.exit(1);
   }
-  console.log(result.code);
+  const filename = path.join(__dirname, '..', 'dist', 'simpleslider.js');
+  fs.writeFileSync(filename, result.code);
 });
 

@@ -1,10 +1,10 @@
+/* eslint-env jest */
 import getSlider from '../src/simpleslider';
-import { polyfill } from 'raf';
+import {polyfill} from 'raf';
 
 polyfill();
 
-describe('SimpleSlider', function() {
-
+describe('SimpleSlider', function () {
   'use strict';
 
   var testDivCount = 0;
@@ -12,8 +12,7 @@ describe('SimpleSlider', function() {
 
   // Helper functions to create dummy elements
 
-  var createEmptyDiv = function() {
-
+  var createEmptyDiv = function () {
     var newDiv = document.createElement('div');
     newDiv.id = 'test-div-' + testDivCount;
     newDiv.style.width = '480px';
@@ -21,185 +20,130 @@ describe('SimpleSlider', function() {
     testDivCount++;
 
     return newDiv;
-
   };
 
-  var getNewDiv = function(numChild) {
-
-    var newDiv = createEmptyDiv();
-
-    addChildrenDivs(newDiv, numChild);
-
-    return newDiv;
-
-  };
-
-  var addChildrenDivs = function(newDiv, numChild) {
-
-    var childrenNum = numChild ? numChild : Math.ceil( Math.random()*10 );
+  var addChildrenDivs = function (newDiv, numChild) {
+    var childrenNum = numChild ? numChild : Math.ceil(Math.random() * 10);
     while (--childrenNum >= 0) {
       newDiv.appendChild(document.createElement('div'));
     }
-
   };
 
-  var getNewSlider = function(options, numChild) {
+  var getNewDiv = function (numChild) {
+    var newDiv = createEmptyDiv();
+    addChildrenDivs(newDiv, numChild);
+    return newDiv;
+  };
 
+  var getNewSlider = function (options, numChild) {
     var testDiv = getNewDiv(numChild);
     return getSlider(testDiv, options);
-
   };
 
-  var createEmptySlider = function() {
-
-    _consoleWarn = console.warn;
-    console.warn = function() {};
-
-    return getSlider(createEmptyDiv());
-
-  };
-
-  var disposeEmptySlider = function(ss) {
-    ss.dispose();
-    console.warn = _consoleWarn;
-  };
-
-  describe('slideshow animation logic', function() {
-
-    it('should have correct default initial values', function() {
-
+  describe('slideshow animation logic', function () {
+    it('should have correct default initial values', function () {
       var ss = getNewSlider({}, 5);
-
       expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
       expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
-
       ss.dispose();
-
     });
 
-    it('should have correct custom initial values', function() {
-
+    it('should have correct custom initial values', function () {
       var ss = getNewSlider({
-        autoPlay:true,
-        transitionProperty:'left',
-        startValue:'-612px',
-        visibleValue:'0px',
-        endValue:'612px'
+        transitionProperty: 'left',
+        startValue: '-612px',
+        visibleValue: '0px',
+        endValue: '612px'
       }, 5);
 
       expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
       expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
-
       ss.dispose();
-
     });
 
-    it('should change values correctly after default transition', function(done) {
-
+    it('should change values correctly after default transition', function (done) {
       var ss = getNewSlider({}, 5);
-
       var nextIndex = ss.currentIndex()+1;
       var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
       var timeEnoughToEndTransition = ss.internalState.trTime * 1000 + 100;
 
-      setTimeout(function() {
-
+      setTimeout(function () {
         // Internal index value is correct
         expect(ss.currentIndex()).toEqual(nextIndex);
 
-        setTimeout(function() {
-
+        setTimeout(function () {
           // Test values after finishing the first transition
           expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.endVal.toString() + ss.internalState.unit);
           expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
-
           ss.dispose();
-
           done();
-
         }, timeEnoughToEndTransition);
       }, timeEnoughToStartTransition);
-
     });
 
-    it('should change values correctly, sliding style', function(done) {
-
+    it('should change values correctly, sliding style', function (done) {
       var ss = getNewSlider({
-        autoPlay:true,
-        transitionProperty:'left',
+        transitionProperty: 'left',
         transitionDelay: 0.5,
         transitionDuration: 0.2,
-        startValue:'-612px',
-        visibleValue:'0px',
-        endValue:'612px'
+        startValue: '-612px',
+        visibleValue: '0px',
+        endValue: '612px'
       }, 5);
 
-      var nextIndex = ss.currentIndex()+1;
+      var nextIndex = ss.currentIndex() + 1;
       var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
-      var timeEnoughToEndTransition = ss.internalState.trTime * 1000 + 100;
+      var timeEnoughToEndTransition = (ss.internalState.trTime * 1000) + 100;
 
       expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
       expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
 
-      setTimeout(function() {
-
+      setTimeout(function () {
         // Internal index value is correct
         expect(ss.currentIndex()).toEqual(nextIndex);
 
-        setTimeout(function() {
-
+        setTimeout(function () {
           // Test values after finishing the first transition
           expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.endVal.toString() + ss.internalState.unit);
           expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
           expect(ss.internalState.getImgs()[2].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
-
           ss.dispose();
-
           done();
-
         }, timeEnoughToEndTransition);
       }, timeEnoughToStartTransition);
-
     });
 
-    it('should change values correctly after using change function', function(done) {
-
+    it('should change values correctly after using change function', function (done) {
       var ss = getNewSlider({
-        autoPlay: false,
+        still: true,
         transitionDelay: 0.5,
         transitionDuration: 0.2
       }, 5);
 
-      var nextIndex = ss.currentIndex()+1;
+      var nextIndex = ss.currentIndex() + 1;
       var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
-      var timeEnoughToEndTransition = ss.internalState.trTime * 1000 + 100;
+      var timeEnoughToEndTransition = (ss.internalState.trTime * 1000) + 100;
 
       ss.change(1);
 
-      setTimeout(function() {
-
+      setTimeout(function () {
         // Internal index value is correct
         expect(ss.currentIndex()).toEqual(nextIndex);
 
-        setTimeout(function() {
-
+        setTimeout(function () {
           // Test values after finishing the first transition
           expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.endVal.toString() + ss.internalState.unit);
           expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
-
           ss.dispose();
-
           done();
-
         }, timeEnoughToEndTransition);
       }, timeEnoughToStartTransition);
-
     });
 
-    it('should not change values when using autoPlay:false option', function(done) {
+    it('should not change values when using still:true option', function (done) {
 
       var ss = getNewSlider({
-        autoPlay: false,
+        still: true,
         transitionDelay: 0.5,
         transitionDuration: 0.2
       }, 5);
@@ -208,12 +152,12 @@ describe('SimpleSlider', function() {
       var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
       var timeEnoughToEndTransition = ss.internalState.trTime * 1000 + 100;
 
-      setTimeout(function() {
+      setTimeout(function () {
 
         // Internal index value is correct
         expect(ss.currentIndex()).toEqual(startIndex);
 
-        setTimeout(function() {
+        setTimeout(function () {
 
           // Ensure values still hold initial values after time enough to have changed
           expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
@@ -231,7 +175,6 @@ describe('SimpleSlider', function() {
     it('should work well with just 2 slides', function(done) {
 
       var ss = getNewSlider({
-        autoPlay: true,
         transitionDelay: 0.5,
         transitionDuration: 0.2
       }, 2);
@@ -245,23 +188,23 @@ describe('SimpleSlider', function() {
       expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
       expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
 
-      setTimeout(function() {
+      setTimeout(function () {
 
         // Internal index value is correct
         expect(ss.currentIndex()).toEqual(nextIndex);
 
-        setTimeout(function() {
+        setTimeout(function () {
 
           // Ensure values have changed
           expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.endVal.toString() + ss.internalState.unit);
           expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
 
-          setTimeout(function() {
+          setTimeout(function () {
 
             // Internal index value should be start value again
             expect(ss.currentIndex()).toEqual(startIndex);
 
-            setTimeout(function() {
+            setTimeout(function () {
 
               // Ensure values now hold initial values after time enough to have changed
               expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
@@ -282,7 +225,6 @@ describe('SimpleSlider', function() {
     it('should not swap slides when there is only one image', function(done) {
 
       var ss = getNewSlider({
-        autoPlay: true,
         transitionDelay: 0.5,
         transitionDuration: 0.2
       }, 1);
@@ -291,12 +233,12 @@ describe('SimpleSlider', function() {
       var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
       var timeEnoughToEndTransition = ss.internalState.trTime * 1000 + 100;
 
-      setTimeout(function() {
+      setTimeout(function () {
 
         // Internal index value is correct
         expect(ss.currentIndex()).toEqual(startIndex);
 
-        setTimeout(function() {
+        setTimeout(function () {
 
           // Ensure values still hold initial values after time enough to have changed
           expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
@@ -314,7 +256,6 @@ describe('SimpleSlider', function() {
       expect.assertions(1);
 
       var ss = getNewSlider({
-        autoPlay: true,
         transitionProperty:'width',
         startValue:'0px',
         visibleValue:'612px',
@@ -329,7 +270,6 @@ describe('SimpleSlider', function() {
         ss.internalState.getImgs()[i].style.zIndex = 1;
       }
 
-      var startIndex = ss.currentIndex();
       var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
 
       setTimeout(function testZIndex() {
@@ -347,7 +287,6 @@ describe('SimpleSlider', function() {
 
       var initialTime = new Date().getTime();
       var ss = getNewSlider({
-        autoPlay: true,
         transitionProperty:'left',
         startValue:'612px',
         visibleValue:'0px',
@@ -358,7 +297,7 @@ describe('SimpleSlider', function() {
 
       var timeEnoughToHalftransition = ss.internalState.delay + ((ss.internalState.trTime / 2) * 1000);
 
-      setTimeout(function() {
+      setTimeout(function () {
 
         // Only execute asserts if interval is within the correct time
         if (initialTime < new Date().getTime() + 450) {
@@ -383,7 +322,6 @@ describe('SimpleSlider', function() {
 
       var initialTime = new Date().getTime();
       var ss = getNewSlider({
-        autoPlay: true,
         transitionProperty:'opacity',
         startValue: 0,
         visibleValue: 1,
@@ -394,7 +332,7 @@ describe('SimpleSlider', function() {
 
       var timeEnoughToHalftransition = ss.internalState.delay + ((ss.internalState.trTime / 2) * 1000);
 
-      setTimeout(function() {
+      setTimeout(function () {
 
         // Only execute asserts if interval is within the correct time
         if (initialTime < new Date().getTime() + 450) {
@@ -416,14 +354,14 @@ describe('SimpleSlider', function() {
 
       var initialTime = new Date().getTime();
       var ss = getNewSlider({
-        autoPlay: true,
+        still: false,
         transitionDelay: 0.5,
         transitionDuration: 0.5
       }, 5);
 
       var timeEnoughToHalftransition = ((ss.internalState.delay + (ss.internalState.trTime / 2)));
 
-      setTimeout(function() {
+      setTimeout(function () {
 
         ss.pause();
 

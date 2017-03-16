@@ -73,22 +73,12 @@ describe('SimpleSlider', function() {
 
   });
 
-  it('should throw an warning if using an empty html element', function() {
-
-    spyOn(console, 'warn');
-    var ss = getSlider(document.createElement('div'));
-    expect(console.warn).toHaveBeenCalled();
-
-    ss.dispose();
-
-  });
-
   it('default properties should match', function() {
 
     // Test default values
     var ss = getNewSlider();
     var width = parseInt(ss.internalState.getContainerElem().style.width, 10);
-    expect(ss.internalState.autoPlay).toEqual(true);
+    expect(ss.internalState.still).toEqual(undefined);
     expect(ss.internalState.trProp).toEqual('left');
     expect(ss.internalState.trTime).toEqual(0.5);
     expect(ss.internalState.delay).toEqual(3000);
@@ -112,7 +102,7 @@ describe('SimpleSlider', function() {
       startValue: 300,
       visibleValue: 200,
       endValue: 100,
-      autoPlay:false,
+      still: true,
       ease: customEasingStub
     });
     expect(ss.isAutoPlay()).toEqual(false);
@@ -128,25 +118,13 @@ describe('SimpleSlider', function() {
 
   });
 
-  it('should accept strings for boolean values', function() {
-
-    // Test some custom values
-    var ss = getNewSlider({
-      autoPlay:'false'
-    });
-    expect(ss.isAutoPlay()).toEqual(false);
-
-    ss.dispose();
-
-  });
-
   it('should work when partialy declaring properties', function() {
 
     // Partially defined values
     var ss = getNewSlider({
       transitionProperty: 'top',
       startValue: -100,
-      autoPlay:false
+      still: true
     });
     expect(ss.internalState.trProp).toEqual('top');
     expect(ss.internalState.startVal).toEqual(-100);
@@ -338,7 +316,7 @@ describe('SimpleSlider', function() {
     it('should reset original style values', function() {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       ss.change(3);
@@ -356,7 +334,7 @@ describe('SimpleSlider', function() {
     it('should start imgs control', function() {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       ss.change(3);
@@ -372,7 +350,7 @@ describe('SimpleSlider', function() {
     it('should set actualIndex to 0', function() {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       ss.change(3);
@@ -388,7 +366,7 @@ describe('SimpleSlider', function() {
     it('should set initial image properties values', function() {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       ss.change(3);
@@ -405,7 +383,7 @@ describe('SimpleSlider', function() {
     it('should nullify inserted, removed objects', function() {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       ss.change(3);
@@ -421,49 +399,11 @@ describe('SimpleSlider', function() {
 
   });
 
-  describe('*internal .configSlideshow()', function() {
-
-    it('should return false if there are no images', function() {
-
-      var ss = createEmptySlider();
-
-      expect(ss.internalState.configSlideshow()).toEqual(undefined);
-
-      disposeEmptySlider(ss);
-
-    });
-
-    it('should not create change image interval if there are no images', function() {
-
-      var ss = createEmptySlider();
-
-      ss.internalState.configSlideshow();
-
-      expect(ss.internalState.getInterval()).toEqual(undefined);
-
-      disposeEmptySlider(ss);
-
-    });
-
-    it('should create interval when configuring a valid slider', function() {
-
-      var ss = getNewSlider({}, 5);
-
-      ss.internalState.configSlideshow();
-
-      expect(ss.internalState.getInterval()).not.toEqual(null);
-
-      ss.dispose();
-
-    });
-
-  });
-
   describe('.next()', function() {
 
     it('should change to next slide', function() {
 
-      var ss = getNewSlider({autoPlay:false}, 5);
+      var ss = getNewSlider({still: true}, 5);
       var initialIndex = ss.currentIndex();
 
       ss.next();
@@ -476,7 +416,7 @@ describe('SimpleSlider', function() {
 
     it('should change to first slide when current slide is the last in the set', function() {
 
-      var ss = getNewSlider({autoPlay:false}, 5);
+      var ss = getNewSlider({still: true}, 5);
 
       ss.internalState.setActualIndex(4);
 
@@ -494,7 +434,7 @@ describe('SimpleSlider', function() {
 
     it('should change to previous slide', function() {
 
-      var ss = getNewSlider({autoPlay:false}, 5);
+      var ss = getNewSlider({still: true}, 5);
 
       ss.internalState.setActualIndex(1);
 
@@ -508,7 +448,7 @@ describe('SimpleSlider', function() {
 
     it('should change to last slide when current slide is the first in the set', function() {
 
-      var ss = getNewSlider({autoPlay:false}, 5);
+      var ss = getNewSlider({still: true}, 5);
 
       ss.prev();
 
@@ -553,9 +493,9 @@ describe('SimpleSlider', function() {
 
     });
 
-    it('should do nothing when autoPlay is disabled', function() {
+    it('should do nothing when autoplay is disabled', function() {
 
-      var ss = getNewSlider({autoPlay:false}, 5);
+      var ss = getNewSlider({still: true}, 5);
 
       ss.pause();
 
@@ -583,9 +523,9 @@ describe('SimpleSlider', function() {
 
     });
 
-    it('should do nothing when autoPlay is disabled', function() {
+    it('should do nothing when autoplay is disabled', function() {
 
-      var ss = getNewSlider({autoPlay:false}, 5);
+      var ss = getNewSlider({still: true}, 5);
 
       ss.resume();
 
@@ -600,7 +540,7 @@ describe('SimpleSlider', function() {
     it('should trigger startAnim with correct values', function(done) {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       ss.internalState.setStartAnim(function(img, visVal, endVal) {
@@ -627,7 +567,7 @@ describe('SimpleSlider', function() {
     it('should trigger startAnim with correct values', function(done) {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       ss.internalState.setStartAnim(function(img, startVal, visVal, endAnim) {
@@ -651,7 +591,7 @@ describe('SimpleSlider', function() {
     it('should return next index value on carousel', function() {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       // Original value should always be zero
@@ -667,7 +607,7 @@ describe('SimpleSlider', function() {
     it('should return first item index when it is on last item', function() {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       ss.change(4);
@@ -681,7 +621,7 @@ describe('SimpleSlider', function() {
     it('should not increment currentIndex() value', function() {
 
       var ss = getNewSlider({
-        autoPlay: false
+        still: true
       }, 5);
 
       // Next index should not increment currentIndex() value
@@ -714,7 +654,7 @@ describe('SimpleSlider', function() {
     it('dispose should clear autoplay interval', function(done) {
 
       var ss = getNewSlider({
-        autoPlay: true,
+        still: false,
         transitionProperty: 'opacity'
       }, 5);
 

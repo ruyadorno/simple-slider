@@ -4,6 +4,9 @@
       "browser": true
     },
     "rules": {
+        "no-implicit-coercion": 0,
+        "max-params": 0,
+        "radix": 0,
         "func-names": 0,
         "operator-linebreak": 0,
         "new-cap": 0,
