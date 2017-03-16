@@ -1,19 +1,17 @@
+/* eslint-env jest */
 import getSlider from '../src/simpleslider';
-import { polyfill } from 'raf';
+import {polyfill} from 'raf';
 
 polyfill();
 
-describe('SimpleSlider', function() {
-
+describe('SimpleSlider', function () {
   'use strict';
 
   var testDivCount = 0;
-  var _consoleWarn;
 
   // Helper functions to create dummy elements
 
-  var createEmptyDiv = function() {
-
+  var createEmptyDiv = function () {
     var newDiv = document.createElement('div');
     newDiv.id = 'test-div-' + testDivCount;
     newDiv.style.width = '480px';
@@ -21,60 +19,36 @@ describe('SimpleSlider', function() {
     testDivCount++;
 
     return newDiv;
-
   };
 
-  var getNewDiv = function(numChild) {
+  var addChildrenDivs = function (newDiv, numChild) {
+    var childrenNum = numChild ? numChild : Math.ceil(Math.random() * 10);
+    while (--childrenNum >= 0) {
+      newDiv.appendChild(document.createElement('div'));
+    }
+  };
 
+  var getNewDiv = function (numChild) {
     var newDiv = createEmptyDiv();
 
     addChildrenDivs(newDiv, numChild);
 
     return newDiv;
-
   };
 
-  var addChildrenDivs = function(newDiv, numChild) {
-
-    var childrenNum = numChild ? numChild : Math.ceil( Math.random()*10 );
-    while (--childrenNum >= 0) {
-      newDiv.appendChild(document.createElement('div'));
-    }
-
-  };
-
-  var getNewSlider = function(options, numChild) {
-
+  var getNewSlider = function (options, numChild) {
     var testDiv = getNewDiv(numChild);
     return getSlider(testDiv, options);
-
   };
 
-  var createEmptySlider = function() {
-
-    _consoleWarn = console.warn;
-    console.warn = function() {};
-
-    return getSlider(createEmptyDiv());
-
-  };
-
-  var disposeEmptySlider = function(ss) {
-    ss.dispose();
-    console.warn = _consoleWarn;
-  };
-
-  it('should be able to create a new instance', function() {
-
+  it('should be able to create a new instance', function () {
     var ss = getNewSlider();
     expect(typeof ss).toEqual('object');
 
     ss.dispose();
-
   });
 
-  it('default properties should match', function() {
-
+  it('default properties should match', function () {
     // Test default values
     var ss = getNewSlider();
     var width = parseInt(ss.internalState.getContainerElem().style.width, 10);
@@ -88,13 +62,13 @@ describe('SimpleSlider', function() {
     expect(ss.internalState.ease).toEqual(getSlider.defaultEase);
 
     ss.dispose();
-
   });
 
-  it('properties should be defined properly', function() {
-
+  it('properties should be defined properly', function () {
     // Test some custom values
-    var customEasingStub = function(){return true};
+    var customEasingStub = function () {
+      return true;
+    };
     var ss = getNewSlider({
       transitionProperty: 'left',
       transitionDuration: 1,
@@ -115,11 +89,9 @@ describe('SimpleSlider', function() {
     expect(ss.internalState.ease).toEqual(customEasingStub);
 
     ss.dispose();
-
   });
 
-  it('should work when partialy declaring properties', function() {
-
+  it('should work when partialy declaring properties', function () {
     // Partially defined values
     var ss = getNewSlider({
       transitionProperty: 'top',
@@ -131,28 +103,24 @@ describe('SimpleSlider', function() {
     expect(ss.isAutoPlay()).toEqual(false);
 
     ss.dispose();
-
   });
 
-  it('after init should contain imgs data', function() {
-
+  it('after init should contain imgs data', function () {
     var newDiv = getNewDiv();
     var ss = getSlider(newDiv);
-    var countChildren = newDiv.children.length-1;
+    var countChildren = newDiv.children.length - 1;
 
     expect(ss.internalState.getImgs().length).toEqual(newDiv.children.length);
 
-    while (countChildren>=0) {
+    while (countChildren >= 0) {
       expect(ss.internalState.getImgs()).toContain(newDiv.children[countChildren]);
       countChildren--;
     }
 
     ss.dispose();
-
   });
 
   it('should set initial styling on elements', function () {
-
     var ss = getNewSlider({}, 5);
 
     expect(ss.internalState.getContainerElem().style.position).toEqual('relative');
@@ -173,11 +141,9 @@ describe('SimpleSlider', function() {
     }
 
     ss.dispose();
-
   });
 
-  it('should be able to get px units correctly', function() {
-
+  it('should be able to get px units correctly', function () {
     var ss = getNewSlider({
       transitionProperty: 'left',
       endValue: '300px'
@@ -186,11 +152,9 @@ describe('SimpleSlider', function() {
     expect(ss.internalState.unit).toEqual('px');
 
     ss.dispose();
-
   });
 
-  it('should be able to get em units correctly', function() {
-
+  it('should be able to get em units correctly', function () {
     // Also tests with em and a smaller number
     var ss = getNewSlider({
       transitionProperty: 'width',
@@ -200,11 +164,9 @@ describe('SimpleSlider', function() {
     expect(ss.internalState.unit).toEqual('em');
 
     ss.dispose();
-
   });
 
-  it('should be able to get % units correctly', function() {
-
+  it('should be able to get % units correctly', function () {
     // Should also get when using visibleValue
     var ss = getNewSlider({
       visibleValue: '100%'
@@ -213,108 +175,89 @@ describe('SimpleSlider', function() {
     expect(ss.internalState.unit).toEqual('%');
 
     ss.dispose();
-
   });
 
   describe('.onChange()', function () {
-
-    it('should call onChange function if defined', function(done) {
-
+    it('should call onChange function if defined', function (done) {
+      var ss;
       var callback = function () {
-
         expect(true).toBeTruthy();
 
         ss.dispose();
 
         done();
-
       };
 
       // Should also get when using visibleValue
-      var ss = getNewSlider({
+      ss = getNewSlider({
         onChange: callback
       }, 3);
 
       ss.change(2);
-
     });
 
-    it('should have prevIndex and nextIndex parameters', function(done) {
-
+    it('should have prevIndex and nextIndex parameters', function (done) {
+      var ss;
       var callback = function (prevIndex, nextIndex) {
-
         expect(prevIndex).toBe(0);
         expect(nextIndex).toBe(1);
 
         ss.dispose();
 
         done();
-
       };
 
       // Should also get when using visibleValue
-      var ss = getNewSlider({
+      ss = getNewSlider({
         onChange: callback
       }, 3);
 
       ss.next();
-
     });
-
   });
 
   describe('.onChangeEnd()', function () {
-
-    it('should call onChangeEnd function if defined', function(done) {
-
+    it('should call onChangeEnd function if defined', function (done) {
+      var ss;
       var callback = function () {
-
         expect(true).toBeTruthy();
 
         ss.dispose();
 
         done();
-
       };
 
       // Should also get when using visibleValue
-      var ss = getNewSlider({
+      ss = getNewSlider({
         transitionDuration: 0.1,
         onChangeEnd: callback
       }, 3);
 
       ss.change(2);
-
     });
 
-    it('should have currentIndex and nextIndex parameters', function(done) {
-
+    it('should have currentIndex and nextIndex parameters', function (done) {
+      var ss;
       var callback = function (currIndex, nextIndex) {
-
         expect(currIndex).toBe(1);
         expect(nextIndex).toBe(2);
 
         ss.dispose();
 
         done();
-
       };
 
       // Should also get when using visibleValue
-      var ss = getNewSlider({
+      ss = getNewSlider({
         onChangeEnd: callback
       }, 3);
 
       ss.next();
-
     });
-
   });
 
-  describe('*internal .reset()', function() {
-
-    it('should reset original style values', function() {
-
+  describe('*internal .reset()', function () {
+    it('should reset original style values', function () {
       var ss = getNewSlider({
         still: true
       }, 5);
@@ -328,11 +271,9 @@ describe('SimpleSlider', function() {
       expect(ss.internalState.getContainerElem().style.display).toEqual('block');
 
       ss.dispose();
-
     });
 
-    it('should start imgs control', function() {
-
+    it('should start imgs control', function () {
       var ss = getNewSlider({
         still: true
       }, 5);
@@ -344,11 +285,9 @@ describe('SimpleSlider', function() {
       expect(ss.internalState.getImgs().length).toEqual(5);
 
       ss.dispose();
-
     });
 
-    it('should set actualIndex to 0', function() {
-
+    it('should set actualIndex to 0', function () {
       var ss = getNewSlider({
         still: true
       }, 5);
@@ -360,11 +299,9 @@ describe('SimpleSlider', function() {
       expect(ss.currentIndex()).toEqual(0);
 
       ss.dispose();
-
     });
 
-    it('should set initial image properties values', function() {
-
+    it('should set initial image properties values', function () {
       var ss = getNewSlider({
         still: true
       }, 5);
@@ -377,11 +314,9 @@ describe('SimpleSlider', function() {
       expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
 
       ss.dispose();
-
     });
 
-    it('should nullify inserted, removed objects', function() {
-
+    it('should nullify inserted, removed objects', function () {
       var ss = getNewSlider({
         still: true
       }, 5);
@@ -394,15 +329,11 @@ describe('SimpleSlider', function() {
       expect(ss.internalState.removed).toEqual(null);
 
       ss.dispose();
-
     });
-
   });
 
-  describe('.next()', function() {
-
-    it('should change to next slide', function() {
-
+  describe('.next()', function () {
+    it('should change to next slide', function () {
       var ss = getNewSlider({still: true}, 5);
       var initialIndex = ss.currentIndex();
 
@@ -411,11 +342,9 @@ describe('SimpleSlider', function() {
       expect(ss.currentIndex()).toEqual(initialIndex + 1);
 
       ss.dispose();
-
     });
 
-    it('should change to first slide when current slide is the last in the set', function() {
-
+    it('should change to first slide when current slide is the last in the set', function () {
       var ss = getNewSlider({still: true}, 5);
 
       ss.internalState.setActualIndex(4);
@@ -425,15 +354,11 @@ describe('SimpleSlider', function() {
       expect(ss.currentIndex()).toEqual(0);
 
       ss.dispose();
-
     });
-
   });
 
-  describe('.prev()', function() {
-
-    it('should change to previous slide', function() {
-
+  describe('.prev()', function () {
+    it('should change to previous slide', function () {
       var ss = getNewSlider({still: true}, 5);
 
       ss.internalState.setActualIndex(1);
@@ -443,11 +368,9 @@ describe('SimpleSlider', function() {
       expect(ss.currentIndex()).toEqual(0);
 
       ss.dispose();
-
     });
 
-    it('should change to last slide when current slide is the first in the set', function() {
-
+    it('should change to last slide when current slide is the first in the set', function () {
       var ss = getNewSlider({still: true}, 5);
 
       ss.prev();
@@ -455,15 +378,11 @@ describe('SimpleSlider', function() {
       expect(ss.currentIndex()).toEqual(ss.internalState.getImgs().length - 1);
 
       ss.dispose();
-
     });
-
   });
 
-  describe('.pause()', function() {
-
-    it('should clear slide change setInterval', function() {
-
+  describe('.pause()', function () {
+    it('should clear slide change setInterval', function () {
       var ss = getNewSlider({}, 5);
 
       expect(ss.internalState.getInterval()).not.toEqual(null);
@@ -473,11 +392,9 @@ describe('SimpleSlider', function() {
       expect(ss.internalState.getInterval()).toEqual(null);
 
       ss.dispose();
-
     });
 
-    it('*internal should define this.remainingTime value', function() {
-
+    it('*internal should define this.remainingTime value', function () {
       var ss = getNewSlider({}, 5);
 
       ss.pause();
@@ -490,25 +407,19 @@ describe('SimpleSlider', function() {
       expect(ss.internalState.getRemainingTime()).toBeLessThan(ss.internalState.delay + 1);
 
       ss.dispose();
-
     });
 
-    it('should do nothing when autoplay is disabled', function() {
-
+    it('should do nothing when autoplay is disabled', function () {
       var ss = getNewSlider({still: true}, 5);
 
       ss.pause();
 
       ss.dispose();
-
     });
-
   });
 
-  describe('.resume()', function() {
-
+  describe('.resume()', function () {
     it('should re-enable slide changing setInterval', function () {
-
       var ss = getNewSlider({}, 5);
 
       ss.pause();
@@ -520,30 +431,24 @@ describe('SimpleSlider', function() {
       expect(ss.internalState.getInterval()).not.toEqual(null);
 
       ss.dispose();
-
     });
 
-    it('should do nothing when autoplay is disabled', function() {
-
+    it('should do nothing when autoplay is disabled', function () {
       var ss = getNewSlider({still: true}, 5);
 
       ss.resume();
 
       ss.dispose();
-
     });
-
   });
 
-  describe('*internal .remove()', function() {
-
-    it('should trigger startAnim with correct values', function(done) {
-
+  describe('*internal .remove()', function () {
+    it('should trigger startAnim with correct values', function (done) {
       var ss = getNewSlider({
         still: true
       }, 5);
 
-      ss.internalState.setStartAnim(function(img, visVal, endVal) {
+      ss.internalState.setStartAnim(function (img, visVal, endVal) {
         expect(img).toEqual(ss.internalState.getImgs()[0]);
         expect(visVal).toEqual(ss.internalState.visVal);
         expect(endVal).toEqual(ss.internalState.endVal);
@@ -557,20 +462,16 @@ describe('SimpleSlider', function() {
       expect(ss.internalState.startAnim).toHaveBeenCalledWith(ss.internalState.getImgs()[0], ss.visVal, ss.endVal);
 
       ss.dispose();
-
     });
-
   });
 
-  describe('*internal .insert()', function() {
-
-    it('should trigger startAnim with correct values', function(done) {
-
+  describe('*internal .insert()', function () {
+    it('should trigger startAnim with correct values', function (done) {
       var ss = getNewSlider({
         still: true
       }, 5);
 
-      ss.internalState.setStartAnim(function(img, startVal, visVal, endAnim) {
+      ss.internalState.setStartAnim(function (img, startVal, visVal, endAnim) {
         expect(img).toEqual(ss.internalState.getImgs()[1]);
         expect(startVal).toEqual(ss.internalState.startVal);
         expect(visVal).toEqual(ss.internalState.visVal);
@@ -581,15 +482,11 @@ describe('SimpleSlider', function() {
       });
 
       ss.internalState.insert(1);
-
     });
-
   });
 
-  describe('.nextIndex()', function() {
-
-    it('should return next index value on carousel', function() {
-
+  describe('.nextIndex()', function () {
+    it('should return next index value on carousel', function () {
       var ss = getNewSlider({
         still: true
       }, 5);
@@ -601,11 +498,9 @@ describe('SimpleSlider', function() {
       expect(ss.nextIndex()).toEqual(1);
 
       ss.dispose();
-
     });
 
-    it('should return first item index when it is on last item', function() {
-
+    it('should return first item index when it is on last item', function () {
       var ss = getNewSlider({
         still: true
       }, 5);
@@ -615,11 +510,9 @@ describe('SimpleSlider', function() {
       expect(ss.nextIndex()).toEqual(0);
 
       ss.dispose();
-
     });
 
-    it('should not increment currentIndex() value', function() {
-
+    it('should not increment currentIndex() value', function () {
       var ss = getNewSlider({
         still: true
       }, 5);
@@ -629,15 +522,11 @@ describe('SimpleSlider', function() {
       expect(ss.nextIndex()).toEqual(1);
 
       ss.dispose();
-
     });
-
   });
 
-  describe('.dispose()', function() {
-
-    it('should dispose created instances', function() {
-
+  describe('.dispose()', function () {
+    it('should dispose created instances', function () {
       var ss = getNewSlider({
         transitionProperty: 'opacity'
       }, 5);
@@ -648,28 +537,23 @@ describe('SimpleSlider', function() {
       expect(ss.currentIndex()).toEqual(null);
       expect(ss.internalState.getInterval()).toEqual(null);
       expect(ss.internalState.getContainerElem()).toEqual(null);
-
     });
 
-    it('dispose should clear autoplay interval', function(done) {
-
+    it('dispose should clear autoplay interval', function (done) {
       var ss = getNewSlider({
         still: false,
         transitionProperty: 'opacity'
       }, 5);
 
       // spy on change method
-      spyOn(ss, 'change');
+      spyOn(ss, 'change'); // eslint-disable-line no-undef
 
       ss.dispose();
 
-      setTimeout(function() {
+      setTimeout(function () {
         expect(ss.change).not.toHaveBeenCalled();
         done();
       }, (ss.delay) + 1);
-
     });
-
   });
-
 });

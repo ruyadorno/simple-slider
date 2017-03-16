@@ -12,7 +12,7 @@
     "build:transpile": "node scripts/transpile.js",
     "build:minify": "uglifyjs --compress --mangle --screw-ie8 dist/simpleslider.js -o dist/simpleslider.min.js",
     "build": "run-s build:transpile build:minify",
-    "test:lint": "eslint src/",
+    "test:lint": "eslint src/ test/",
     "test:build": "webpack",
     "test:run": "jest",
     "test": "run-s test:lint test:build test:run"
