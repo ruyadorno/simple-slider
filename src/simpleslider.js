@@ -98,7 +98,7 @@ function getSlider(options) {
 
       // Handles user leaving/activating the current page/tab
       if (!hasVisibilityHandler) {
-        document.addEventListener('visibilitychange', () => document.hidden ? pause() : reset(), false);
+        document.addEventListener('visibilitychange', () => document.hidden ? pause() : resume(), false);
 
         // only assign handler once
         hasVisibilityHandler = 1;
