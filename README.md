@@ -164,7 +164,19 @@ Some methods are exposed by the returning value of the function allowing you to 
 
 ## More examples
 
-There are many more usage samples in the [examples](./examples/) folder, including all the available options for the slider.
+- [Default slider with no options](./examples/no-options.html)
+- [Default slider with options](./examples/default-sliding-transition.html)
+- [Fading/Opacity transition](./examples/fading-transition.html)
+- [Full page transition](./examples/full-page-transition.html)
+- [Lightbox integrated](./examples/lightbox-integrated-example.html)
+- [Mask sliding transition](./examples/mask-sliding-transition.html)
+- [Pause slide](./examples/pause-slide-change-example.html)
+- [RequireJS usage](./examples/requirejs-example.html)
+- [Reverse sliding direction](./examples/reverse-sliding-direction-example.html)
+- [Right to left sliding transition](./examples/right-to-left-sliding-transition.html)
+- [Slides containing no images](./examples/text-content-example.html)
+- [Top to bottom transition](./examples/top-to-bottom-sliding-transition.html)
+
 
 
 ## [Documentation](https://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html)

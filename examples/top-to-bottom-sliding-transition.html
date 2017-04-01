@@ -16,14 +16,12 @@
   </body>
   <script src="../dist/simpleslider.js"></script>
   <script>
-    var imgSlider = simpleslider.default(
-      document.getElementById('myslider'),
-      {
-        transitionProperty:'top',
-        startValue:'-612px',
-        visibleValue:'0px',
-        endValue:'612px'
-      }
-    );
+    simpleslider.default({
+      container: document.getElementById('myslider'),
+      transitionProperty:'top',
+      startValue:'-612px',
+      visibleValue:'0px',
+      endValue:'612px'
+    });
   </script>
 </html>

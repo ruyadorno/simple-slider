@@ -138,8 +138,13 @@
     }
 
     function change(newIndex) {
-      imgs[newIndex].style.zIndex = 2;
-      imgs[actualIndex].style.zIndex = 1;
+      var count = imgs.length;
+      while (--count >= 0) {
+        imgs[count].style.zIndex = 1;
+      }
+
+      imgs[newIndex].style.zIndex = 3;
+      imgs[actualIndex].style.zIndex = 2;
 
       anim([{
         elem: imgs[actualIndex].style,

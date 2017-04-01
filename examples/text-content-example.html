@@ -23,17 +23,15 @@
       </div>
     </div>
   </body>
-  <script src="../src/simpleslider.js"></script>
+  <script src="../dist/simpleslider.js"></script>
   <script>
-    var imgSlider = new SimpleSlider(
-      document.getElementById('myslider'),
-      {
-        autoPlay:true,
-        transitionProperty:'left',
-        startValue:'-612px',
-        visibleValue:'0px',
-        endValue:'612px'
-      }
-    );
+    simpleslider.default({
+      container: document.getElementById('myslider'),
+      autoPlay:true,
+      transitionProperty:'left',
+      startValue:'-612px',
+      visibleValue:'0px',
+      endValue:'612px'
+    });
   </script>
 </html>

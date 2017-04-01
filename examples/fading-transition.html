@@ -16,15 +16,13 @@
   </body>
   <script src="../dist/simpleslider.js"></script>
   <script>
-    var imgSlider = simpleslider.default(
-      document.getElementById('myslider'),
-      {
-        transitionProperty: 'opacity',
-        unit: '',
-        startValue: 0,
-        visibleValue: 1,
-        endValue: 0
-      }
-    );
+    var imgSlider = simpleslider.default({
+      container: document.getElementById('myslider'),
+      transitionProperty: 'opacity',
+      unit: '',
+      startValue: 0,
+      visibleValue: 1,
+      endValue: 0
+    });
   </script>
 </html>
