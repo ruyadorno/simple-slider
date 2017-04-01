@@ -493,4 +493,17 @@ describe('SimpleSlider', function () {
       }, (ss.delay) + 1);
     });
   });
+
+  describe('.reverse()', function () {
+    it('should reverse order of slides', function () {
+      var ss = getNewSlider({
+        transitionProperty: 'opacity'
+      }, 5);
+      var reversedImgs = ss.internalState.getImgs().slice().reverse();
+
+      expect(ss.internalState.getImgs()).not.toEqual(reversedImgs);
+      ss.reverse();
+      expect(ss.internalState.getImgs()).toEqual(reversedImgs);
+    });
+  });
 });

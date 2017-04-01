@@ -104,6 +104,8 @@ Here is the list of available values to customize how your slider is going to wo
 
 ```js
 {
+  container: document.querySelector('*[data-simple-slider]'),
+  children: container.children,
   paused: false,
   transitionProperty: 'left',
   transitionDuration: 0.5,
@@ -118,16 +120,15 @@ Here is the list of available values to customize how your slider is going to wo
 }
 ```
 
-## API
+## Programmatic API
 
-Some methods are exposed by the returning value of the function allowying programatic control of the carousel.
+Some methods are exposed by the returning value of the function allowing you to control the slider.
 
 ```html
 <div id="myslider" style="width:612px; height:612px">
   <img src="http://placekitten.com/g/612/612"/>
   <img src="http://placekitten.com/g/612/613"/>
 </div>
-<div id="current">0</div>
 <script src="../dist/simpleslider.min.js"></script>
 <script>
   var currentIndex;
@@ -152,6 +153,7 @@ Some methods are exposed by the returning value of the function allowying progra
 - `isAutoPlay()` Returns `true` if the carousel is in slideshow/auto-transition mode.
 - `pause()` Pauses the slideshow.
 - `resume()` Resumes the slideshow.
+- `reverse()` Swaps `startValue` for `endValue` and reverses the order of slides.
 - `nextIndex()` Gets the index of the next slide to be shown.
 - `prevIndex()` Gets the index of the previous slide.
 - `next()` Switches displaying image to the next one.
@@ -165,9 +167,9 @@ Some methods are exposed by the returning value of the function allowying progra
 There are many more usage samples in the [examples](./examples/) folder, including all the available options for the slider.
 
 
-## [Documentation](http://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html)
+## [Documentation](https://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html)
 
-More documentation about the methods and properties of a can be found at the <a href="http://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html">simple-slider official documentation</a>.
+Extensive documentation of the options and methods can be found at the [simple-slider official documentation](https://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html).
 
 
 ## License

@@ -342,7 +342,7 @@ describe('SimpleSlider', function () {
       }, timeEnoughToStartTransition);
     });
 
-    it('should handle z-index during transition without remove anim', function (done) {
+    it('should handle z-index during transition', function (done) {
       var ss = getNewSlider({
         transitionProperty: 'width',
         startValue: '0px',
@@ -365,9 +365,9 @@ describe('SimpleSlider', function () {
       setTimeout(function testZIndex() {
         try {
           expect(
-            parseInt(ss.internalState.getImgs()[0].style.zIndex)
+            parseInt(ss.internalState.getImgs()[1].style.zIndex)
           ).toBeGreaterThan(
-            parseInt(ss.internalState.getImgs()[4].style.zIndex)
+            parseInt(ss.internalState.getImgs()[0].style.zIndex)
           );
         } catch (e) {
           console.error(e);

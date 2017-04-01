@@ -30,16 +30,6 @@ function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
   return imgs;
 }
 
-function manageSlideOrder(oldSlide, oldSlidePos, newSlide, newSlidePos) {
-  newSlide.style.zIndex = newSlidePos;
-
-  if (oldSlide) {
-    oldSlide.style.zIndex = oldSlidePos;
-  }
-
-  return newSlide;
-}
-
 function getSlider(options) {
   options = options || {};
   let actualIndex, hasVisibilityHandler, inserted, interval, intervalStartTime, imgs, remainingTime, removed;
@@ -122,17 +112,26 @@ function getSlider(options) {
     startInterval();
   }
 
+  function reverse() {
+    const newEndVal = startVal;
+    startVal = endVal;
+    endVal = newEndVal;
+    actualIndex = Math.abs(actualIndex - (imgs.length - 1));
+    imgs = imgs.reverse();
+  }
+
   function change(newIndex) {
-    var prevIndex = actualIndex;
+    imgs[newIndex].style.zIndex = 2;
+    imgs[actualIndex].style.zIndex = 1;
 
     anim([
       {
-        elem: manageSlideOrder(removed, 1, imgs[actualIndex], 3).style,
+        elem: imgs[actualIndex].style,
         from: visVal,
         to: endVal
       },
       {
-        elem: manageSlideOrder(inserted, 2, imgs[newIndex], 4).style,
+        elem: imgs[newIndex].style,
         from: startVal,
         to: visVal
       }
@@ -141,7 +140,7 @@ function getSlider(options) {
     actualIndex = newIndex;
 
     if (onChange) {
-      onChange(prevIndex, actualIndex);
+      onChange(prevIndex(), actualIndex);
     }
   }
 
@@ -272,6 +271,7 @@ function getSlider(options) {
     next,
     prev,
     change,
+    reverse,
     dispose
   };
   "#else"; // eslint-disable-line
@@ -285,6 +285,7 @@ function getSlider(options) {
     next,
     prev,
     change,
+    reverse,
     dispose
   };
   "#endif"; // eslint-disable-line

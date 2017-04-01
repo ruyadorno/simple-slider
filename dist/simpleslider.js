@@ -44,16 +44,6 @@
     return imgs;
   }
 
-  function manageSlideOrder(oldSlide, oldSlidePos, newSlide, newSlidePos) {
-    newSlide.style.zIndex = newSlidePos;
-
-    if (oldSlide) {
-      oldSlide.style.zIndex = oldSlidePos;
-    }
-
-    return newSlide;
-  }
-
   function getSlider(options) {
     options = options || {};
     var actualIndex = void 0,
@@ -115,7 +105,7 @@
 
         if (!hasVisibilityHandler) {
           document.addEventListener('visibilitychange', function () {
-            return document.hidden ? pause() : reset();
+            return document.hidden ? pause() : resume();
           }, false);
 
           hasVisibilityHandler = 1;
@@ -139,15 +129,24 @@
       startInterval();
     }
 
+    function reverse() {
+      var newEndVal = startVal;
+      startVal = endVal;
+      endVal = newEndVal;
+      actualIndex = Math.abs(actualIndex - (imgs.length - 1));
+      imgs = imgs.reverse();
+    }
+
     function change(newIndex) {
-      var prevIndex = actualIndex;
+      imgs[newIndex].style.zIndex = 2;
+      imgs[actualIndex].style.zIndex = 1;
 
       anim([{
-        elem: manageSlideOrder(removed, 1, imgs[actualIndex], 3).style,
+        elem: imgs[actualIndex].style,
         from: visVal,
         to: endVal
       }, {
-        elem: manageSlideOrder(inserted, 2, imgs[newIndex], 4).style,
+        elem: imgs[newIndex].style,
         from: startVal,
         to: visVal
       }], trTime * 1000, 0, 0, ease);
@@ -155,7 +154,7 @@
       actualIndex = newIndex;
 
       if (onChange) {
-        onChange(prevIndex, actualIndex);
+        onChange(prevIndex(), actualIndex);
       }
     }
 
@@ -209,7 +208,6 @@
           newValue = easeFunc(elapsedTime - startTime, target.from, target.to - target.from, transitionDuration);
 
           if (elapsedTime - startTime < transitionDuration) {
-            console.log(newValue + unit);
             target.elem[trProp] = newValue + unit;
           } else {
             count = targets.length;
@@ -251,6 +249,7 @@
       next: next,
       prev: prev,
       change: change,
+      reverse: reverse,
       dispose: dispose
     };
   }
