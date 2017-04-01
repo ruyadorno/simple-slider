@@ -4,13 +4,18 @@ function getdef(val, def) {
   return val == null ? def : val; // eslint-disable-line
 }
 
-function startSlides(containerElem, unit, startVal, visVal, trProp) {
+function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
   const imgs = [];
-  let i = containerElem.children.length;
+
+  if (!children) {
+    children = containerElem.children;
+  }
+
+  let i = children.length;
   let style;
 
   while (--i >= 0) {
-    imgs[i] = containerElem.children[i];
+    imgs[i] = children[i];
     style = imgs[i].style;
     style.position = 'absolute';
     style.top =
@@ -64,7 +69,7 @@ function getSlider(options) {
     style.overflow = 'hidden';
     style.display = 'block';
 
-    imgs = startSlides(containerElem, unit, startVal, visVal, trProp);
+    imgs = startSlides(containerElem, options.children, unit, startVal, visVal, trProp);
     actualIndex = 0;
     inserted =
     removed = null;
@@ -233,7 +238,7 @@ function getSlider(options) {
 
   reset();
 
-  if (imgs) {
+  if (imgs && imgs.length > 1) {
     startInterval();
   }
 

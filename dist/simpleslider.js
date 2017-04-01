@@ -20,13 +20,12 @@
     return val == null ? def : val;
   }
 
-  function startSlides(containerElem, unit, startVal, visVal, trProp) {
-    var imgs = [];
-    var i = containerElem.children.length;
+  function startSlides(containerElem, selector, unit, startVal, visVal, trProp) {
+    var imgs = document.querySelectorAll('#' + containerElem.id + ' ' + selector);
+    var i = imgs.length;
     var style = void 0;
 
     while (--i >= 0) {
-      imgs[i] = containerElem.children[i];
       style = imgs[i].style;
       style.position = 'absolute';
       style.top = style.left = style.zIndex = 0;
@@ -49,7 +48,7 @@
     return newSlide;
   }
 
-  function getSlider(containerElem, options) {
+  function getSlider(options) {
     options = options || {};
     var actualIndex = void 0,
         hasVisibilityHandler = void 0,
@@ -59,8 +58,9 @@
         imgs = void 0,
         remainingTime = void 0,
         removed = void 0;
-    var width = parseInt(containerElem.style.width);
 
+    var containerElem = options.container;
+    var width = parseInt(containerElem.style.width);
     var trProp = getdef(options.transitionProperty, 'left');
     var trTime = getdef(options.transitionDuration, 0.5);
     var delay = getdef(options.transitionDelay, 3) * 1000;
@@ -83,7 +83,7 @@
       style.overflow = 'hidden';
       style.display = 'block';
 
-      imgs = startSlides(containerElem, unit, startVal, visVal, trProp);
+      imgs = startSlides(containerElem, getdef(options.selector, '> *'), unit, startVal, visVal, trProp);
       actualIndex = 0;
       inserted = removed = null;
       remainingTime = delay;
@@ -230,7 +230,7 @@
 
     reset();
 
-    if (imgs) {
+    if (imgs && imgs.length > 1) {
       startInterval();
     }
 

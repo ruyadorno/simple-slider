@@ -7,6 +7,7 @@
         "one-var": 0,
         "no-implicit-coercion": 0,
         "no-multi-assign": 0,
+        "no-compare-neg-zero": 0,
         "capitalized-comments": 0,
         "max-params": 0,
         "radix": 0,
