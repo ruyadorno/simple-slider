@@ -91,6 +91,39 @@ describe('SimpleSlider', function () {
       }, timeEnoughToStartTransition);
     });
 
+    it('should change values using no options', function (done) {
+      var elem = getNewDiv();
+      elem.setAttribute('data-simple-slider', true);
+      document.body.appendChild(elem);
+      var ss = getSlider();
+      var nextIndex = ss.currentIndex() + 1;
+      var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
+      var timeEnoughToEndTransition = (ss.internalState.trTime * 1000) + 100;
+
+      expect.assertions(3);
+
+      setTimeout(function () {
+        // Internal index value is correct
+        try {
+          expect(ss.currentIndex()).toEqual(nextIndex);
+        } catch (e) {
+          console.error(e);
+        }
+
+        setTimeout(function () {
+          // Test values after finishing the first transition
+          try {
+            expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.endVal.toString() + ss.internalState.unit);
+            expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
+          } catch (e) {
+            console.error(e);
+          }
+          ss.dispose();
+          done();
+        }, timeEnoughToEndTransition);
+      }, timeEnoughToStartTransition);
+    });
+
     it('should change values correctly, sliding style', function (done) {
       var ss = getNewSlider({
         transitionProperty: 'left',
