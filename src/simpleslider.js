@@ -45,8 +45,8 @@ function getSlider(options) {
   let actualIndex, hasVisibilityHandler, inserted, interval, intervalStartTime, imgs, remainingTime, removed;
 
   // Get user defined options or its default values
-  let containerElem = options.container;
-  let width = parseInt(containerElem.style.width);
+  let containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
+  let width = parseInt(containerElem.style.width || containerElem.offsetWidth);
   let trProp = getdef(options.transitionProperty, 'left');
   let trTime = getdef(options.transitionDuration, 0.5);
   let delay = getdef(options.transitionDelay, 3) * 1000;

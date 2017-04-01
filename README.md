@@ -11,24 +11,20 @@ A simple javascript carousel with zero dependencies.
 
 **simple-slider** is a simple image carousel based on the [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) API. It makes for a highly testable implementation and less css-dependent.
 
-This package contains a framework agnostic implementation. If you are using frameworks like **AngularJS** or **Polymer** please check the following **simple-slider** framework-specific implementations:
+This package contains a framework agnostic implementation. If you are using **AngularJS** or **Polymer** there are some **simple-slider** framework-specific implementations available:
 
 - [angular-simple-slider](https://github.com/ruyadorno/angular-simple-slider)
 - [polymer-simple-slider](https://github.com/ruyadorno/polymer-simple-slider)
-
-### Yet another zero dependency carousel implementation?
-
-:smile: Yes but this one has been around [since 2013](https://github.com/ruyadorno/simple-slider/commit/1e54f82536e5e1ef047445ab705c674cff3db9ee)
 
 
 ## Features
 
 - Small footprint, less than 1.2kb minified/gzipped
 - Support to [UMD](https://github.com/umdjs/umd): AMD, CommonJS and global definition
-- Uses [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) and its polyfills for animation
-- Supports [Page visibility API](https://developer.mozilla.org/en-US/docs/Web/Events/visibilitychange) to pause/resume autoPlay when user navigates away from the page
+- Uses [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) for animations
+- Supports [Page visibility API](https://developer.mozilla.org/en-US/docs/Web/Events/visibilitychange) to pause/resume transitions when user navigates away from the page
 - Accept [ease functions](https://github.com/jimjeffers/Easie/blob/master/easie.js) to customize the transition animation
-- Lots of examples, just check the [example](./examples/) folder
+- Lots of ready-to-use examples available, just check the [example](./examples/) folder
 - Animates any numerical css property
 
 
@@ -49,33 +45,31 @@ bower install --save simple-slider
 
 ## Usage
 
-Import the script on html and create a new slider instance. As a best practice you should always have to define width and height values to your container element.
-
-The slider takes an `element` that handles the gallery as the first parameter, this will be usually a `<div>` or `<ul>` containing the elements to be transitioned.
+Simply import the script on html and call the `simpleSlider` function. As a best practice you should always define width and height values to your container element.
 
 ```html
-<div id="myslider" style="width:612px; height:612px">
-  <img src="http://placekitten.com/g/612/612"/>
-  <img src="http://placekitten.com/g/612/613"/>
+<div style="width:612px; height:612px" data-simple-slider>
+  <img src="https://unsplash.it/612/612?random=1"/>
+  <img src="https://unsplash.it/612/612?random=2"/>
 </div>
 <script src="simpleslider.min.js"></script>
 <script>
-  simpleSlider({
-    container: document.getElementById('myslider')
-  });
+  simpleSlider();
 </script>
 ```
 
-*In this previous example we didn't specified any additional option, in this case the slider will use its default left-to-right sliding animation.*
+*In this previous example we didn't specified any additional option, in this case the slider will use its default left-to-right sliding animation and the container element will be the first element containing a `data-simple-slider` attribute.*
 
 ### Options
 
-Options can be set to help you customize your slider, just set a second parameter specifying values such as duration of the transition, css property to be animated, etc.
+Options are set as named properties of a single parameter accepted by the `simpleSlider` function, they help you customize the slider transition and how it's going to work.
+
+The main option is a `container` element, this will usually be a `<div>` or `<ul>` containing the elements to be transitioned. You can also tweak things such as the delay time between each transition, how long each transition will take, etc.
 
 ```html
 <div id="myslider" style="width:612px; height:612px">
-  <img src="http://placekitten.com/g/612/612"/>
-  <img src="http://placekitten.com/g/612/613"/>
+  <img src="https://unsplash.it/612/612?random=1"/>
+  <img src="https://unsplash.it/612/612?random=2"/>
 </div>
 <script src="simpleslider.min.js"></script>
 <script>
@@ -90,9 +84,9 @@ Options can be set to help you customize your slider, just set a second paramete
 
 ## Available Options
 
-Here is the list of available values to use on the constructor and customize your animation:
+Here is the list of available values to customize how your slider is going to work:
 
-- **container**: <[Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)> The HTML element that act as a container for the slider.
+- **container**: <[Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)> The HTML element that act as a container for the slider. Defaults to `document.querySelector('*[data-simple-slider])`.
 - **children** <[NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList)/Array> A list of children to be used as slides, you can use the [querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) to have more flexibility on what children of the `container` element should be used as slides. Defaults to `container.children`.
 - **paused**: <Boolean> Controls carousel auto-transition/slideshow. If vaue is `true` no transition will happen. Defaults to `false`.
 - **transitionProperty**: <String> Determines the css property to be animated. Defaults to `left`.
@@ -154,16 +148,16 @@ Some methods are exposed by the returning value of the function allowying progra
 
 ## Available methods:
 
-- `currentIndex()` Returns the index of the current displaying image
-- `isAutoPlay()` Returns `true` if the carousel is in slideshow/auto-transition mode
-- `pause()` Pauses the slideshow
-- `resume()` Resumes the slideshow
-- `nextIndex()` Gets the index of the next slide to be shown
-- `prevIndex()` Gets the index of the previous slide
-- `next()` Switches displaying image to the next one
-- `prev()` Switches displaying image to the previous one
-- `change(index)` Changes image to a given `index` value
-- `dispose()` Disposes of all internal assignments, frees memory for gc
+- `currentIndex()` Returns the index of the current displaying image.
+- `isAutoPlay()` Returns `true` if the carousel is in slideshow/auto-transition mode.
+- `pause()` Pauses the slideshow.
+- `resume()` Resumes the slideshow.
+- `nextIndex()` Gets the index of the next slide to be shown.
+- `prevIndex()` Gets the index of the previous slide.
+- `next()` Switches displaying image to the next one.
+- `prev()` Switches displaying image to the previous one.
+- `change(index)` Changes image to a given `index` value.
+- `dispose()` Disposes of all internal variable references.
 
 
 ## More examples

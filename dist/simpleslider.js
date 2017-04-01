@@ -20,12 +20,18 @@
     return val == null ? def : val;
   }
 
-  function startSlides(containerElem, selector, unit, startVal, visVal, trProp) {
-    var imgs = document.querySelectorAll('#' + containerElem.id + ' ' + selector);
-    var i = imgs.length;
+  function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
+    var imgs = [];
+
+    if (!children) {
+      children = containerElem.children;
+    }
+
+    var i = children.length;
     var style = void 0;
 
     while (--i >= 0) {
+      imgs[i] = children[i];
       style = imgs[i].style;
       style.position = 'absolute';
       style.top = style.left = style.zIndex = 0;
@@ -59,8 +65,8 @@
         remainingTime = void 0,
         removed = void 0;
 
-    var containerElem = options.container;
-    var width = parseInt(containerElem.style.width);
+    var containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
+    var width = parseInt(containerElem.style.width || containerElem.offsetWidth);
     var trProp = getdef(options.transitionProperty, 'left');
     var trTime = getdef(options.transitionDuration, 0.5);
     var delay = getdef(options.transitionDelay, 3) * 1000;
@@ -83,7 +89,7 @@
       style.overflow = 'hidden';
       style.display = 'block';
 
-      imgs = startSlides(containerElem, getdef(options.selector, '> *'), unit, startVal, visVal, trProp);
+      imgs = startSlides(containerElem, options.children, unit, startVal, visVal, trProp);
       actualIndex = 0;
       inserted = removed = null;
       remainingTime = delay;
@@ -203,6 +209,7 @@
           newValue = easeFunc(elapsedTime - startTime, target.from, target.to - target.from, transitionDuration);
 
           if (elapsedTime - startTime < transitionDuration) {
+            console.log(newValue + unit);
             target.elem[trProp] = newValue + unit;
           } else {
             count = targets.length;
