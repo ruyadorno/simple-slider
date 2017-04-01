@@ -37,8 +37,9 @@ describe('SimpleSlider', function () {
   };
 
   var getNewSlider = function (options, numChild) {
-    var testDiv = getNewDiv(numChild);
-    return getSlider(testDiv, options);
+    return getSlider(Object.assign({
+      container: getNewDiv(numChild)
+    }, options));
   };
 
   it('should be able to create a new instance', function () {
@@ -107,7 +108,7 @@ describe('SimpleSlider', function () {
 
   it('after init should contain imgs data', function () {
     var newDiv = getNewDiv();
-    var ss = getSlider(newDiv);
+    var ss = getSlider({container: newDiv});
     var countChildren = newDiv.children.length - 1;
 
     expect(ss.internalState.getImgs().length).toEqual(newDiv.children.length);

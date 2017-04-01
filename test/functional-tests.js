@@ -35,8 +35,9 @@ describe('SimpleSlider', function () {
   };
 
   var getNewSlider = function (options, numChild) {
-    var testDiv = getNewDiv(numChild);
-    return getSlider(testDiv, options);
+    return getSlider(Object.assign({
+      container: getNewDiv(numChild)
+    }, options));
   };
 
   describe('slideshow animation logic', function () {

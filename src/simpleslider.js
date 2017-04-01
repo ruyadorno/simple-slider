@@ -35,12 +35,13 @@ function manageSlideOrder(oldSlide, oldSlidePos, newSlide, newSlidePos) {
   return newSlide;
 }
 
-function getSlider(containerElem, options) {
+function getSlider(options) {
   options = options || {};
   let actualIndex, hasVisibilityHandler, inserted, interval, intervalStartTime, imgs, remainingTime, removed;
-  let width = parseInt(containerElem.style.width);
 
   // Get user defined options or its default values
+  let containerElem = options.container;
+  let width = parseInt(containerElem.style.width);
   let trProp = getdef(options.transitionProperty, 'left');
   let trTime = getdef(options.transitionDuration, 0.5);
   let delay = getdef(options.transitionDelay, 3) * 1000;

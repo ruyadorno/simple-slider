@@ -60,7 +60,9 @@ The slider takes an `element` that handles the gallery as the first parameter, t
 </div>
 <script src="simpleslider.min.js"></script>
 <script>
-  simpleSlider( document.getElementById('myslider') );
+  simpleSlider({
+    container: document.getElementById('myslider')
+  });
 </script>
 ```
 
@@ -77,10 +79,11 @@ Options can be set to help you customize your slider, just set a second paramete
 </div>
 <script src="simpleslider.min.js"></script>
 <script>
-  simpleSlider( document.getElementById('myslider'), {
+  simpleSlider({
+    container: document.getElementById('myslider'),
     transitionTime:1,
     transitionDelay:3.5
-  } );
+  });
 </script>
 ```
 
@@ -89,7 +92,8 @@ Options can be set to help you customize your slider, just set a second paramete
 
 Here is the list of available values to use on the constructor and customize your animation:
 
-- **paused**: <Boolean> Controls carousel auto-transition. If vaue is `true` than no transition will happen. Defaults to `false`.
+- **container**: <[Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)> The HTML element that act as a container for the slider.
+- **paused**: <Boolean> Controls carousel auto-transition/slideshow. If vaue is `true` no transition will happen. Defaults to `false`.
 - **transitionProperty**: <String> Determines the css property to be animated. Defaults to `left`.
 - **transitionDuration**: <Number> Value setting the duration of animation transition. Defaults to `0.5`.
 - **transitionDelay**: <Number> Value determining the wait between each animation when auto-transition is enabled. Defaults to `3` seconds.
@@ -131,8 +135,16 @@ Some methods are exposed by the returning value of the function allowying progra
 <div id="current">0</div>
 <script src="../dist/simpleslider.min.js"></script>
 <script>
-  var slider = simpleslider.default( document.getElementById('myslider') );
-  var currentIndex = slider.currentIndex();
+  var currentIndex;
+
+  function updateCurrentIndex() {
+    currentIndex = slider.currentIndex();
+  }
+
+  var slider = simpleSlider({
+    container: document.getElementById('myslider'),
+    onChangeEnd: updateCurrentIndex
+  });
 
   // pauses slideshow
   slider.pause();
@@ -153,7 +165,7 @@ Some methods are exposed by the returning value of the function allowying progra
 - `dispose()` Disposes of all internal assignments, frees memory for gc
 
 
-### More examples
+## More examples
 
 There are many more usage samples in the [examples](./examples/) folder, including all the available options for the slider.
 

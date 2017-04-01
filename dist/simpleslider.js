@@ -244,9 +244,7 @@
       next: next,
       prev: prev,
       change: change,
-      dispose: dispose,
-      onChange: onChange,
-      onChangeEnd: onChangeEnd
+      dispose: dispose
     };
   }
 
