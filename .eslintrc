@@ -4,6 +4,7 @@
       "browser": true
     },
     "rules": {
+        "one-var": 0,
         "no-implicit-coercion": 0,
         "max-params": 0,
         "radix": 0,

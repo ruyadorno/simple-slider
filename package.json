@@ -1,8 +1,8 @@
 {
   "name": "simple-slider",
-  "version": "0.6.4-rc",
+  "version": "1.0.0",
   "description": "A simple javascript carousel with zero dependencies",
-  "homepage": "http://ruyadorno.github.io/SimpleSlider/",
+  "homepage": "http://ruyadorno.github.io/simple-slider/",
   "main": "dist/simpleslider.js",
   "files": [
     "dist/simpleslider.js",
@@ -44,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruyadorno/SimpleSlider.git"
+    "url": "https://github.com/ruyadorno/simple-slider.git"
   },
   "jest": {
     "verbose": true

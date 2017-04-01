@@ -4,7 +4,7 @@
 
 ### Bugs
 
-If you happen to find a bug while using the script, go ahead and fill an issue. I'll only require that you provide the steps to reproduce the bug, browser/operating system along with their respective versions and the version of SimpleSlider that you're using.
+If you happen to find a bug while using the script, go ahead and fill an issue. I'll only require that you provide the steps to reproduce the bug, browser/operating system along with their respective versions and the version of simple-slider that you're using.
 
 ### Suggesting improvements
 

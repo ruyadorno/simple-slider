@@ -1,7 +1,7 @@
 'use strict';
 
 function getdef(val, def) {
-  return val === undefined || val === null || val === '' ? def : val;
+  return val == null || val === '' ? def : val; // eslint-disable-line
 }
 
 // Extracts the unit from a css value
@@ -58,7 +58,7 @@ function manageSlideOrder(oldSlide, oldSlidePos, newSlide, newSlidePos) {
 
 function getSlider(containerElem, options) {
   options = options || {};
-  let actualIndex, hasVisibilityHandler, inserted, interval, intervalStartTime, imgs, remainingTime, removed; // eslint-disable-line one-var
+  let actualIndex, hasVisibilityHandler, inserted, interval, intervalStartTime, imgs, remainingTime, removed;
   let width = parseInt(containerElem.style.width || containerElem.offsetWidth);
 
   // Get user defined options or its default values
@@ -69,7 +69,7 @@ function getSlider(containerElem, options) {
   let startVal = parseInt(getdef(options.startValue, -width + unit));
   let visVal = parseInt(getdef(options.visibleValue, '0' + unit));
   let endVal = parseInt(getdef(options.endValue, width + unit));
-  let still = options.still; // eslint-disable-line
+  let paused = options.paused; // eslint-disable-line
   let ease = getdef(options.ease, getSlider.defaultEase);
   let onChange = getdef(options.onChange, null);
   let onChangeEnd = getdef(options.onChangeEnd, null);
@@ -119,12 +119,12 @@ function getSlider(containerElem, options) {
       document.addEventListener('visibilitychange', () => document.hidden ? pause() : reset(), false);
 
       // only assign handler once
-      hasVisibilityHandler = true;
+      hasVisibilityHandler = 1;
     }
   }
 
   function isAutoPlay() {
-    return !still && imgs.length > 1;
+    return !paused && imgs.length > 1;
   }
 
   function pause() {
@@ -139,37 +139,27 @@ function getSlider(containerElem, options) {
     startInterval();
   }
 
-  function startAnim(target, fromValue, toValue, cb) {
-    anim(target.style, trProp, unit, trTime * 1000, 0, 0, fromValue, toValue, ease, cb);
-  }
-
-  function endAnim() {
-    if (onChangeEnd) {
-      onChangeEnd(actualIndex, nextIndex());
-    }
-  }
-
-  function remove(index) {
-    removed = manageSlideOrder(removed, 1, imgs[index], 3);
-    startAnim(imgs[index], visVal, endVal);
-  }
-
   function change(newIndex) {
     var prevIndex = actualIndex;
 
-    remove(actualIndex);
-    insert(newIndex);
+    anim([
+      {
+        elem: manageSlideOrder(removed, 1, imgs[actualIndex], 3).style,
+        from: visVal,
+        to: endVal
+      },
+      {
+        elem: manageSlideOrder(inserted, 2, imgs[newIndex], 4).style,
+        from: startVal,
+        to: visVal
+      }
+    ], trTime * 1000, 0, 0, ease);
 
     actualIndex = newIndex;
 
     if (onChange) {
       onChange(prevIndex, actualIndex);
     }
-  }
-
-  function insert(index) {
-    inserted = manageSlideOrder(inserted, 2, imgs[index], 4);
-    startAnim(imgs[index], startVal, visVal, endAnim);
   }
 
   function next() {
@@ -213,7 +203,7 @@ function getSlider(containerElem, options) {
     delay =
     startVal =
     endVal =
-    still =
+    paused =
     actualIndex =
     inserted =
     removed =
@@ -226,33 +216,40 @@ function getSlider(containerElem, options) {
     return actualIndex;
   }
 
-  function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, easeFunc, cb) {
-    var newValue;
+  function anim(targets, transitionDuration, startTime, elapsedTime, easeFunc) {
+    let count = targets.length;
 
-    if (startTime > 0) {
-      newValue = easeFunc(elapsedTime - startTime, fromValue, toValue - fromValue, transitionDuration);
+    while (--count >= 0) {
+      let target = targets[count];
+      let newValue;
+      if (startTime > 0) {
+        newValue = easeFunc(elapsedTime - startTime, target.from, target.to - target.from, transitionDuration);
 
-      if (elapsedTime - startTime <= transitionDuration) {
-        target[prop] = newValue + unit;
-      } else {
-        target[prop] = (toValue) + unit;
+        if (elapsedTime - startTime < transitionDuration) {
+          target.elem[trProp] = newValue + unit;
+        } else {
+          // sets all target elements to their final position
+          count = targets.length;
+          while (--count >= 0) {
+            target = targets[count];
+            target.elem[trProp] = target.to + unit;
+          }
 
-        if (cb) {
-          cb();
-          cb = null;
+          if (onChangeEnd) {
+            onChangeEnd(actualIndex, nextIndex());
+          }
+          return;
         }
-
-        return;
       }
     }
 
-    requestAnimationFrame(function requestAnimationFunction(time) {
+    requestAnimationFrame(time => {
       // Starts time in the first anim iteration
       if (startTime === 0) {
         startTime = time;
       }
 
-      anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, easeFunc, cb);
+      anim(targets, transitionDuration, startTime, time, easeFunc);
     });
   }
 
@@ -270,12 +267,7 @@ function getSlider(containerElem, options) {
       getImgs: () => imgs,
       getContainerElem: () => containerElem,
       setActualIndex: val => { actualIndex = val; },
-      setStartAnim: val => { startAnim = val; }, // eslint-disable-line no-func-assign
-      startAnim,
-      endAnim,
       reset,
-      insert,
-      remove,
       inserted,
       removed,
       trProp,
@@ -285,7 +277,7 @@ function getSlider(containerElem, options) {
       startVal,
       visVal,
       endVal,
-      still,
+      paused,
       ease
     },
     currentIndex,

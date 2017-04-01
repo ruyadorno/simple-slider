@@ -17,7 +17,7 @@
     value: true
   });
   function getdef(val, def) {
-    return val === undefined || val === null || val === '' ? def : val;
+    return val == null || val === '' ? def : val;
   }
 
   function getUnit(args, transitionProperty) {
@@ -60,10 +60,10 @@
   }
 
   function manageSlideOrder(oldSlide, oldSlidePos, newSlide, newSlidePos) {
-    newSlide.style.zIndex = oldSlidePos;
+    newSlide.style.zIndex = newSlidePos;
 
     if (oldSlide) {
-      oldSlide.style.zIndex = newSlidePos;
+      oldSlide.style.zIndex = oldSlidePos;
     }
 
     return newSlide;
@@ -88,7 +88,7 @@
     var startVal = parseInt(getdef(options.startValue, -width + unit));
     var visVal = parseInt(getdef(options.visibleValue, '0' + unit));
     var endVal = parseInt(getdef(options.endValue, width + unit));
-    var autoPlay = getdef(!!options.autoPlay, true);
+    var paused = options.paused;
     var ease = getdef(options.ease, getSlider.defaultEase);
     var onChange = getdef(options.onChange, null);
     var onChangeEnd = getdef(options.onChangeEnd, null);
@@ -135,12 +135,12 @@
           return document.hidden ? pause() : reset();
         }, false);
 
-        hasVisibilityHandler = true;
+        hasVisibilityHandler = 1;
       }
     }
 
     function isAutoPlay() {
-      return autoPlay && imgs.length > 1;
+      return !paused && imgs.length > 1;
     }
 
     function pause() {
@@ -155,37 +155,24 @@
       startInterval();
     }
 
-    function startAnim(target, fromValue, toValue, cb) {
-      anim(target.style, trProp, unit, trTime * 1000, 0, 0, fromValue, toValue, ease, cb);
-    }
-
-    function endAnim() {
-      if (onChangeEnd) {
-        onChangeEnd(actualIndex, nextIndex());
-      }
-    }
-
-    function remove(index) {
-      removed = manageSlideOrder(removed, 1, imgs[index], 3);
-      startAnim(imgs[index], visVal, endVal);
-    }
-
     function change(newIndex) {
       var prevIndex = actualIndex;
 
-      remove(actualIndex);
-      insert(newIndex);
+      anim([{
+        elem: manageSlideOrder(removed, 1, imgs[actualIndex], 3).style,
+        from: visVal,
+        to: endVal
+      }, {
+        elem: manageSlideOrder(inserted, 2, imgs[newIndex], 4).style,
+        from: startVal,
+        to: visVal
+      }], trTime * 1000, 0, 0, ease);
 
       actualIndex = newIndex;
 
       if (onChange) {
         onChange(prevIndex, actualIndex);
       }
-    }
-
-    function insert(index) {
-      inserted = manageSlideOrder(inserted, 2, imgs[index], 4);
-      startAnim(imgs[index], startVal, visVal, endAnim);
     }
 
     function next() {
@@ -221,39 +208,45 @@
     function dispose() {
       clearTimeout(interval);
 
-      imgs = containerElem = interval = trProp = trTime = delay = startVal = endVal = autoPlay = actualIndex = inserted = removed = remainingTime = onChange = onChangeEnd = null;
+      imgs = containerElem = interval = trProp = trTime = delay = startVal = endVal = paused = actualIndex = inserted = removed = remainingTime = onChange = onChangeEnd = null;
     }
 
     function currentIndex() {
       return actualIndex;
     }
 
-    function anim(target, prop, unit, transitionDuration, startTime, elapsedTime, fromValue, toValue, easeFunc, cb) {
-      var newValue;
+    function anim(targets, transitionDuration, startTime, elapsedTime, easeFunc) {
+      var count = targets.length;
 
-      if (startTime > 0) {
-        newValue = easeFunc(elapsedTime - startTime, fromValue, toValue - fromValue, transitionDuration);
+      while (--count >= 0) {
+        var target = targets[count];
+        var newValue = void 0;
+        if (startTime > 0) {
+          newValue = easeFunc(elapsedTime - startTime, target.from, target.to - target.from, transitionDuration);
 
-        if (elapsedTime - startTime <= transitionDuration) {
-          target[prop] = newValue + unit;
-        } else {
-          target[prop] = toValue + unit;
+          if (elapsedTime - startTime < transitionDuration) {
+            target.elem[trProp] = newValue + unit;
+          } else {
+            count = targets.length;
+            while (--count >= 0) {
+              target = targets[count];
+              target.elem[trProp] = target.to + unit;
+            }
 
-          if (cb) {
-            cb();
-            cb = null;
+            if (onChangeEnd) {
+              onChangeEnd(actualIndex, nextIndex());
+            }
+            return;
           }
-
-          return;
         }
       }
 
-      requestAnimationFrame(function requestAnimationFunction(time) {
+      requestAnimationFrame(function (time) {
         if (startTime === 0) {
           startTime = time;
         }
 
-        anim(target, prop, unit, transitionDuration, startTime, time, fromValue, toValue, easeFunc, cb);
+        anim(targets, transitionDuration, startTime, time, easeFunc);
       });
     }
 
