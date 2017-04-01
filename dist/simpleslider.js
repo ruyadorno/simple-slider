@@ -17,26 +17,7 @@
     value: true
   });
   function getdef(val, def) {
-    return val == null || val === '' ? def : val;
-  }
-
-  function getUnit(args, transitionProperty) {
-    var item;
-    var count = args.length;
-    var unit = '';
-
-    while (--count >= 0) {
-      item = args[count];
-      if (typeof item === 'string') {
-        unit = item.replace(String(parseInt(item)), '');
-      }
-    }
-
-    if (transitionProperty !== 'opacity' && unit === '') {
-      unit = 'px';
-    }
-
-    return unit;
+    return val == null ? def : val;
   }
 
   function startSlides(containerElem, unit, startVal, visVal, trProp) {
@@ -48,9 +29,8 @@
       imgs[i] = containerElem.children[i];
       style = imgs[i].style;
       style.position = 'absolute';
-      style.top = style.left = '0' + unit;
+      style.top = style.left = style.zIndex = 0;
       style[trProp] = startVal + unit;
-      style.zIndex = 0;
     }
 
     imgs[0].style[trProp] = visVal + unit;
@@ -79,12 +59,12 @@
         imgs = void 0,
         remainingTime = void 0,
         removed = void 0;
-    var width = parseInt(containerElem.style.width || containerElem.offsetWidth);
+    var width = parseInt(containerElem.style.width);
 
     var trProp = getdef(options.transitionProperty, 'left');
     var trTime = getdef(options.transitionDuration, 0.5);
     var delay = getdef(options.transitionDelay, 3) * 1000;
-    var unit = getUnit([options.startValue, options.visibleValue, options.endValue], trProp);
+    var unit = getdef(options.unit, 'px');
     var startVal = parseInt(getdef(options.startValue, -width + unit));
     var visVal = parseInt(getdef(options.visibleValue, '0' + unit));
     var endVal = parseInt(getdef(options.endValue, width + unit));
@@ -110,32 +90,30 @@
     }
 
     function startInterval() {
-      if (!isAutoPlay()) {
-        return;
-      }
+      if (isAutoPlay()) {
+        if (interval) {
+          clearTimeout(interval);
+        }
 
-      if (interval) {
-        clearTimeout(interval);
-      }
-
-      (function setAutoPlayLoop() {
-        intervalStartTime = Date.now();
-        interval = setTimeout(function () {
+        (function setAutoPlayLoop() {
           intervalStartTime = Date.now();
-          remainingTime = delay;
+          interval = setTimeout(function () {
+            intervalStartTime = Date.now();
+            remainingTime = delay;
 
-          change(nextIndex());
+            change(nextIndex());
 
-          setAutoPlayLoop();
-        }, remainingTime);
-      })();
+            setAutoPlayLoop();
+          }, remainingTime);
+        })();
 
-      if (!hasVisibilityHandler) {
-        document.addEventListener('visibilitychange', function () {
-          return document.hidden ? pause() : reset();
-        }, false);
+        if (!hasVisibilityHandler) {
+          document.addEventListener('visibilitychange', function () {
+            return document.hidden ? pause() : reset();
+          }, false);
 
-        hasVisibilityHandler = 1;
+          hasVisibilityHandler = 1;
+        }
       }
     }
 

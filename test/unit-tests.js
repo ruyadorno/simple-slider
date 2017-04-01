@@ -154,29 +154,6 @@ describe('SimpleSlider', function () {
     ss.dispose();
   });
 
-  it('should be able to get em units correctly', function () {
-    // Also tests with em and a smaller number
-    var ss = getNewSlider({
-      transitionProperty: 'width',
-      startValue: '3em'
-    }, 3);
-
-    expect(ss.internalState.unit).toEqual('em');
-
-    ss.dispose();
-  });
-
-  it('should be able to get % units correctly', function () {
-    // Should also get when using visibleValue
-    var ss = getNewSlider({
-      visibleValue: '100%'
-    }, 3);
-
-    expect(ss.internalState.unit).toEqual('%');
-
-    ss.dispose();
-  });
-
   describe('.onChange()', function () {
     it('should call onChange function if defined', function (done) {
       var ss;

@@ -1,28 +1,7 @@
 'use strict';
 
 function getdef(val, def) {
-  return val == null || val === '' ? def : val; // eslint-disable-line
-}
-
-// Extracts the unit from a css value
-function getUnit(args, transitionProperty) {
-  var item;
-  var count = args.length;
-  var unit = '';
-
-  while (--count >= 0) {
-    item = args[count];
-    if (typeof item === 'string') {
-      unit = item.replace(String(parseInt(item)), '');
-    }
-  }
-
-  // Defaults unit to px if transition property isn't opacity
-  if (transitionProperty !== 'opacity' && unit === '') {
-    unit = 'px';
-  }
-
-  return unit;
+  return val == null ? def : val; // eslint-disable-line
 }
 
 function startSlides(containerElem, unit, startVal, visVal, trProp) {
@@ -35,9 +14,9 @@ function startSlides(containerElem, unit, startVal, visVal, trProp) {
     style = imgs[i].style;
     style.position = 'absolute';
     style.top =
-    style.left = '0' + unit;
-    style[trProp] = startVal + unit;
+    style.left =
     style.zIndex = 0;
+    style[trProp] = startVal + unit;
   }
 
   imgs[0].style[trProp] = visVal + unit;
@@ -59,13 +38,13 @@ function manageSlideOrder(oldSlide, oldSlidePos, newSlide, newSlidePos) {
 function getSlider(containerElem, options) {
   options = options || {};
   let actualIndex, hasVisibilityHandler, inserted, interval, intervalStartTime, imgs, remainingTime, removed;
-  let width = parseInt(containerElem.style.width || containerElem.offsetWidth);
+  let width = parseInt(containerElem.style.width);
 
   // Get user defined options or its default values
   let trProp = getdef(options.transitionProperty, 'left');
   let trTime = getdef(options.transitionDuration, 0.5);
   let delay = getdef(options.transitionDelay, 3) * 1000;
-  let unit = getUnit([options.startValue, options.visibleValue, options.endValue], trProp);
+  let unit = getdef(options.unit, 'px');
   let startVal = parseInt(getdef(options.startValue, -width + unit));
   let visVal = parseInt(getdef(options.visibleValue, '0' + unit));
   let endVal = parseInt(getdef(options.endValue, width + unit));
@@ -92,34 +71,32 @@ function getSlider(containerElem, options) {
   }
 
   function startInterval() {
-    if (!isAutoPlay()) {
-      return;
-    }
+    if (isAutoPlay()) {
+      if (interval) {
+        clearTimeout(interval);
+      }
 
-    if (interval) {
-      clearTimeout(interval);
-    }
-
-    // Slideshow/autoPlay timing logic
-    (function setAutoPlayLoop() {
-      intervalStartTime = Date.now();
-      interval = setTimeout(() => {
+      // Slideshow/autoPlay timing logic
+      (function setAutoPlayLoop() {
         intervalStartTime = Date.now();
-        remainingTime = delay; // resets time, used by pause/resume logic
+        interval = setTimeout(() => {
+          intervalStartTime = Date.now();
+          remainingTime = delay; // resets time, used by pause/resume logic
 
-        change(nextIndex());
+          change(nextIndex());
 
-        // loops
-        setAutoPlayLoop();
-      }, remainingTime);
-    })();
+          // loops
+          setAutoPlayLoop();
+        }, remainingTime);
+      })();
 
-    // Handles user leaving/activating the current page/tab
-    if (!hasVisibilityHandler) {
-      document.addEventListener('visibilitychange', () => document.hidden ? pause() : reset(), false);
+      // Handles user leaving/activating the current page/tab
+      if (!hasVisibilityHandler) {
+        document.addEventListener('visibilitychange', () => document.hidden ? pause() : reset(), false);
 
-      // only assign handler once
-      hasVisibilityHandler = 1;
+        // only assign handler once
+        hasVisibilityHandler = 1;
+      }
     }
   }
 
@@ -289,9 +266,7 @@ function getSlider(containerElem, options) {
     next,
     prev,
     change,
-    dispose,
-    onChange,
-    onChangeEnd
+    dispose
   };
   "#else"; // eslint-disable-line
   return {
@@ -304,9 +279,7 @@ function getSlider(containerElem, options) {
     next,
     prev,
     change,
-    dispose,
-    onChange,
-    onChangeEnd
+    dispose
   };
   "#endif"; // eslint-disable-line
 }

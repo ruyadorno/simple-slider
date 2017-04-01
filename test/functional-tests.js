@@ -380,6 +380,7 @@ describe('SimpleSlider', function () {
         startValue: 0,
         visibleValue: 1,
         endValue: 0,
+        unit: '',
         transitionDelay: 0.5,
         transitionDuration: 0.5
       }, 5);
