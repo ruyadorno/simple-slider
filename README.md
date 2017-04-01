@@ -139,6 +139,20 @@ Some methods are exposed by the returning value of the function allowying progra
 </script>
 ```
 
+## Available methods:
+
+- `currentIndex()` Returns the index of the current displaying image
+- `isAutoPlay()` Returns `true` if the carousel is in slideshow/auto-transition mode
+- `pause()` Pauses the slideshow
+- `resume()` Resumes the slideshow
+- `nextIndex()` Gets the index of the next slide to be shown
+- `prevIndex()` Gets the index of the previous slide
+- `next()` Switches displaying image to the next one
+- `prev()` Switches displaying image to the previous one
+- `change(index)` Changes image to a given `index` value
+- `dispose()` Disposes of all internal assignments, frees memory for gc
+- `onChange
+
 
 ### More examples
 
