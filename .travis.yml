@@ -1,4 +1,4 @@
 language: node_js
 node_js:
-  - 'latest'
+  - '6'
 before_install: npm install -g grunt-cli

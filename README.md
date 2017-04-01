@@ -19,7 +19,7 @@ This package contains a framework agnostic implementation. If you are using **An
 
 ## Features
 
-- Small footprint, less than 1.2kb minified/gzipped
+- Small size, less than 1.2kb minified/gzipped
 - Support to [UMD](https://github.com/umdjs/umd): AMD, CommonJS and global definition
 - Uses [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) for animations
 - Supports [Page visibility API](https://developer.mozilla.org/en-US/docs/Web/Events/visibilitychange) to pause/resume transitions when user navigates away from the page
