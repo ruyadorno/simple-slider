@@ -151,7 +151,6 @@ Some methods are exposed by the returning value of the function allowying progra
 - `prev()` Switches displaying image to the previous one
 - `change(index)` Changes image to a given `index` value
 - `dispose()` Disposes of all internal assignments, frees memory for gc
-- `onChange
 
 
 ### More examples
