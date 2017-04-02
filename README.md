@@ -72,7 +72,7 @@ var simpleSlider = require('simple-slider');
 simpleSlider();
 ```
 
-#### ES2015+ environments
+### ES2015+ environments
 
 ```js
 import { simpleSlider } from 'simple-slider/src';
@@ -143,8 +143,8 @@ Here is the list of available values to customize how your slider is going to wo
   endValue: elem.width,
   unit: 'px',
   ease: simpleSlider.defaultEase,
-  onChange: null,
-  onChangeEnd: null
+  onChange: undefined,
+  onChangeEnd: undefined
 }
 ```
 
@@ -214,7 +214,9 @@ Extensive documentation of the options and methods can be found at the [simple-s
 
 ## Alternatives
 
-A JavaScript carousel micro library is not a new thing (fun fact, **simple-slider** has been around [since 2013](https://github.com/ruyadorno/simple-slider/commit/1e54f82536e5e1ef047445ab705c674cff3db9ee). I would recommend that you take a look at some of the available alternatives and decide by yourself which one better suits your needs.
+A JavaScript carousel micro library is not a new thing (fun fact, **simple-slider** has been around [since 2013](https://github.com/ruyadorno/simple-slider/commit/1e54f82536e5e1ef047445ab705c674cff3db9ee)).
+
+I would recommend that you take a look at some of the available alternatives and decide by yourself which one better suits your needs.
 
 - [slick](https://github.com/kenwheeler/slick)
 - [lory](https://github.com/meandmax/lory)
