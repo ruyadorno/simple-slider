@@ -193,6 +193,7 @@ Some methods are exposed by the returning value of the function allowing you to 
 
 ## More examples
 
+- [Responsive layout example](./examples/responsive-layout-example.html)
 - [Default slider with no options](./examples/no-options.html)
 - [Default slider with options](./examples/default-sliding-transition.html)
 - [Fading/Opacity transition](./examples/fading-transition.html)
