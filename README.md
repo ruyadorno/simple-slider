@@ -206,6 +206,7 @@ Some methods are exposed by the returning value of the function allowing you to 
 - [Right to left sliding transition](./examples/right-to-left-sliding-transition.html)
 - [Slides containing no images](./examples/text-content-example.html)
 - [Top to bottom transition](./examples/top-to-bottom-sliding-transition.html)
+- [Touch swipe example](./examples/touch-swipe-example.html)
 
 
 ## [Documentation](https://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html)
