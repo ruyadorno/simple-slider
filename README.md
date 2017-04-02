@@ -226,6 +226,8 @@ I would recommend that you take a look at some of the available alternatives and
 - [Owl Carousel](https://github.com/OwlCarousel2/OwlCarousel2)
 - [flickity](https://github.com/metafizzy/flickity)
 - [swipe](https://github.com/lyfeyaj/swipe)
+- [unslider](https://github.com/idiot/unslider)
+- [Glide](https://github.com/jedrzejchalubek/glidejs)
 
 
 ## License
