@@ -1,6 +1,10 @@
 # simple-slider
 
-[![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider) [![Build Status](https://travis-ci.org/ruyadorno/simple-slider.svg?branch=master)](https://travis-ci.org/ruyadorno/simple-slider) ![File Size: < 1.2kB gzipped](https://badge-size.herokuapp.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js?compression=gzip)
+[![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider)
+[![Build Status](https://travis-ci.org/ruyadorno/simple-slider.svg?branch=master)](https://travis-ci.org/ruyadorno/simple-slider)
+![File Size: < 1.2kB gzipped](https://badge-size.herokuapp.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js?compression=gzip)
+[![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/ruyadorno/simple-slider/master/LICENSE)
+[![Join the chat at https://gitter.im/simple-slider/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/simple-slider/Lobby)
 
 http://ruyadorno.github.com/simple-slider
 
@@ -9,7 +13,7 @@ A simple javascript carousel with zero dependencies.
 
 ## About
 
-**simple-slider** is a simple image carousel based on the [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) API. It makes for a highly testable implementation and less css-dependent.
+**simple-slider** is a simple carousel js microlib based on the [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) API. It makes for a highly testable implementation and less css-dependent.
 
 This package contains a framework agnostic implementation. If you are using **AngularJS** or **Polymer** there are some **simple-slider** framework-specific implementations available:
 
@@ -36,7 +40,7 @@ Available on **npm**:
 npm install --save simple-slider
 ```
 
-or you can also get it on **Bower**:
+and you can also get it on **Bower**:
 
 ```sh
 bower install --save simple-slider
@@ -60,7 +64,32 @@ Simply import the script on html and call the `simpleSlider` function. As a best
 
 *In this previous example we didn't specified any additional option, in this case the slider will use its default left-to-right sliding animation and the container element will be the first element containing a `data-simple-slider` attribute.*
 
-### Options
+### Usage in a CommonJS environment
+
+```js
+var simpleSlider = require('simple-slider');
+
+simpleSlider();
+```
+
+#### ES2015+ environments
+
+```js
+import { simpleSlider } from 'simple-slider/src';
+
+simpleSlider();
+```
+
+### RequireJS/AMD environment
+
+```js
+require(['simple-slider'], function(simpleSlider) {
+  simpleSlider();
+});
+```
+
+
+## Options
 
 Options are set as named properties of a single parameter accepted by the `simpleSlider` function, they help you customize the slider transition and how it's going to work.
 
@@ -81,8 +110,7 @@ The main option is a `container` element, this will usually be a `<div>` or `<ul
 </script>
 ```
 
-
-## Available Options
+### Available Options
 
 Here is the list of available values to customize how your slider is going to work:
 
@@ -120,6 +148,7 @@ Here is the list of available values to customize how your slider is going to wo
 }
 ```
 
+
 ## Programmatic API
 
 Some methods are exposed by the returning value of the function allowing you to control the slider.
@@ -147,7 +176,7 @@ Some methods are exposed by the returning value of the function allowing you to 
 </script>
 ```
 
-## Available methods:
+### Available methods:
 
 - `currentIndex()` Returns the index of the current displaying image.
 - `isAutoPlay()` Returns `true` if the carousel is in slideshow/auto-transition mode.
@@ -178,10 +207,23 @@ Some methods are exposed by the returning value of the function allowing you to 
 - [Top to bottom transition](./examples/top-to-bottom-sliding-transition.html)
 
 
-
 ## [Documentation](https://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html)
 
 Extensive documentation of the options and methods can be found at the [simple-slider official documentation](https://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html).
+
+
+## Alternatives
+
+A JavaScript carousel micro library is not a new thing (fun fact, **simple-slider** has been around [since 2013](https://github.com/ruyadorno/simple-slider/commit/1e54f82536e5e1ef047445ab705c674cff3db9ee). I would recommend that you take a look at some of the available alternatives and decide by yourself which one better suits your needs.
+
+- [slick](https://github.com/kenwheeler/slick)
+- [lory](https://github.com/meandmax/lory)
+- [siema](https://github.com/pawelgrzybek/siema)
+- [Swiper](https://github.com/nolimits4web/Swiper)
+- [iSlider](https://github.com/BE-FE/iSlider)
+- [Owl Carousel](https://github.com/OwlCarousel2/OwlCarousel2)
+- [flickity](https://github.com/metafizzy/flickity)
+- [swipe](https://github.com/lyfeyaj/swipe)
 
 
 ## License

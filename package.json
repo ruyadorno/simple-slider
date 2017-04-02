@@ -37,6 +37,27 @@
     "type": "git",
     "url": "https://github.com/ruyadorno/simple-slider.git"
   },
+  "keywords": [
+    "simple",
+    "carousel",
+    "slider",
+    "gallery",
+    "slideshow",
+    "lightweight",
+    "minimalistic",
+    "micro",
+    "slick",
+    "lory",
+    "siema",
+    "swipe",
+    "swiper",
+    "flickity",
+    "islider",
+    "owlcarousel",
+    "javascript-carousel",
+    "DOM",
+    "browser"
+  ],
   "jest": {
     "verbose": true
   },
