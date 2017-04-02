@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 babel.transformFile('src/simpleslider.js', {
-  presets: ['babel-preset-latest'],
+  presets: ['env'],
   plugins: [
     ['transform-es2015-modules-umd'],
     ['conditional-compilation', {

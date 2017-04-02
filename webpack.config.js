@@ -16,7 +16,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['babel-preset-latest'],
+            presets: ['env'],
             plugins: [
               ['conditional-compilation', {
                 TEST: 1

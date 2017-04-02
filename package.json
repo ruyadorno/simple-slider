@@ -23,9 +23,10 @@
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
     "babel-plugin-conditional-compilation": "=0.0.1",
+    "babel-plugin-remove-comments": "^2.0.0",
     "babel-plugin-transform-es2015-modules-umd": "^6.23.0",
+    "babel-preset-env": "^1.3.2",
     "babel-preset-es2017": "^6.22.0",
-    "babel-preset-latest": "^6.22.0",
     "eslint": "^3.16.1",
     "eslint-config-xo": "^0.18.0",
     "jest": "^19.0.2",
@@ -63,8 +64,5 @@
     "verbose": true
   },
   "author": "Ruy Adorno",
-  "license": "MIT",
-  "dependencies": {
-    "babel-plugin-remove-comments": "^2.0.0"
-  }
+  "license": "MIT"
 }

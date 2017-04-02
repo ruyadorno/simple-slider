@@ -13,7 +13,7 @@ A simple javascript carousel with zero dependencies.
 
 ## About
 
-**simple-slider** is a simple carousel js microlib based on the [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) API. It makes for a highly testable implementation and less css-dependent.
+**simple-slider** is a carousel micro library based on the [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) API. It makes for a highly testable implementation and less css-dependent.
 
 This package contains a framework agnostic implementation. If you are using **AngularJS** or **Polymer** there are some **simple-slider** framework-specific implementations available:
 
@@ -49,7 +49,7 @@ bower install --save simple-slider
 
 ## Usage
 
-Simply import the script on html and call the `simpleslider.getSlider` function. As a best practice you should always define width and height values to your container element.
+Simply import the script in your html and call the `simpleslider.getSlider` function.
 
 ```html
 <div style="width:612px; height:612px" data-simple-slider>
@@ -93,7 +93,7 @@ require(['simple-slider'], function(simpleslider) {
 
 Options are set as named properties of a single parameter accepted by the `getSlider` function, they help you customize the slider transition and how it's going to work.
 
-The main option is a `container` element, this will usually be a `<div>` or `<ul>` containing the elements to be transitioned. You can also tweak things such as the delay time between each transition, how long each transition will take, etc.
+The main option is a `container` element, this will usually be a `<div>` or `<ul>` containing the elements to be transitioned, keep in mind that this container should also have a defined width/height value. You can also tweak things such as the delay time between each transition, how long each transition will take, etc.
 
 ```html
 <div id="myslider" style="width:612px; height:612px">
