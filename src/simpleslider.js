@@ -30,6 +30,12 @@ function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
   return imgs;
 }
 
+function defaultEase(time, begin, change, duration) {
+  return ((time = time / (duration / 2)) < 1) // eslint-disable-line
+    ? change / 2 * time * time * time + begin // eslint-disable-line
+    : change / 2 * ((time -= 2) * time * time + 2) + begin; // eslint-disable-line
+}
+
 function getSlider(options) {
   options = options || {};
   let actualIndex, hasVisibilityHandler, inserted, interval, intervalStartTime, imgs, remainingTime, removed;
@@ -45,7 +51,7 @@ function getSlider(options) {
   let visVal = parseInt(getdef(options.visibleValue, '0' + unit));
   let endVal = parseInt(getdef(options.endValue, width + unit));
   let paused = options.paused; // eslint-disable-line
-  let ease = getdef(options.ease, getSlider.defaultEase);
+  let ease = getdef(options.ease, defaultEase);
   let onChange = getdef(options.onChange, null);
   let onChangeEnd = getdef(options.onChangeEnd, null);
 
@@ -254,6 +260,7 @@ function getSlider(options) {
       getImgs: () => imgs,
       getContainerElem: () => containerElem,
       setActualIndex: val => { actualIndex = val; },
+      defaultEase,
       reset,
       inserted,
       removed,
@@ -296,15 +303,5 @@ function getSlider(options) {
   "#endif"; // eslint-disable-line
 }
 
-getSlider.defaultEase = function (time, begin, change, duration) {
-  return ((time = time / (duration / 2)) < 1) // eslint-disable-line
-    ? change / 2 * time * time * time + begin // eslint-disable-line
-    : change / 2 * ((time -= 2) * time * time + 2) + begin; // eslint-disable-line
-};
-
-getSlider.easeNone = function (time, begin, change, duration) {
-  return ((change * time) / duration) + begin;
-};
-
-export default getSlider;
+export {getSlider};
 

@@ -5,6 +5,7 @@
   "homepage": "http://ruyadorno.github.io/simple-slider/",
   "main": "dist/simpleslider.js",
   "files": [
+    "src/simpleslider.js",
     "dist/simpleslider.js",
     "dist/simpleslider.min.js"
   ],

@@ -44,6 +44,10 @@
     return imgs;
   }
 
+  function defaultEase(time, begin, change, duration) {
+    return (time = time / (duration / 2)) < 1 ? change / 2 * time * time * time + begin : change / 2 * ((time -= 2) * time * time + 2) + begin;
+  }
+
   function getSlider(options) {
     options = options || {};
     var actualIndex = void 0,
@@ -65,7 +69,7 @@
     var visVal = parseInt(getdef(options.visibleValue, '0' + unit));
     var endVal = parseInt(getdef(options.endValue, width + unit));
     var paused = options.paused;
-    var ease = getdef(options.ease, getSlider.defaultEase);
+    var ease = getdef(options.ease, defaultEase);
     var onChange = getdef(options.onChange, null);
     var onChangeEnd = getdef(options.onChangeEnd, null);
 
@@ -259,13 +263,5 @@
     };
   }
 
-  getSlider.defaultEase = function (time, begin, change, duration) {
-    return (time = time / (duration / 2)) < 1 ? change / 2 * time * time * time + begin : change / 2 * ((time -= 2) * time * time + 2) + begin;
-  };
-
-  getSlider.easeNone = function (time, begin, change, duration) {
-    return change * time / duration + begin;
-  };
-
-  exports.default = getSlider;
+  exports.getSlider = getSlider;
 });

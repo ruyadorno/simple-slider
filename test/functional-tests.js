@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import getSlider from '../src/simpleslider';
+import {getSlider} from '../src/simpleslider';
 import {polyfill} from 'raf';
 
 polyfill();

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import getSlider from '../src/simpleslider';
+import {getSlider} from '../src/simpleslider';
 import {polyfill} from 'raf';
 
 polyfill();
@@ -60,7 +60,7 @@ describe('SimpleSlider', function () {
     expect(ss.internalState.startVal).toEqual(-width);
     expect(ss.internalState.visVal).toEqual(0);
     expect(ss.internalState.endVal).toEqual(width);
-    expect(ss.internalState.ease).toEqual(getSlider.defaultEase);
+    expect(ss.internalState.ease).toEqual(ss.internalState.defaultEase);
 
     ss.dispose();
   });

@@ -49,7 +49,7 @@ bower install --save simple-slider
 
 ## Usage
 
-Simply import the script on html and call the `simpleSlider` function. As a best practice you should always define width and height values to your container element.
+Simply import the script on html and call the `simpleslider.getSlider` function. As a best practice you should always define width and height values to your container element.
 
 ```html
 <div style="width:612px; height:612px" data-simple-slider>
@@ -58,7 +58,7 @@ Simply import the script on html and call the `simpleSlider` function. As a best
 </div>
 <script src="simpleslider.min.js"></script>
 <script>
-  simpleSlider();
+  simpleslider.getSlider();
 </script>
 ```
 
@@ -67,31 +67,31 @@ Simply import the script on html and call the `simpleSlider` function. As a best
 ### Usage in a CommonJS environment
 
 ```js
-var simpleSlider = require('simple-slider');
+var simpleslider = require('simple-slider');
 
-simpleSlider();
+simpleslider.getSlider();
 ```
 
 ### ES2015+ environments
 
 ```js
-import { simpleSlider } from 'simple-slider/src';
+import { getSlider } from 'simple-slider/src';
 
-simpleSlider();
+getSlider();
 ```
 
 ### RequireJS/AMD environment
 
 ```js
-require(['simple-slider'], function(simpleSlider) {
-  simpleSlider();
+require(['simple-slider'], function(simpleslider) {
+  simpleslider.getSlider();
 });
 ```
 
 
 ## Options
 
-Options are set as named properties of a single parameter accepted by the `simpleSlider` function, they help you customize the slider transition and how it's going to work.
+Options are set as named properties of a single parameter accepted by the `getSlider` function, they help you customize the slider transition and how it's going to work.
 
 The main option is a `container` element, this will usually be a `<div>` or `<ul>` containing the elements to be transitioned. You can also tweak things such as the delay time between each transition, how long each transition will take, etc.
 
@@ -102,7 +102,7 @@ The main option is a `container` element, this will usually be a `<div>` or `<ul
 </div>
 <script src="simpleslider.min.js"></script>
 <script>
-  simpleSlider({
+  simpleslider.getSlider({
     container: document.getElementById('myslider'),
     transitionTime:1,
     transitionDelay:3.5
@@ -124,7 +124,7 @@ Here is the list of available values to customize how your slider is going to wo
 - **visibleValue**: <String/Number> The value a slide element should have when it is displayed. Defaults to `0px`.
 - **endValue**: <String/Number> The value a slide will move to during a transition animation. Defaults to `<image width value>`.
 - **unit**: <String> The css unit value to be used. Defaults to `px`.
-- **ease**: <Function> An ease function, you can use any of [these](https://github.com/jimjeffers/Easie/blob/master/easie.js). Defaults to `simpleSlider.defaultEase`.
+- **ease**: <Function> An ease function, you can use any of [these](https://github.com/jimjeffers/Easie/blob/master/easie.js). Defaults to `defaultEase` internal function.
 - **onChange**: <Function> A callback function to be invoked each time a slide changes.
 - **onChangeEnd**: <Function> A callback function to be invoked at the end of the slide transition
 
@@ -142,7 +142,7 @@ Here is the list of available values to customize how your slider is going to wo
   visibleValue: 0,
   endValue: elem.width,
   unit: 'px',
-  ease: simpleSlider.defaultEase,
+  ease: defaultEase function,
   onChange: undefined,
   onChangeEnd: undefined
 }
@@ -166,7 +166,7 @@ Some methods are exposed by the returning value of the function allowing you to 
     currentIndex = slider.currentIndex();
   }
 
-  var slider = simpleSlider({
+  var slider = simpleslider.getSlider({
     container: document.getElementById('myslider'),
     onChangeEnd: updateCurrentIndex
   });
