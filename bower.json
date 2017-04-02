@@ -1,26 +1,42 @@
 {
   "name": "simple-slider",
   "version": "0.6.4-rc",
-  "description": "A simple javascript carousel with zero dependencies",
+  "description": "Extreme lightweight carousel micro library",
   "homepage": "http://ruyadorno.github.io/simple-slider/",
   "authors": [
-    "Ruy Adorno"
+    "Ruy Adorno (http://ruyadorno.com)"
   ],
   "main": "dist/simpleslider.js",
   "keywords": [
-    "slider",
     "simple",
-    "gallery",
     "carousel",
-    "images"
+    "slider",
+    "gallery",
+    "slideshow",
+    "lightweight",
+    "minimalistic",
+    "micro",
+    "slick",
+    "lory",
+    "siema",
+    "swipe",
+    "swiper",
+    "flickity",
+    "islider",
+    "owlcarousel",
+    "unslider",
+    "glide",
+    "glidejs",
+    "javascript-carousel",
+    "DOM",
+    "browser"
   ],
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
     "test",
-    "tests"
+    "scripts"
   ],
   "dependencies": {}
 }

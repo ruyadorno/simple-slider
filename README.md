@@ -8,7 +8,7 @@
 
 http://ruyadorno.github.com/simple-slider
 
-A simple javascript carousel with zero dependencies.
+Extreme lightweight carousel micro library.
 
 
 ## About
