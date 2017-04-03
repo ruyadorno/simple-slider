@@ -8,7 +8,7 @@
 
 http://ruyadorno.github.com/simple-slider
 
-Extreme lightweight carousel micro library.
+Extremely lightweight carousel micro library.
 
 
 ## About
