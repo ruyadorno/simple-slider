@@ -19,11 +19,11 @@
   <script>
     var imgSlider = simpleslider.getSlider({
       container: document.getElementById('myslider'),
-      autoPlay:true,
       transitionProperty:'left',
       startValue:'-612px',
       visibleValue:'0px',
-      endValue:'612px'
+      endValue:'612px',
+      unit: 'px'
     });
     document.getElementById('pause').onclick = function () {
       imgSlider.pause();

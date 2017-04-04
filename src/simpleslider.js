@@ -42,14 +42,13 @@ function getSlider(options) {
 
   // Get user defined options or its default values
   let containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
-  let width = parseInt(containerElem.style.width || containerElem.offsetWidth);
   let trProp = getdef(options.transitionProperty, 'left');
   let trTime = getdef(options.transitionDuration, 0.5);
   let delay = getdef(options.transitionDelay, 3) * 1000;
-  let unit = getdef(options.unit, 'px');
-  let startVal = parseInt(getdef(options.startValue, -width + unit));
-  let visVal = parseInt(getdef(options.visibleValue, '0' + unit));
-  let endVal = parseInt(getdef(options.endValue, width + unit));
+  let unit = getdef(options.unit, '%');
+  let startVal = parseInt(getdef(options.startValue, -100));
+  let visVal = parseInt(getdef(options.visibleValue, 0));
+  let endVal = parseInt(getdef(options.endValue, 100));
   let paused = options.paused; // eslint-disable-line
   let ease = getdef(options.ease, defaultEase);
   let onChange = getdef(options.onChange, null);

@@ -52,14 +52,13 @@ describe('SimpleSlider', function () {
   it('default properties should match', function () {
     // Test default values
     var ss = getNewSlider();
-    var width = parseInt(ss.internalState.getContainerElem().style.width, 10);
     expect(ss.internalState.paused).toEqual(undefined);
     expect(ss.internalState.trProp).toEqual('left');
     expect(ss.internalState.trTime).toEqual(0.5);
     expect(ss.internalState.delay).toEqual(3000);
-    expect(ss.internalState.startVal).toEqual(-width);
+    expect(ss.internalState.startVal).toEqual(-100);
     expect(ss.internalState.visVal).toEqual(0);
-    expect(ss.internalState.endVal).toEqual(width);
+    expect(ss.internalState.endVal).toEqual(100);
     expect(ss.internalState.ease).toEqual(ss.internalState.defaultEase);
 
     ss.dispose();
@@ -135,22 +134,11 @@ describe('SimpleSlider', function () {
 
       // Only the first one should be on visible state
       if (i === 0) {
-        expect(ss.internalState.getImgs()[i].style.left).toEqual('0px');
+        expect(ss.internalState.getImgs()[i].style.left).toEqual('0%');
       } else {
-        expect(ss.internalState.getImgs()[i].style.left).toEqual('-480px');
+        expect(ss.internalState.getImgs()[i].style.left).toEqual('-100%');
       }
     }
-
-    ss.dispose();
-  });
-
-  it('should be able to get px units correctly', function () {
-    var ss = getNewSlider({
-      transitionProperty: 'left',
-      endValue: '300px'
-    }, 5);
-
-    expect(ss.internalState.unit).toEqual('px');
 
     ss.dispose();
   });

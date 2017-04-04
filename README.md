@@ -120,10 +120,10 @@ Here is the list of available values to customize how your slider is going to wo
 - **transitionProperty**: <String> Determines the css property to be animated. Defaults to `left`.
 - **transitionDuration**: <Number> Value setting the duration of animation transition. Defaults to `0.5`.
 - **transitionDelay**: <Number> Value determining the wait between each animation when auto-transition is enabled. Defaults to `3` seconds.
-- **startValue**: <String/Number> Initial value of slide elements when starting a transition animation. Defaults to `<image width value> * -1`.
-- **visibleValue**: <String/Number> The value a slide element should have when it is displayed. Defaults to `0px`.
-- **endValue**: <String/Number> The value a slide will move to during a transition animation. Defaults to `<image width value>`.
-- **unit**: <String> The css unit value to be used. Defaults to `px`.
+- **startValue**: <String/Number> Initial value of slide elements when starting a transition animation. Defaults to `-100`.
+- **visibleValue**: <String/Number> The value a slide element should have when it is displayed. Defaults to `0`.
+- **endValue**: <String/Number> The value a slide will move to during a transition animation. Defaults to `100`.
+- **unit**: <String> The css unit value to be used. Defaults to `%`.
 - **ease**: <Function> An ease function, you can use any of [these](https://github.com/jimjeffers/Easie/blob/master/easie.js). Defaults to `defaultEase` internal function.
 - **onChange**: <Function> A callback function to be invoked each time a slide changes.
 - **onChangeEnd**: <Function> A callback function to be invoked at the end of the slide transition
@@ -138,10 +138,10 @@ Here is the list of available values to customize how your slider is going to wo
   transitionProperty: 'left',
   transitionDuration: 0.5,
   transitionDelay: 3,
-  startValue: -elem.width,
+  startValue: -100,
   visibleValue: 0,
-  endValue: elem.width,
-  unit: 'px',
+  endValue: 100,
+  unit: '%',
   ease: defaultEase function,
   onChange: undefined,
   onChangeEnd: undefined

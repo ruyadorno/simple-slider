@@ -60,14 +60,13 @@
         removed = void 0;
 
     var containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
-    var width = parseInt(containerElem.style.width || containerElem.offsetWidth);
     var trProp = getdef(options.transitionProperty, 'left');
     var trTime = getdef(options.transitionDuration, 0.5);
     var delay = getdef(options.transitionDelay, 3) * 1000;
-    var unit = getdef(options.unit, 'px');
-    var startVal = parseInt(getdef(options.startValue, -width + unit));
-    var visVal = parseInt(getdef(options.visibleValue, '0' + unit));
-    var endVal = parseInt(getdef(options.endValue, width + unit));
+    var unit = getdef(options.unit, '%');
+    var startVal = parseInt(getdef(options.startValue, -100));
+    var visVal = parseInt(getdef(options.visibleValue, 0));
+    var endVal = parseInt(getdef(options.endValue, 100));
     var paused = options.paused;
     var ease = getdef(options.ease, defaultEase);
     var onChange = getdef(options.onChange, null);

@@ -28,11 +28,7 @@
     var isNext = true;
     var sliderElem = document.getElementById('myslider');
     var slider = simpleslider.getSlider({
-      container: sliderElem,
-      startValue: -100,
-      visibleValue: 0,
-      endValue: 100,
-      unit: '%'
+      container: sliderElem
     });
     var manager = new Hammer.Manager(sliderElem);
     var Swipe = new Hammer.Swipe();
