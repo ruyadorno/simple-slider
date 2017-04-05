@@ -51,7 +51,6 @@
   function getSlider(options) {
     options = options || {};
     var actualIndex = void 0,
-        hasVisibilityHandler = void 0,
         interval = void 0,
         intervalStartTime = void 0,
         imgs = void 0,
@@ -102,18 +101,6 @@
         }
 
         setAutoPlayLoop();
-
-        if (!hasVisibilityHandler) {
-          document.addEventListener('visibilitychange', function () {
-            if (document.hidden) {
-              pause();
-            } else {
-              resume();
-            }
-          });
-
-          hasVisibilityHandler = 1;
-        }
       }
     }
 
@@ -175,22 +162,12 @@
 
     function nextIndex() {
       var newIndex = actualIndex + 1;
-
-      if (newIndex >= imgs.length) {
-        newIndex = 0;
-      }
-
-      return newIndex;
+      return newIndex >= imgs.length ? 0 : newIndex;
     }
 
     function prevIndex() {
       var newIndex = actualIndex - 1;
-
-      if (newIndex < 0) {
-        newIndex = imgs.length - 1;
-      }
-
-      return newIndex;
+      return newIndex < 0 ? imgs.length - 1 : newIndex;
     }
 
     function dispose() {
@@ -243,6 +220,14 @@
     if (imgs && imgs.length > 1) {
       resume();
     }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        pause();
+      } else {
+        resume();
+      }
+    });
 
     return {
       currentIndex: currentIndex,

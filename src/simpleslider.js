@@ -38,7 +38,7 @@ function defaultEase(time, begin, change, duration) {
 
 function getSlider(options) {
   options = options || {};
-  let actualIndex, hasVisibilityHandler, interval, intervalStartTime, imgs, remainingTime;
+  let actualIndex, interval, intervalStartTime, imgs, remainingTime;
 
   // Get user defined options or its default values
   let containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
@@ -56,7 +56,7 @@ function getSlider(options) {
 
   function reset() {
     if (containerElem.children.length > 0) {
-      var style = containerElem.style;
+      let style = containerElem.style;
       style.position = 'relative';
       style.overflow = 'hidden';
       style.display = 'block';
@@ -88,20 +88,6 @@ function getSlider(options) {
       }
 
       setAutoPlayLoop();
-
-      // Handles user leaving/activating the current page/tab
-      if (!hasVisibilityHandler) {
-        document.addEventListener('visibilitychange', () => {
-          if (document.hidden) {
-            pause();
-          } else {
-            resume();
-          }
-        });
-
-        // only assign handler once
-        hasVisibilityHandler = 1;
-      }
     }
   }
 
@@ -165,23 +151,17 @@ function getSlider(options) {
   }
 
   function nextIndex() {
-    var newIndex = actualIndex + 1;
-
-    if (newIndex >= imgs.length) {
-      newIndex = 0;
-    }
-
-    return newIndex;
+    let newIndex = actualIndex + 1;
+    return newIndex >= imgs.length
+      ? 0
+      : newIndex;
   }
 
   function prevIndex() {
-    var newIndex = actualIndex - 1;
-
-    if (newIndex < 0) {
-      newIndex = imgs.length - 1;
-    }
-
-    return newIndex;
+    const newIndex = actualIndex - 1;
+    return newIndex < 0
+      ? imgs.length - 1
+      : newIndex;
   }
 
   function dispose() {
@@ -248,6 +228,15 @@ function getSlider(options) {
   if (imgs && imgs.length > 1) {
     resume();
   }
+
+  // configures visibility api handler https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      pause();
+    } else {
+      resume();
+    }
+  });
 
   "#if TEST > 0"; // eslint-disable-line
   return {
