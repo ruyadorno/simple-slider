@@ -46,9 +46,9 @@ function getSlider(options) {
   let trTime = getdef(options.transitionDuration, 0.5);
   let delay = getdef(options.transitionDelay, 3) * 1000;
   let unit = getdef(options.unit, '%');
-  let startVal = parseInt(getdef(options.startValue, -100));
-  let visVal = parseInt(getdef(options.visibleValue, 0));
-  let endVal = parseInt(getdef(options.endValue, 100));
+  let startVal = getdef(options.startValue, -100);
+  let visVal = getdef(options.visibleValue, 0);
+  let endVal = getdef(options.endValue, 100);
   let paused = options.paused; // eslint-disable-line
   let ease = getdef(options.ease, defaultEase);
   let onChange = getdef(options.onChange, null);

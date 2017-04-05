@@ -62,9 +62,9 @@
     var trTime = getdef(options.transitionDuration, 0.5);
     var delay = getdef(options.transitionDelay, 3) * 1000;
     var unit = getdef(options.unit, '%');
-    var startVal = parseInt(getdef(options.startValue, -100));
-    var visVal = parseInt(getdef(options.visibleValue, 0));
-    var endVal = parseInt(getdef(options.endValue, 100));
+    var startVal = getdef(options.startValue, -100);
+    var visVal = getdef(options.visibleValue, 0);
+    var endVal = getdef(options.endValue, 100);
     var paused = options.paused;
     var ease = getdef(options.ease, defaultEase);
     var onChange = getdef(options.onChange, null);

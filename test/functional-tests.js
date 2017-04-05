@@ -51,9 +51,10 @@ describe('SimpleSlider', function () {
     it('should have correct custom initial values', function () {
       var ss = getNewSlider({
         transitionProperty: 'left',
-        startValue: '-612px',
-        visibleValue: '0px',
-        endValue: '612px'
+        startValue: -612,
+        visibleValue: 0,
+        endValue: 612,
+        unit: 'px'
       }, 5);
 
       expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
@@ -129,9 +130,10 @@ describe('SimpleSlider', function () {
         transitionProperty: 'left',
         transitionDelay: 0.5,
         transitionDuration: 0.2,
-        startValue: '-612px',
-        visibleValue: '0px',
-        endValue: '612px'
+        startValue: -612,
+        visibleValue: 0,
+        endValue: 612,
+        unit: 'px'
       }, 5);
 
       var nextIndex = ss.currentIndex() + 1;
@@ -345,9 +347,10 @@ describe('SimpleSlider', function () {
     it('should handle z-index during transition', function (done) {
       var ss = getNewSlider({
         transitionProperty: 'width',
-        startValue: '0px',
-        visibleValue: '612px',
-        endValue: '612px',
+        startValue: 0,
+        visibleValue: 612,
+        endValue: 612,
+        unit: 'px',
         transitionDelay: 0.5,
         transitionDuration: 0.2
       }, 5);
@@ -380,9 +383,10 @@ describe('SimpleSlider', function () {
     it('should allow transition to lower values than visible value', function (done) {
       var ss = getNewSlider({
         transitionProperty: 'left',
-        startValue: '612px',
-        visibleValue: '0px',
-        endValue: '-612px',
+        startValue: 612,
+        visibleValue: 0,
+        endValue: -612,
+        unit: 'px',
         transitionDelay: 0.5,
         transitionDuration: 0.5
       }, 5);
