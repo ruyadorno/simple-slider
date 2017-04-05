@@ -21,14 +21,14 @@
   }
 
   function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
-    var imgs = [];
+    var style = void 0,
+        imgs = [];
 
     if (!children) {
       children = containerElem.children;
     }
 
     var i = children.length;
-    var style = void 0;
 
     while (--i >= 0) {
       imgs[i] = children[i];
@@ -71,18 +71,16 @@
     var onChangeEnd = getdef(options.onChangeEnd, null);
 
     function reset() {
-      if (containerElem.children.length < 1) {
-        return;
+      if (containerElem.children.length > 0) {
+        var style = containerElem.style;
+        style.position = 'relative';
+        style.overflow = 'hidden';
+        style.display = 'block';
+
+        imgs = startSlides(containerElem, options.children, unit, startVal, visVal, trProp);
+        actualIndex = 0;
+        remainingTime = delay;
       }
-
-      var style = containerElem.style;
-      style.position = 'relative';
-      style.overflow = 'hidden';
-      style.display = 'block';
-
-      imgs = startSlides(containerElem, options.children, unit, startVal, visVal, trProp);
-      actualIndex = 0;
-      remainingTime = delay;
     }
 
     function setAutoPlayLoop() {
@@ -97,7 +95,7 @@
       }, remainingTime);
     }
 
-    function startInterval() {
+    function resume() {
       if (isAutoPlay()) {
         if (interval) {
           clearTimeout(interval);
@@ -129,10 +127,6 @@
         clearTimeout(interval);
         interval = null;
       }
-    }
-
-    function resume() {
-      startInterval();
     }
 
     function reverse() {
@@ -171,12 +165,12 @@
 
     function next() {
       change(nextIndex());
-      startInterval();
+      resume();
     }
 
     function prev() {
       change(prevIndex());
-      startInterval();
+      resume();
     }
 
     function nextIndex() {
@@ -247,7 +241,7 @@
     reset();
 
     if (imgs && imgs.length > 1) {
-      startInterval();
+      resume();
     }
 
     return {

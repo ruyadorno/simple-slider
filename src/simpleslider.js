@@ -5,14 +5,14 @@ function getdef(val, def) {
 }
 
 function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
-  const imgs = [];
+  let style,
+    imgs = [];
 
   if (!children) {
     children = containerElem.children;
   }
 
   let i = children.length;
-  let style;
 
   while (--i >= 0) {
     imgs[i] = children[i];
@@ -55,18 +55,16 @@ function getSlider(options) {
   let onChangeEnd = getdef(options.onChangeEnd, null);
 
   function reset() {
-    if (containerElem.children.length < 1) {
-      return; // Skip reset logic if don't have children
+    if (containerElem.children.length > 0) {
+      var style = containerElem.style;
+      style.position = 'relative';
+      style.overflow = 'hidden';
+      style.display = 'block';
+
+      imgs = startSlides(containerElem, options.children, unit, startVal, visVal, trProp);
+      actualIndex = 0;
+      remainingTime = delay;
     }
-
-    var style = containerElem.style;
-    style.position = 'relative';
-    style.overflow = 'hidden';
-    style.display = 'block';
-
-    imgs = startSlides(containerElem, options.children, unit, startVal, visVal, trProp);
-    actualIndex = 0;
-    remainingTime = delay;
   }
 
   // Slideshow/autoPlay timing logic
@@ -83,7 +81,7 @@ function getSlider(options) {
     }, remainingTime);
   }
 
-  function startInterval() {
+  function resume() {
     if (isAutoPlay()) {
       if (interval) {
         clearTimeout(interval);
@@ -117,10 +115,6 @@ function getSlider(options) {
       clearTimeout(interval);
       interval = null;
     }
-  }
-
-  function resume() {
-    startInterval();
   }
 
   function reverse() {
@@ -162,12 +156,12 @@ function getSlider(options) {
 
   function next() {
     change(nextIndex());
-    startInterval();
+    resume();
   }
 
   function prev() {
     change(prevIndex());
-    startInterval();
+    resume();
   }
 
   function nextIndex() {
@@ -252,7 +246,7 @@ function getSlider(options) {
   reset();
 
   if (imgs && imgs.length > 1) {
-    startInterval();
+    resume();
   }
 
   "#if TEST > 0"; // eslint-disable-line
