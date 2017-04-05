@@ -38,8 +38,8 @@
       style[trProp] = startVal + unit;
     }
 
-    imgs[0].style[trProp] = visVal + unit;
-    imgs[0].style.zIndex = 1;
+    style[trProp] = visVal + unit;
+    style.zIndex = 1;
 
     return imgs;
   }
@@ -52,12 +52,10 @@
     options = options || {};
     var actualIndex = void 0,
         hasVisibilityHandler = void 0,
-        inserted = void 0,
         interval = void 0,
         intervalStartTime = void 0,
         imgs = void 0,
-        remainingTime = void 0,
-        removed = void 0;
+        remainingTime = void 0;
 
     var containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
     var trProp = getdef(options.transitionProperty, 'left');
@@ -73,7 +71,7 @@
     var onChangeEnd = getdef(options.onChangeEnd, null);
 
     function reset() {
-      if (containerElem.children.length <= 0) {
+      if (containerElem.children.length < 1) {
         return;
       }
 
@@ -84,8 +82,19 @@
 
       imgs = startSlides(containerElem, options.children, unit, startVal, visVal, trProp);
       actualIndex = 0;
-      inserted = removed = null;
       remainingTime = delay;
+    }
+
+    function setAutoPlayLoop() {
+      intervalStartTime = Date.now();
+      interval = setTimeout(function () {
+        intervalStartTime = Date.now();
+        remainingTime = delay;
+
+        change(nextIndex());
+
+        setAutoPlayLoop();
+      }, remainingTime);
     }
 
     function startInterval() {
@@ -94,22 +103,16 @@
           clearTimeout(interval);
         }
 
-        (function setAutoPlayLoop() {
-          intervalStartTime = Date.now();
-          interval = setTimeout(function () {
-            intervalStartTime = Date.now();
-            remainingTime = delay;
-
-            change(nextIndex());
-
-            setAutoPlayLoop();
-          }, remainingTime);
-        })();
+        setAutoPlayLoop();
 
         if (!hasVisibilityHandler) {
           document.addEventListener('visibilitychange', function () {
-            return document.hidden ? pause() : resume();
-          }, false);
+            if (document.hidden) {
+              pause();
+            } else {
+              resume();
+            }
+          });
 
           hasVisibilityHandler = 1;
         }
@@ -199,7 +202,7 @@
     function dispose() {
       clearTimeout(interval);
 
-      imgs = containerElem = interval = trProp = trTime = delay = startVal = endVal = paused = actualIndex = inserted = removed = remainingTime = onChange = onChangeEnd = null;
+      imgs = containerElem = interval = trProp = trTime = delay = startVal = endVal = paused = actualIndex = remainingTime = onChange = onChangeEnd = null;
     }
 
     function currentIndex() {

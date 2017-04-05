@@ -283,21 +283,6 @@ describe('SimpleSlider', function () {
 
       ss.dispose();
     });
-
-    it('should nullify inserted, removed objects', function () {
-      var ss = getNewSlider({
-        paused: true
-      }, 5);
-
-      ss.change(3);
-
-      ss.internalState.reset();
-
-      expect(ss.internalState.inserted).toEqual(null);
-      expect(ss.internalState.removed).toEqual(null);
-
-      ss.dispose();
-    });
   });
 
   describe('.next()', function () {

@@ -24,8 +24,8 @@ function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
     style[trProp] = startVal + unit;
   }
 
-  imgs[0].style[trProp] = visVal + unit;
-  imgs[0].style.zIndex = 1;
+  style[trProp] = visVal + unit;
+  style.zIndex = 1;
 
   return imgs;
 }
@@ -38,7 +38,7 @@ function defaultEase(time, begin, change, duration) {
 
 function getSlider(options) {
   options = options || {};
-  let actualIndex, hasVisibilityHandler, inserted, interval, intervalStartTime, imgs, remainingTime, removed;
+  let actualIndex, hasVisibilityHandler, interval, intervalStartTime, imgs, remainingTime;
 
   // Get user defined options or its default values
   let containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
@@ -55,7 +55,7 @@ function getSlider(options) {
   let onChangeEnd = getdef(options.onChangeEnd, null);
 
   function reset() {
-    if (containerElem.children.length <= 0) {
+    if (containerElem.children.length < 1) {
       return; // Skip reset logic if don't have children
     }
 
@@ -66,9 +66,21 @@ function getSlider(options) {
 
     imgs = startSlides(containerElem, options.children, unit, startVal, visVal, trProp);
     actualIndex = 0;
-    inserted =
-    removed = null;
     remainingTime = delay;
+  }
+
+  // Slideshow/autoPlay timing logic
+  function setAutoPlayLoop() {
+    intervalStartTime = Date.now();
+    interval = setTimeout(() => {
+      intervalStartTime = Date.now();
+      remainingTime = delay; // resets time, used by pause/resume logic
+
+      change(nextIndex());
+
+      // loops
+      setAutoPlayLoop();
+    }, remainingTime);
   }
 
   function startInterval() {
@@ -77,23 +89,17 @@ function getSlider(options) {
         clearTimeout(interval);
       }
 
-      // Slideshow/autoPlay timing logic
-      (function setAutoPlayLoop() {
-        intervalStartTime = Date.now();
-        interval = setTimeout(() => {
-          intervalStartTime = Date.now();
-          remainingTime = delay; // resets time, used by pause/resume logic
-
-          change(nextIndex());
-
-          // loops
-          setAutoPlayLoop();
-        }, remainingTime);
-      })();
+      setAutoPlayLoop();
 
       // Handles user leaving/activating the current page/tab
       if (!hasVisibilityHandler) {
-        document.addEventListener('visibilitychange', () => document.hidden ? pause() : resume(), false);
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            pause();
+          } else {
+            resume();
+          }
+        });
 
         // only assign handler once
         hasVisibilityHandler = 1;
@@ -197,8 +203,6 @@ function getSlider(options) {
     endVal =
     paused =
     actualIndex =
-    inserted =
-    removed =
     remainingTime =
     onChange =
     onChangeEnd = null;
@@ -261,8 +265,6 @@ function getSlider(options) {
       setActualIndex: val => { actualIndex = val; },
       defaultEase,
       reset,
-      inserted,
-      removed,
       trProp,
       trTime,
       delay,
