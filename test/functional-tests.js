@@ -50,10 +50,10 @@ describe('SimpleSlider', function () {
 
     it('should have correct custom initial values', function () {
       var ss = getNewSlider({
-        transitionProperty: 'left',
-        startValue: -612,
-        visibleValue: 0,
-        endValue: 612,
+        prop: 'left',
+        init: -612,
+        show: 0,
+        end: 612,
         unit: 'px'
       }, 5);
 
@@ -133,12 +133,12 @@ describe('SimpleSlider', function () {
 
     it('should change values correctly, sliding style', function (done) {
       var ss = getNewSlider({
-        transitionProperty: 'left',
-        transitionDelay: 0.5,
-        transitionDuration: 0.2,
-        startValue: -612,
-        visibleValue: 0,
-        endValue: 612,
+        prop: 'left',
+        delay: 0.5,
+        duration: 0.2,
+        init: -612,
+        show: 0,
+        end: 612,
         unit: 'px'
       }, 5);
 
@@ -177,8 +177,8 @@ describe('SimpleSlider', function () {
     it('should change values correctly after using change function', function (done) {
       var ss = getNewSlider({
         paused: true,
-        transitionDelay: 0.5,
-        transitionDuration: 0.2
+        delay: 0.5,
+        duration: 0.2
       }, 5);
 
       var nextIndex = ss.currentIndex() + 1;
@@ -214,8 +214,8 @@ describe('SimpleSlider', function () {
     it('should not change values when using paused:true option', function (done) {
       var ss = getNewSlider({
         paused: true,
-        transitionDelay: 0.5,
-        transitionDuration: 0.2
+        delay: 0.5,
+        duration: 0.2
       }, 5);
 
       var startIndex = ss.currentIndex();
@@ -302,8 +302,8 @@ describe('SimpleSlider', function () {
       expect.assertions(8);
 
       ss = getNewSlider({
-        transitionDelay: 0.5,
-        transitionDuration: 0.2,
+        delay: 0.5,
+        duration: 0.2,
         onChange,
         onChangeEnd
       }, 2);
@@ -317,8 +317,8 @@ describe('SimpleSlider', function () {
 
     it('should not swap slides when there is only one image', function (done) {
       var ss = getNewSlider({
-        transitionDelay: 0.5,
-        transitionDuration: 0.2
+        delay: 0.5,
+        duration: 0.2
       }, 1);
 
       var startIndex = ss.currentIndex();
@@ -352,13 +352,13 @@ describe('SimpleSlider', function () {
 
     it('should handle z-index during transition', function (done) {
       var ss = getNewSlider({
-        transitionProperty: 'width',
-        startValue: 0,
-        visibleValue: 612,
-        endValue: 612,
+        prop: 'width',
+        init: 0,
+        show: 612,
+        end: 612,
         unit: 'px',
-        transitionDelay: 0.5,
-        transitionDuration: 0.2
+        delay: 0.5,
+        duration: 0.2
       }, 5);
 
       // Simulates the state after a full carousel round
@@ -388,13 +388,13 @@ describe('SimpleSlider', function () {
 
     it('should allow transition to lower values than visible value', function (done) {
       var ss = getNewSlider({
-        transitionProperty: 'left',
-        startValue: 612,
-        visibleValue: 0,
-        endValue: -612,
+        prop: 'left',
+        init: 612,
+        show: 0,
+        end: -612,
         unit: 'px',
-        transitionDelay: 0.5,
-        transitionDuration: 0.5
+        delay: 0.5,
+        duration: 0.5
       }, 5);
 
       var timeEnoughToHalftransition = ss.internalState.delay + ((ss.internalState.trTime / 2) * 1000);
@@ -420,13 +420,13 @@ describe('SimpleSlider', function () {
 
     it('should allow opacity remove transition', function (done) {
       var ss = getNewSlider({
-        transitionProperty: 'opacity',
-        startValue: 0,
-        visibleValue: 1,
-        endValue: 0,
+        prop: 'opacity',
+        init: 0,
+        show: 1,
+        end: 0,
         unit: '',
-        transitionDelay: 0.5,
-        transitionDuration: 0.5
+        delay: 0.5,
+        duration: 0.5
       }, 5);
 
       var timeEnoughToHalftransition = ss.internalState.delay + ((ss.internalState.trTime / 2) * 1000);
@@ -451,8 +451,8 @@ describe('SimpleSlider', function () {
     it('should be able to pause autoplay', function (done) {
       var ss = getNewSlider({
         paused: false,
-        transitionDelay: 0.5,
-        transitionDuration: 0.5
+        delay: 0.5,
+        duration: 0.5
       }, 5);
 
       var timeEnoughToHalftransition = ((ss.internalState.delay + (ss.internalState.trTime / 2)));

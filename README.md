@@ -105,7 +105,7 @@ The main option is a `container` element, this will usually be a `<div>` or `<ul
   simpleslider.getSlider({
     container: document.getElementById('myslider'),
     transitionTime:1,
-    transitionDelay:3.5
+    delay:3.5
   });
 </script>
 ```
@@ -117,12 +117,12 @@ Here is the list of available values to customize how your slider is going to wo
 - **container**: <[Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)> The HTML element that act as a container for the slider. Defaults to `document.querySelector('*[data-simple-slider])`.
 - **children** <[NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList)/Array> A list of children to be used as slides, you can use the [querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) to have more flexibility on what children of the `container` element should be used as slides. Defaults to `container.children`.
 - **paused**: <Boolean> Controls carousel auto-transition/slideshow. If vaue is `true` no transition will happen. Defaults to `false`.
-- **transitionProperty**: <String> Determines the css property to be animated. Defaults to `left`.
-- **transitionDuration**: <Number> Value setting the duration of animation transition. Defaults to `0.5`.
-- **transitionDelay**: <Number> Value determining the wait between each animation when auto-transition is enabled. Defaults to `3` seconds.
-- **startValue**: <String/Number> Initial value of slide elements when starting a transition animation. Defaults to `-100`.
-- **visibleValue**: <String/Number> The value a slide element should have when it is displayed. Defaults to `0`.
-- **endValue**: <String/Number> The value a slide will move to during a transition animation. Defaults to `100`.
+- **prop**: <String> Determines the css property to be animated. Defaults to `left`.
+- **duration**: <Number> Value setting the duration of animation transition. Defaults to `0.5`.
+- **delay**: <Number> Value determining the wait between each animation when auto-transition is enabled. Defaults to `3` seconds.
+- **init**: <String/Number> Initial value of slide elements when starting a transition animation. Defaults to `-100`.
+- **show**: <String/Number> The value a slide element should have when it is displayed. Defaults to `0`.
+- **end**: <String/Number> The value a slide will move to during a transition animation. Defaults to `100`.
 - **unit**: <String> The css unit value to be used. Defaults to `%`.
 - **ease**: <Function> An ease function, you can use any of [these](https://github.com/jimjeffers/Easie/blob/master/easie.js). Defaults to `defaultEase` internal function.
 - **onChange**: <Function> A callback function to be invoked each time a slide changes.
@@ -135,12 +135,12 @@ Here is the list of available values to customize how your slider is going to wo
   container: document.querySelector('*[data-simple-slider]'),
   children: container.children,
   paused: false,
-  transitionProperty: 'left',
-  transitionDuration: 0.5,
-  transitionDelay: 3,
-  startValue: -100,
-  visibleValue: 0,
-  endValue: 100,
+  prop: 'left',
+  duration: 0.5,
+  delay: 3,
+  init: -100,
+  show: 0,
+  end: 100,
   unit: '%',
   ease: defaultEase function,
   onChange: undefined,
@@ -181,7 +181,7 @@ Some methods are exposed by the returning value of the function allowing you to 
 - `currentIndex()` Returns the index of the current displaying image.
 - `pause()` Pauses the slideshow.
 - `resume()` Resumes the slideshow.
-- `reverse()` Swaps `startValue` for `endValue` and reverses the order of slides.
+- `reverse()` Swaps `init` for `end` and reverses the order of slides.
 - `nextIndex()` Gets the index of the next slide to be shown.
 - `prevIndex()` Gets the index of the previous slide.
 - `next()` Switches displaying image to the next one.

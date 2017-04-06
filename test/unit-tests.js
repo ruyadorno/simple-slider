@@ -70,12 +70,12 @@ describe('SimpleSlider', function () {
       return true;
     };
     var ss = getNewSlider({
-      transitionProperty: 'left',
-      transitionDuration: 1,
-      transitionDelay: 2,
-      startValue: 300,
-      visibleValue: 200,
-      endValue: 100,
+      prop: 'left',
+      duration: 1,
+      delay: 2,
+      init: 300,
+      show: 200,
+      end: 100,
       paused: true,
       ease: customEasingStub
     });
@@ -94,8 +94,8 @@ describe('SimpleSlider', function () {
   it('should work when partialy declaring properties', function () {
     // Partially defined values
     var ss = getNewSlider({
-      transitionProperty: 'top',
-      startValue: -100,
+      prop: 'top',
+      init: -100,
       paused: true
     });
     expect(ss.internalState.trProp).toEqual('top');
@@ -154,7 +154,7 @@ describe('SimpleSlider', function () {
         done();
       };
 
-      // Should also get when using visibleValue
+      // Should also get when using show
       ss = getNewSlider({
         onChange: callback
       }, 3);
@@ -173,7 +173,7 @@ describe('SimpleSlider', function () {
         done();
       };
 
-      // Should also get when using visibleValue
+      // Should also get when using show
       ss = getNewSlider({
         onChange: callback
       }, 3);
@@ -194,9 +194,9 @@ describe('SimpleSlider', function () {
         done();
       };
 
-      // Should also get when using visibleValue
+      // Should also get when using show
       ss = getNewSlider({
-        transitionDuration: 0.1,
+        duration: 0.1,
         onChangeEnd: callback
       }, 3);
 
@@ -215,7 +215,7 @@ describe('SimpleSlider', function () {
         done();
       };
 
-      // Should also get when using visibleValue
+      // Should also get when using show
       ss = getNewSlider({
         onChangeEnd: callback
       }, 3);
@@ -338,11 +338,11 @@ describe('SimpleSlider', function () {
     it('should clear slide change setInterval', function () {
       var ss = getNewSlider({}, 5);
 
-      expect(ss.internalState.getInterval()).not.toEqual(null);
+      expect(ss.internalState.getInterval()).not.toEqual(0);
 
       ss.pause();
 
-      expect(ss.internalState.getInterval()).toEqual(null);
+      expect(ss.internalState.getInterval()).toEqual(0);
 
       ss.dispose();
     });
@@ -377,11 +377,11 @@ describe('SimpleSlider', function () {
 
       ss.pause();
 
-      expect(ss.internalState.getInterval()).toEqual(null);
+      expect(ss.internalState.getInterval()).toEqual(0);
 
       ss.resume();
 
-      expect(ss.internalState.getInterval()).not.toEqual(null);
+      expect(ss.internalState.getInterval()).not.toEqual(0);
 
       ss.dispose();
     });
@@ -438,7 +438,7 @@ describe('SimpleSlider', function () {
   describe('.dispose()', function () {
     it('should dispose created instances', function () {
       var ss = getNewSlider({
-        transitionProperty: 'opacity'
+        prop: 'opacity'
       }, 5);
 
       ss.dispose();
@@ -452,7 +452,7 @@ describe('SimpleSlider', function () {
     it('dispose should clear autoplay interval', function (done) {
       var ss = getNewSlider({
         paused: false,
-        transitionProperty: 'opacity'
+        prop: 'opacity'
       }, 5);
 
       // spy on change method
@@ -470,7 +470,7 @@ describe('SimpleSlider', function () {
   describe('.reverse()', function () {
     it('should reverse order of slides', function () {
       var ss = getNewSlider({
-        transitionProperty: 'opacity'
+        prop: 'opacity'
       }, 5);
       var reversedImgs = ss.internalState.getImgs().slice().reverse();
 

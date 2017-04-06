@@ -61,17 +61,17 @@
         remainingTime = void 0;
 
     var containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
-    var trProp = getdef(options.transitionProperty, 'left');
-    var trTime = getdef(options.transitionDuration, 0.5);
-    var delay = getdef(options.transitionDelay, 3) * 1000;
+    var trProp = getdef(options.prop, 'left');
+    var trTime = getdef(options.duration, 0.5);
+    var delay = getdef(options.delay, 3) * 1000;
     var unit = getdef(options.unit, '%');
-    var startVal = getdef(options.startValue, -100);
-    var visVal = getdef(options.visibleValue, 0);
-    var endVal = getdef(options.endValue, 100);
+    var startVal = getdef(options.init, -100);
+    var visVal = getdef(options.show, 0);
+    var endVal = getdef(options.end, 100);
     var paused = options.paused;
     var ease = getdef(options.ease, defaultEase);
-    var onChange = getdef(options.onChange, null);
-    var onChangeEnd = getdef(options.onChangeEnd, null);
+    var onChange = getdef(options.onChange, 0);
+    var onChangeEnd = getdef(options.onChangeEnd, 0);
 
     function reset() {
       if (len(containerElem.children) > 0) {

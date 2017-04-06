@@ -22,12 +22,12 @@
     var height = isNaN(window.innerHeight) ? window.clientHeight : window.innerHeight;
     var imgSlider = simpleslider.getSlider({
       container: container,
-      autoPlay:true,
-      transitionProperty:'left',
+      autoPlay: true,
+      prop: 'left',
       unit: '%',
-      startValue:'-100%',
-      visibleValue:'0%',
-      endValue:'100%'
+      init: -100,
+      show: 0,
+      end: 100
     });
     container.style.height = height + 'px';
   </script>
