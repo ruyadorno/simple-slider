@@ -116,7 +116,7 @@ Here is the list of available values to customize how your slider is going to wo
 
 - **container**: <[Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)> The HTML element that act as a container for the slider. Defaults to `document.querySelector('*[data-simple-slider])`.
 - **children** <[NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList)/Array> A list of children to be used as slides, you can use the [querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) to have more flexibility on what children of the `container` element should be used as slides. Defaults to `container.children`.
-- **paused**: <Boolean> Controls carousel auto-transition/slideshow. If vaue is `true` no transition will happen. Defaults to `false`.
+- **paused**: <Boolean> Controls carousel auto-transition/slideshow. If value is `true` no transition will happen. Defaults to `false`.
 - **prop**: <String> Determines the css property to be animated. Defaults to `left`.
 - **duration**: <Number> Value setting the duration of animation transition. Defaults to `0.5`.
 - **delay**: <Number> Value determining the wait between each animation when auto-transition is enabled. Defaults to `3` seconds.

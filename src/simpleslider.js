@@ -57,6 +57,7 @@ function getSlider(options) {
   let ease = getdef(options.ease, defaultEase);
   let onChange = getdef(options.onChange, 0);
   let onChangeEnd = getdef(options.onChangeEnd, 0);
+  let now = Date.now;
 
   function reset() {
     if (len(containerElem.children) > 0) {
@@ -73,9 +74,9 @@ function getSlider(options) {
 
   // Slideshow/autoPlay timing logic
   function setAutoPlayLoop() {
-    intervalStartTime = Date.now();
+    intervalStartTime = now();
     interval = setTimeout(() => {
-      intervalStartTime = Date.now();
+      intervalStartTime = now();
       remainingTime = delay; // resets time, used by pause/resume logic
 
       change(nextIndex());
@@ -101,7 +102,7 @@ function getSlider(options) {
 
   function pause() {
     if (isAutoPlay()) {
-      remainingTime = delay - (Date.now() - intervalStartTime);
+      remainingTime = delay - (now() - intervalStartTime);
       clearTimeout(interval);
       interval = 0;
     }
@@ -124,18 +125,18 @@ function getSlider(options) {
     imgs[newIndex].style.zIndex = 3;
     imgs[actualIndex].style.zIndex = 2;
 
-    anim([
-      {
-        elem: imgs[actualIndex].style,
-        from: visVal,
-        to: endVal
-      },
-      {
-        elem: imgs[newIndex].style,
-        from: startVal,
-        to: visVal
-      }
-    ], trTime * 1000, 0, 0, ease);
+    anim(
+      imgs[actualIndex].style, // insertElem
+      visVal, // insertFrom
+      endVal, // insertTo
+      imgs[newIndex].style, // removeElem
+      startVal, // removeFrom
+      visVal, // removeTo
+      trTime * 1000, // transitionDuration
+      0, // startTime
+      0, // elapsedTime
+      ease // easeFunc
+    );
 
     actualIndex = newIndex;
 
@@ -190,30 +191,24 @@ function getSlider(options) {
     return actualIndex;
   }
 
-  function anim(targets, transitionDuration, startTime, elapsedTime, easeFunc) {
-    let count = len(targets);
+  function anim(insertElem, insertFrom, insertTo, removeElem, removeFrom, removeTo, transitionDuration, startTime, elapsedTime, easeFunc) {
+    function setProp(elem, from, to) {
+      elem[trProp] =
+        easeFunc(elapsedTime - startTime, from, to - from, transitionDuration) + unit;
+    }
 
-    while (--count >= 0) {
-      let target = targets[count];
-      let newValue;
-      if (startTime > 0) {
-        newValue = easeFunc(elapsedTime - startTime, target.from, target.to - target.from, transitionDuration);
+    if (startTime > 0) {
+      if (elapsedTime - startTime < transitionDuration) {
+        setProp(insertElem, insertFrom, insertTo);
+        setProp(removeElem, removeFrom, removeTo);
+      } else {
+        insertElem[trProp] = insertTo + unit;
+        removeElem[trProp] = removeTo + unit;
 
-        if (elapsedTime - startTime < transitionDuration) {
-          target.elem[trProp] = newValue + unit;
-        } else {
-          // sets all target elements to their final position
-          count = len(targets);
-          while (--count >= 0) {
-            target = targets[count];
-            target.elem[trProp] = target.to + unit;
-          }
-
-          if (onChangeEnd) {
-            onChangeEnd(actualIndex, nextIndex());
-          }
-          return;
+        if (onChangeEnd) {
+          onChangeEnd(actualIndex, nextIndex());
         }
+        return;
       }
     }
 
@@ -223,7 +218,18 @@ function getSlider(options) {
         startTime = time;
       }
 
-      anim(targets, transitionDuration, startTime, time, easeFunc);
+      anim(
+        insertElem,
+        insertFrom,
+        insertTo,
+        removeElem,
+        removeFrom,
+        removeTo,
+        transitionDuration,
+        startTime,
+        time,
+        easeFunc
+      );
     });
   }
 
