@@ -79,7 +79,7 @@ describe('SimpleSlider', function () {
       paused: true,
       ease: customEasingStub
     });
-    expect(ss.isAutoPlay()).toEqual(false);
+    expect(ss.internalState.isAutoPlay()).toEqual(false);
     expect(ss.internalState.trProp).toEqual('left');
     expect(ss.internalState.trTime).toEqual(1);
     expect(ss.internalState.delay).toEqual(2000);
@@ -100,7 +100,7 @@ describe('SimpleSlider', function () {
     });
     expect(ss.internalState.trProp).toEqual('top');
     expect(ss.internalState.startVal).toEqual(-100);
-    expect(ss.isAutoPlay()).toEqual(false);
+    expect(ss.internalState.isAutoPlay()).toEqual(false);
 
     ss.dispose();
   });

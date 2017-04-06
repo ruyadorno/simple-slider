@@ -4,6 +4,10 @@ function getdef(val, def) {
   return val == null ? def : val; // eslint-disable-line
 }
 
+function len(arr) {
+  return arr.length;
+}
+
 function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
   let style,
     imgs = [];
@@ -12,7 +16,7 @@ function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
     children = containerElem.children;
   }
 
-  let i = children.length;
+  let i = len(children);
 
   while (--i >= 0) {
     imgs[i] = children[i];
@@ -55,7 +59,7 @@ function getSlider(options) {
   let onChangeEnd = getdef(options.onChangeEnd, null);
 
   function reset() {
-    if (containerElem.children.length > 0) {
+    if (len(containerElem.children) > 0) {
       let style = containerElem.style;
       style.position = 'relative';
       style.overflow = 'hidden';
@@ -92,14 +96,14 @@ function getSlider(options) {
   }
 
   function isAutoPlay() {
-    return !paused && imgs.length > 1;
+    return !paused && len(imgs) > 1;
   }
 
   function pause() {
     if (isAutoPlay()) {
       remainingTime = delay - (Date.now() - intervalStartTime);
       clearTimeout(interval);
-      interval = null;
+      interval = 0;
     }
   }
 
@@ -107,12 +111,12 @@ function getSlider(options) {
     const newEndVal = startVal;
     startVal = endVal;
     endVal = newEndVal;
-    actualIndex = Math.abs(actualIndex - (imgs.length - 1));
+    actualIndex = Math.abs(actualIndex - (len(imgs) - 1));
     imgs = imgs.reverse();
   }
 
   function change(newIndex) {
-    let count = imgs.length;
+    let count = len(imgs);
     while (--count >= 0) {
       imgs[count].style.zIndex = 1;
     }
@@ -151,8 +155,8 @@ function getSlider(options) {
   }
 
   function nextIndex() {
-    let newIndex = actualIndex + 1;
-    return newIndex >= imgs.length
+    const newIndex = actualIndex + 1;
+    return newIndex >= len(imgs)
       ? 0
       : newIndex;
   }
@@ -160,7 +164,7 @@ function getSlider(options) {
   function prevIndex() {
     const newIndex = actualIndex - 1;
     return newIndex < 0
-      ? imgs.length - 1
+      ? len(imgs) - 1
       : newIndex;
   }
 
@@ -187,7 +191,7 @@ function getSlider(options) {
   }
 
   function anim(targets, transitionDuration, startTime, elapsedTime, easeFunc) {
-    let count = targets.length;
+    let count = len(targets);
 
     while (--count >= 0) {
       let target = targets[count];
@@ -199,7 +203,7 @@ function getSlider(options) {
           target.elem[trProp] = newValue + unit;
         } else {
           // sets all target elements to their final position
-          count = targets.length;
+          count = len(targets);
           while (--count >= 0) {
             target = targets[count];
             target.elem[trProp] = target.to + unit;
@@ -225,7 +229,7 @@ function getSlider(options) {
 
   reset();
 
-  if (imgs && imgs.length > 1) {
+  if (imgs && len(imgs) > 1) {
     resume();
   }
 
@@ -246,6 +250,7 @@ function getSlider(options) {
       getImgs: () => imgs,
       getContainerElem: () => containerElem,
       setActualIndex: val => { actualIndex = val; },
+      isAutoPlay,
       defaultEase,
       reset,
       trProp,
@@ -259,7 +264,6 @@ function getSlider(options) {
       ease
     },
     currentIndex,
-    isAutoPlay,
     pause,
     resume,
     nextIndex,
@@ -273,7 +277,6 @@ function getSlider(options) {
   "#else"; // eslint-disable-line
   return {
     currentIndex,
-    isAutoPlay,
     pause,
     resume,
     nextIndex,

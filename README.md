@@ -179,7 +179,6 @@ Some methods are exposed by the returning value of the function allowing you to 
 ### Available methods:
 
 - `currentIndex()` Returns the index of the current displaying image.
-- `isAutoPlay()` Returns `true` if the carousel is in slideshow/auto-transition mode.
 - `pause()` Pauses the slideshow.
 - `resume()` Resumes the slideshow.
 - `reverse()` Swaps `startValue` for `endValue` and reverses the order of slides.

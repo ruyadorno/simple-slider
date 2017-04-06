@@ -20,6 +20,10 @@
     return val == null ? def : val;
   }
 
+  function len(arr) {
+    return arr.length;
+  }
+
   function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
     var style = void 0,
         imgs = [];
@@ -28,7 +32,7 @@
       children = containerElem.children;
     }
 
-    var i = children.length;
+    var i = len(children);
 
     while (--i >= 0) {
       imgs[i] = children[i];
@@ -70,7 +74,7 @@
     var onChangeEnd = getdef(options.onChangeEnd, null);
 
     function reset() {
-      if (containerElem.children.length > 0) {
+      if (len(containerElem.children) > 0) {
         var style = containerElem.style;
         style.position = 'relative';
         style.overflow = 'hidden';
@@ -105,14 +109,14 @@
     }
 
     function isAutoPlay() {
-      return !paused && imgs.length > 1;
+      return !paused && len(imgs) > 1;
     }
 
     function pause() {
       if (isAutoPlay()) {
         remainingTime = delay - (Date.now() - intervalStartTime);
         clearTimeout(interval);
-        interval = null;
+        interval = 0;
       }
     }
 
@@ -120,12 +124,12 @@
       var newEndVal = startVal;
       startVal = endVal;
       endVal = newEndVal;
-      actualIndex = Math.abs(actualIndex - (imgs.length - 1));
+      actualIndex = Math.abs(actualIndex - (len(imgs) - 1));
       imgs = imgs.reverse();
     }
 
     function change(newIndex) {
-      var count = imgs.length;
+      var count = len(imgs);
       while (--count >= 0) {
         imgs[count].style.zIndex = 1;
       }
@@ -162,12 +166,12 @@
 
     function nextIndex() {
       var newIndex = actualIndex + 1;
-      return newIndex >= imgs.length ? 0 : newIndex;
+      return newIndex >= len(imgs) ? 0 : newIndex;
     }
 
     function prevIndex() {
       var newIndex = actualIndex - 1;
-      return newIndex < 0 ? imgs.length - 1 : newIndex;
+      return newIndex < 0 ? len(imgs) - 1 : newIndex;
     }
 
     function dispose() {
@@ -181,7 +185,7 @@
     }
 
     function anim(targets, transitionDuration, startTime, elapsedTime, easeFunc) {
-      var count = targets.length;
+      var count = len(targets);
 
       while (--count >= 0) {
         var target = targets[count];
@@ -192,7 +196,7 @@
           if (elapsedTime - startTime < transitionDuration) {
             target.elem[trProp] = newValue + unit;
           } else {
-            count = targets.length;
+            count = len(targets);
             while (--count >= 0) {
               target = targets[count];
               target.elem[trProp] = target.to + unit;
@@ -217,7 +221,7 @@
 
     reset();
 
-    if (imgs && imgs.length > 1) {
+    if (imgs && len(imgs) > 1) {
       resume();
     }
 
@@ -231,7 +235,6 @@
 
     return {
       currentIndex: currentIndex,
-      isAutoPlay: isAutoPlay,
       pause: pause,
       resume: resume,
       nextIndex: nextIndex,
