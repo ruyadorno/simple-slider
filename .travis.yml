@@ -4,6 +4,5 @@ node_js:
 script: npm run ci
 env:
   global:
-  - secure: "CZC+BFW0XVAWIQktwxQcx0Ovrbak6yogkAMpndu0AH8cnDiPqdSzouU3Bwxr5FxgSF4gBGzrVA6xRqafeqqMWCC+wEvnYhluebF/OKCa4OHYxTQvKqb7FdVNmeptDzwY1uKqwsO01Zw2UxP08BtYmEB8XGG9/wtuw/H+lV4ErZI="
-  - secure: "IWchdDS1e/BgFFtevdxo0CH52IyrD6Xkn1xyUvhG/YE7tII5u+/uGOeCnQOmIsio18Ygu2jle8TXoQugec0Vi/rao93tBATMiwBA74ejOR6otiyLFOiDBm0T0/5LcQMnqH8PPyIGR2hsC2aTfUi70Sb8mGeDp54JdD23SV8rtTM="
-
+  - secure: "AsKT1Jdh0JFB0iWMY8NIfdqSohXRCK2qGrbjWbkLiPA9ueifNyI1Sn5SWDua6uSGuVsF2OX+XtFYMVhGOobtiC3N+bYdBX1UD2jPrNKzBIXvlsW2D/oc03HcNW4hSNVb09wS+It9eMcnplIw6dX3Q7TPhhGLrXg9ModLe74fNlI="
+  - secure: "evomBAnDPb3bk2DmUjLMuIeevLPHa/vCadPDQIhCMIR6WNpTBCCkiBFU0185JpDgzZ4dq7a5KWiKQORzqUbgKoRm8cXa6N7x1k55NG+DOuZSNfSJfTN1BWIQGFahCDsq/qvdFI5g49wuT4Qyp7ErQ8/dYokg4LCXpnsf+glF6VI="
