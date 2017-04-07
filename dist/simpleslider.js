@@ -62,7 +62,7 @@
 
     var containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
     var trProp = getdef(options.prop, 'left');
-    var trTime = getdef(options.duration, 0.5);
+    var trTime = getdef(options.duration, 0.5) * 1000;
     var delay = getdef(options.delay, 3) * 1000;
     var unit = getdef(options.unit, '%');
     var startVal = getdef(options.init, -100);
@@ -138,7 +138,7 @@
       imgs[newIndex].style.zIndex = 3;
       imgs[actualIndex].style.zIndex = 2;
 
-      anim(imgs[actualIndex].style, visVal, endVal, imgs[newIndex].style, startVal, visVal, trTime * 1000, 0, 0, ease);
+      anim(imgs[actualIndex].style, visVal, endVal, imgs[newIndex].style, startVal, visVal, trTime, 0, 0, ease);
 
       actualIndex = newIndex;
 
@@ -169,6 +169,7 @@
 
     function dispose() {
       clearTimeout(interval);
+      document.removeEventListener('visibilitychange', visibilityChange);
 
       imgs = containerElem = interval = trProp = trTime = delay = startVal = endVal = paused = actualIndex = remainingTime = onChange = onChangeEnd = null;
     }
@@ -206,19 +207,20 @@
       });
     }
 
-    reset();
-
-    if (imgs && len(imgs) > 1) {
-      resume();
-    }
-
-    document.addEventListener('visibilitychange', function () {
+    function visibilityChange() {
       if (document.hidden) {
         pause();
       } else {
         resume();
       }
-    });
+    }
+
+    document.addEventListener('visibilitychange', visibilityChange);
+    reset();
+
+    if (imgs && len(imgs) > 1) {
+      resume();
+    }
 
     return {
       currentIndex: currentIndex,

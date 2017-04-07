@@ -2,8 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    'unit-tests': './test/unit-tests.js',
-    'functional-tests': './test/functional-tests.js'
+    'unit-tests': './test/unit-tests.js'
   },
   output: {
     filename: '[name].js',

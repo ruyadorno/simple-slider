@@ -1,10 +1,5 @@
-/* eslint-env jest */
-import {getSlider} from '../src/simpleslider';
-import {polyfill} from 'raf';
-
-polyfill();
-
-describe('SimpleSlider', function () {
+/* eslint-env jasmine */
+describe('simple-slider', function () {
   'use strict';
 
   var testDivCount = 0;
@@ -14,66 +9,72 @@ describe('SimpleSlider', function () {
   var createEmptyDiv = function () {
     var newDiv = document.createElement('div');
     newDiv.id = 'test-div-' + testDivCount;
-    newDiv.style.width = '480px';
-    newDiv.style.height = '200px';
+    newDiv.style.width = '500px';
+    newDiv.style.height = '500px';
     testDivCount++;
 
     return newDiv;
   };
 
   var addChildrenDivs = function (newDiv, numChild) {
-    var childrenNum = numChild ? numChild : Math.ceil(Math.random() * 10);
+    var childrenNum = numChild ? numChild : (Math.ceil(Math.random() * 10) + 1);
+    var child;
     while (--childrenNum >= 0) {
-      newDiv.appendChild(document.createElement('div'));
+      child = document.createElement('img');
+      child.src = '//unsplash.it/50/50?random=' + (Math.random() * 1000);
+      child.style.width = '100%';
+      newDiv.appendChild(child);
     }
   };
 
   var getNewDiv = function (numChild) {
     var newDiv = createEmptyDiv();
     addChildrenDivs(newDiv, numChild);
+    document.body.appendChild(newDiv);
     return newDiv;
   };
 
   var getNewSlider = function (options, numChild) {
-    return getSlider(Object.assign({
-      container: getNewDiv(numChild)
-    }, options));
+    var container = getNewDiv(numChild);
+    options.container = container;
+    return {
+      slider: window.simpleslider.getSlider(options),
+      container: container
+    };
   };
 
   describe('slideshow animation logic', function () {
     it('should have correct default initial values', function () {
-      var ss = getNewSlider({}, 5);
-      expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
-      expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
-      ss.dispose();
+      var s = getNewSlider({}, 5);
+      expect(s.container.children[0].style.left).toEqual('0%');
+      expect(s.container.children[1].style.left).toEqual('-100%');
+      s.slider.dispose();
     });
 
     it('should have correct custom initial values', function () {
-      var ss = getNewSlider({
+      var s = getNewSlider({
         prop: 'left',
-        init: -612,
+        init: -500,
         show: 0,
-        end: 612,
+        end: 500,
         unit: 'px'
       }, 5);
 
-      expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
-      expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
-      ss.dispose();
+      expect(s.container.children[0].style.left).toEqual('0px');
+      expect(s.container.children[1].style.left).toEqual('-500px');
+      s.slider.dispose();
     });
 
     it('should change values correctly after default transition', function (done) {
-      var ss = getNewSlider({}, 5);
-      var nextIndex = ss.currentIndex() + 1;
-      var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
-      var timeEnoughToEndTransition = (ss.internalState.trTime * 1000) + 100;
-
-      expect.assertions(3);
+      var s = getNewSlider({}, 5);
+      var nextIndex = s.slider.currentIndex() + 1;
+      var timeEnoughToStartTransition = 3100;
+      var timeEnoughToEndTransition = 600;
 
       setTimeout(function () {
         // Internal index value is correct
         try {
-          expect(ss.currentIndex()).toEqual(nextIndex);
+          expect(s.slider.currentIndex()).toEqual(nextIndex);
         } catch (e) {
           console.error(e);
         }
@@ -81,12 +82,12 @@ describe('SimpleSlider', function () {
         setTimeout(function () {
           // Test values after finishing the first transition
           try {
-            expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.endVal.toString() + ss.internalState.unit);
-            expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
+            expect(s.container.children[0].style.left).toEqual('100%');
+            expect(s.container.children[1].style.left).toEqual('0%');
           } catch (e) {
             console.error(e);
           }
-          ss.dispose();
+          s.slider.dispose();
           done();
         }, timeEnoughToEndTransition);
       }, timeEnoughToStartTransition);
@@ -94,19 +95,17 @@ describe('SimpleSlider', function () {
 
     it('should change values using no options', function (done) {
       // set a mock element with default data-attr
-      var ss;
       var nextIndex;
-      var elem = getNewDiv();
+      var s = {
+        container: getNewDiv()
+      };
 
-      elem.setAttribute('data-simple-slider', true);
-      document.body.appendChild(elem);
-
-      expect.assertions(3);
+      s.container.setAttribute('data-simple-slider', true);
 
       function onChange() {
         // Internal index value is correct
         try {
-          expect(ss.currentIndex()).toEqual(nextIndex);
+          expect(s.slider.currentIndex()).toEqual(nextIndex);
         } catch (e) {
           console.error(e);
         }
@@ -115,46 +114,44 @@ describe('SimpleSlider', function () {
       function onChangeEnd() {
         // Test values after finishing the first transition
         try {
-          expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.endVal.toString() + ss.internalState.unit);
-          expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
+          expect(s.container.children[0].style.left).toEqual('100%');
+          expect(s.container.children[1].style.left).toEqual('0%');
         } catch (e) {
           console.error(e);
         }
-        ss.dispose();
+        s.slider.dispose();
         done();
       }
 
-      ss = getSlider({
+      s.slider = window.simpleslider.getSlider({
         onChange: onChange,
         onChangeEnd: onChangeEnd
       });
-      nextIndex = ss.currentIndex() + 1;
+      nextIndex = s.slider.currentIndex() + 1;
     });
 
     it('should change values correctly, sliding style', function (done) {
-      var ss = getNewSlider({
+      var s = getNewSlider({
         prop: 'left',
-        delay: 0.5,
-        duration: 0.2,
-        init: -612,
+        delay: 0.2,
+        duration: 0.1,
+        init: -500,
         show: 0,
-        end: 612,
+        end: 500,
         unit: 'px'
       }, 5);
 
-      var nextIndex = ss.currentIndex() + 1;
-      var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
-      var timeEnoughToEndTransition = (ss.internalState.trTime * 1000) + 100;
+      var nextIndex = s.slider.currentIndex() + 1;
+      var timeEnoughToStartTransition = 350;
+      var timeEnoughToEndTransition = 50;
 
-      expect.assertions(6);
-
-      expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
-      expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
+      expect(s.container.children[0].style.left).toEqual('0px');
+      expect(s.container.children[1].style.left).toEqual('-500px');
 
       setTimeout(function () {
         // Internal index value is correct
         try {
-          expect(ss.currentIndex()).toEqual(nextIndex);
+          expect(s.slider.currentIndex()).toEqual(nextIndex);
         } catch (e) {
           console.error(e);
         }
@@ -162,37 +159,35 @@ describe('SimpleSlider', function () {
         setTimeout(function () {
           // Test values after finishing the first transition
           try {
-            expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.endVal.toString() + ss.internalState.unit);
-            expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
-            expect(ss.internalState.getImgs()[2].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
+            expect(s.container.children[0].style.left).toEqual('500px');
+            expect(s.container.children[1].style.left).toEqual('0px');
+            expect(s.container.children[2].style.left).toEqual('-500px');
           } catch (e) {
             console.error(e);
           }
-          ss.dispose();
+          s.slider.dispose();
           done();
         }, timeEnoughToEndTransition);
       }, timeEnoughToStartTransition);
     });
 
     it('should change values correctly after using change function', function (done) {
-      var ss = getNewSlider({
+      var s = getNewSlider({
         paused: true,
-        delay: 0.5,
-        duration: 0.2
+        delay: 0.2,
+        duration: 0.1
       }, 5);
 
-      var nextIndex = ss.currentIndex() + 1;
-      var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
-      var timeEnoughToEndTransition = (ss.internalState.trTime * 1000) + 100;
+      var nextIndex = s.slider.currentIndex() + 1;
+      var timeEnoughToStartTransition = 320;
+      var timeEnoughToEndTransition = 100;
 
-      expect.assertions(3);
-
-      ss.change(1);
+      s.slider.change(1);
 
       setTimeout(function () {
         // Internal index value is correct
         try {
-          expect(ss.currentIndex()).toEqual(nextIndex);
+          expect(s.slider.currentIndex()).toEqual(nextIndex);
         } catch (e) {
           console.error(e);
         }
@@ -200,34 +195,32 @@ describe('SimpleSlider', function () {
         setTimeout(function () {
           // Test values after finishing the first transition
           try {
-            expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.endVal.toString() + ss.internalState.unit);
-            expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
+            expect(s.container.children[0].style.left).toEqual('100%');
+            expect(s.container.children[1].style.left).toEqual('0%');
           } catch (e) {
             console.error(e);
           }
-          ss.dispose();
+          s.slider.dispose();
           done();
         }, timeEnoughToEndTransition);
       }, timeEnoughToStartTransition);
     });
 
     it('should not change values when using paused:true option', function (done) {
-      var ss = getNewSlider({
+      var s = getNewSlider({
         paused: true,
-        delay: 0.5,
+        delay: 0.2,
         duration: 0.2
       }, 5);
 
-      var startIndex = ss.currentIndex();
-      var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
-      var timeEnoughToEndTransition = (ss.internalState.trTime * 1000) + 100;
-
-      expect.assertions(3);
+      var startIndex = s.slider.currentIndex();
+      var timeEnoughToStartTransition = 320;
+      var timeEnoughToEndTransition = 100;
 
       setTimeout(function () {
         // Internal index value is correct
         try {
-          expect(ss.currentIndex()).toEqual(startIndex);
+          expect(s.slider.currentIndex()).toEqual(startIndex);
         } catch (e) {
           console.error(e);
         }
@@ -235,13 +228,13 @@ describe('SimpleSlider', function () {
         setTimeout(function () {
           // Ensure values paused hold initial values after time enough to have changed
           try {
-            expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
-            expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(ss.internalState.startVal.toString() + ss.internalState.unit);
+            expect(s.container.children[0].style.left).toEqual('0%');
+            expect(s.container.children[1].style.left).toEqual('-100%');
           } catch (e) {
             console.error(e);
           }
 
-          ss.dispose();
+          s.slider.dispose();
 
           done();
         }, timeEnoughToEndTransition);
@@ -249,18 +242,18 @@ describe('SimpleSlider', function () {
     });
 
     it('should work well with just 2 slides', function (done) {
-      var ss;
+      var s;
       var changeCount = 0;
       var changeEndCount = 0;
       var startIndex;
       var nextIndex;
       var onChange = function () {
         if (changeCount === 0) {
-          expect(ss.currentIndex()).toEqual(nextIndex);
+          expect(s.slider.currentIndex()).toEqual(nextIndex);
         } else if (changeCount === 1) {
           // Internal index value should be start value again
           try {
-            expect(ss.currentIndex()).toEqual(startIndex);
+            expect(s.slider.currentIndex()).toEqual(startIndex);
           } catch (e) {
             console.error(e);
           }
@@ -275,21 +268,21 @@ describe('SimpleSlider', function () {
         if (changeEndCount === 0) {
           // Ensure values have changed
           try {
-            expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(String(ss.internalState.endVal) + ss.internalState.unit);
-            expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(String(ss.internalState.visVal) + ss.internalState.unit);
+            expect(s.container.children[0].style.left).toEqual('100%');
+            expect(s.container.children[1].style.left).toEqual('0%');
           } catch (e) {
             console.error(e);
           }
         } else if (changeEndCount === 1) {
           try {
             // Ensure values now hold initial values again
-            expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(String(ss.internalState.visVal) + ss.internalState.unit);
-            expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(String(ss.internalState.endVal) + ss.internalState.unit);
+            expect(s.container.children[0].style.left).toEqual('0%');
+            expect(s.container.children[1].style.left).toEqual('100%');
           } catch (e) {
             console.error(e);
           }
 
-          ss.dispose();
+          s.slider.dispose();
 
           done();
         } else {
@@ -299,38 +292,34 @@ describe('SimpleSlider', function () {
         changeEndCount++;
       };
 
-      expect.assertions(8);
-
-      ss = getNewSlider({
-        delay: 0.5,
-        duration: 0.2,
-        onChange,
-        onChangeEnd
+      s = getNewSlider({
+        delay: 0.2,
+        duration: 0.1,
+        onChange: onChange,
+        onChangeEnd: onChangeEnd
       }, 2);
-      startIndex = ss.currentIndex();
-      nextIndex = ss.currentIndex() + 1;
+      startIndex = s.slider.currentIndex();
+      nextIndex = s.slider.currentIndex() + 1;
 
       // Values should have correct initial values
-      expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(String(ss.internalState.visVal) + ss.internalState.unit);
-      expect(ss.internalState.getImgs()[1].style[ss.internalState.trProp]).toEqual(String(ss.internalState.startVal) + ss.internalState.unit);
-    }, 15000);
+      expect(s.container.children[0].style.left).toEqual('0%');
+      expect(s.container.children[1].style.left).toEqual('-100%');
+    });
 
     it('should not swap slides when there is only one image', function (done) {
-      var ss = getNewSlider({
-        delay: 0.5,
-        duration: 0.2
+      var s = getNewSlider({
+        delay: 0.2,
+        duration: 0.1
       }, 1);
 
-      var startIndex = ss.currentIndex();
-      var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
-      var timeEnoughToEndTransition = (ss.internalState.trTime * 1000) + 100;
-
-      expect.assertions(2);
+      var startIndex = s.slider.currentIndex();
+      var timeEnoughToStartTransition = 320;
+      var timeEnoughToEndTransition = 100;
 
       setTimeout(function () {
         // Internal index value is correct
         try {
-          expect(ss.currentIndex()).toEqual(startIndex);
+          expect(s.slider.currentIndex()).toEqual(startIndex);
         } catch (e) {
           console.error(e);
         }
@@ -338,12 +327,12 @@ describe('SimpleSlider', function () {
         setTimeout(function () {
           // Ensure values paused hold initial values after time enough to have changed
           try {
-            expect(ss.internalState.getImgs()[0].style[ss.internalState.trProp]).toEqual(ss.internalState.visVal.toString() + ss.internalState.unit);
+            expect(s.container.children[0].style.left).toEqual('0%');
           } catch (e) {
             console.error(e);
           }
 
-          ss.dispose();
+          s.slider.dispose();
 
           done();
         }, timeEnoughToEndTransition);
@@ -351,127 +340,152 @@ describe('SimpleSlider', function () {
     });
 
     it('should handle z-index during transition', function (done) {
-      var ss = getNewSlider({
+      var s = getNewSlider({
         prop: 'width',
         init: 0,
-        show: 612,
-        end: 612,
+        show: 500,
+        end: 500,
         unit: 'px',
-        delay: 0.5,
-        duration: 0.2
+        delay: 0.2,
+        duration: 0.1
       }, 5);
 
       // Simulates the state after a full carousel round
-      var i = ss.internalState.getImgs().length;
+      var i = s.container.children.length;
       while (--i >= 0) {
-        ss.internalState.getImgs()[i].style.zIndex = 1;
+        s.container.children[i].style.zIndex = 1;
       }
 
-      var timeEnoughToStartTransition = (ss.internalState.delay) + 100;
-
-      expect.assertions(1);
+      var timeEnoughToStartTransition = 320;
 
       setTimeout(function testZIndex() {
         try {
           expect(
-            parseInt(ss.internalState.getImgs()[1].style.zIndex)
+            parseInt(s.container.children[1].style.zIndex)
           ).toBeGreaterThan(
-            parseInt(ss.internalState.getImgs()[0].style.zIndex)
+            parseInt(s.container.children[0].style.zIndex)
+          );
+          expect(
+            parseInt(s.container.children[0].style.zIndex)
+          ).toBeGreaterThan(
+            parseInt(s.container.children[4].style.zIndex)
           );
         } catch (e) {
           console.error(e);
         }
-        ss.dispose();
+        s.slider.dispose();
         done();
       }, timeEnoughToStartTransition);
     });
 
     it('should allow transition to lower values than visible value', function (done) {
-      var ss = getNewSlider({
+      var s = getNewSlider({
         prop: 'left',
-        init: 612,
+        init: 500,
         show: 0,
-        end: -612,
+        end: -500,
         unit: 'px',
-        delay: 0.5,
-        duration: 0.5
+        delay: 0.2,
+        duration: 0.1
       }, 5);
 
-      var timeEnoughToHalftransition = ss.internalState.delay + ((ss.internalState.trTime / 2) * 1000);
-
-      expect.assertions(4);
+      var timeEnoughToHalftransition = 250;
 
       setTimeout(function () {
         try {
           // Should be somewhere in the middle of animation values
-          expect(parseInt(ss.internalState.getImgs()[0].style.left, 10)).toBeLessThan(0);
-          expect(parseInt(ss.internalState.getImgs()[0].style.left, 10)).toBeGreaterThan(-612);
-          expect(parseInt(ss.internalState.getImgs()[1].style.left, 10)).toBeLessThan(612);
-          expect(parseInt(ss.internalState.getImgs()[1].style.left, 10)).toBeGreaterThan(0);
+          expect(parseInt(s.container.children[0].style.left, 10)).toBeLessThan(0);
+          expect(parseInt(s.container.children[0].style.left, 10)).toBeGreaterThan(-500);
+          expect(parseInt(s.container.children[1].style.left, 10)).toBeLessThan(500);
+          expect(parseInt(s.container.children[1].style.left, 10)).toBeGreaterThan(0);
         } catch (e) {
           console.error(e);
         }
 
-        ss.dispose();
+        s.slider.dispose();
 
         done();
       }, timeEnoughToHalftransition);
     });
 
     it('should allow opacity remove transition', function (done) {
-      var ss = getNewSlider({
+      var s = getNewSlider({
         prop: 'opacity',
         init: 0,
         show: 1,
         end: 0,
         unit: '',
-        delay: 0.5,
-        duration: 0.5
+        delay: 0.2,
+        duration: 0.1
       }, 5);
 
-      var timeEnoughToHalftransition = ss.internalState.delay + ((ss.internalState.trTime / 2) * 1000);
-
-      expect.assertions(2);
+      var timeEnoughToHalftransition = 250;
 
       setTimeout(function () {
         try {
           // Should be somewhere in the middle of remove animation
-          expect(parseFloat(ss.internalState.getImgs()[0].style.opacity)).toBeLessThan(1);
-          expect(parseFloat(ss.internalState.getImgs()[0].style.opacity)).toBeGreaterThan(0);
+          expect(parseFloat(s.container.children[0].style.opacity)).toBeLessThan(1);
+          expect(parseFloat(s.container.children[0].style.opacity)).toBeGreaterThan(0);
         } catch (e) {
           console.error(e);
         }
 
-        ss.dispose();
+        s.slider.dispose();
 
         done();
       }, timeEnoughToHalftransition);
     });
 
     it('should be able to pause autoplay', function (done) {
-      var ss = getNewSlider({
+      var s = getNewSlider({
         paused: false,
-        delay: 0.5,
-        duration: 0.5
+        delay: 0.2,
+        duration: 0.1
       }, 5);
 
-      var timeEnoughToHalftransition = ((ss.internalState.delay + (ss.internalState.trTime / 2)));
+      var isTransitionTested;
+      var timeEnoughToHalftransition = 250;
+      var timeEnoughToAnotherTransition = 600;
+      var startTime = 0;
 
-      expect.assertions(1);
+      expect(s.container.children[0].style.left).toEqual('0%');
+      expect(s.container.children[1].style.left).toEqual('-100%');
 
-      setTimeout(function () {
-        ss.pause();
+      function testPause(time) {
+        if (!startTime) {
+          startTime = time;
+        } else if ((time - startTime) > timeEnoughToAnotherTransition) {
+          // after a long enough delay, left position of slide should stay the same
+          try {
+            expect(s.container.children[0].style.left).toEqual('100%');
+            expect(s.container.children[1].style.left).toEqual('0%');
+          } catch (e) {
+            console.error(e);
+          }
 
-        try {
-          expect(ss.internalState.getRemainingTime()).toBeLessThan(timeEnoughToHalftransition);
-        } catch (e) {
-          console.error(e);
+          s.slider.dispose();
+
+          done();
+          return;
+        } else if (!isTransitionTested && (time - startTime) > timeEnoughToHalftransition) {
+          s.slider.pause();
+
+          try {
+            expect(parseInt(s.container.children[0].style.left, 10)).toBeLessThan(100);
+            expect(parseInt(s.container.children[0].style.left, 10)).toBeGreaterThan(0);
+            expect(parseInt(s.container.children[1].style.left, 10)).toBeLessThan(0);
+            expect(parseInt(s.container.children[1].style.left, 10)).toBeGreaterThan(-100);
+          } catch (e) {
+            console.error(e);
+          }
+
+          isTransitionTested = true;
         }
 
-        ss.dispose();
+        requestAnimationFrame(testPause);
+      }
 
-        done();
-      }, timeEnoughToHalftransition);
+      requestAnimationFrame(testPause);
     });
   });
 });

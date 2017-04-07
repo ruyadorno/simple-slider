@@ -15,8 +15,9 @@
     "build": "run-s build:transpile build:minify",
     "test:lint": "eslint src/ test/",
     "test:build": "webpack",
-    "test:run": "jest",
-    "test": "run-s test:lint test:build test:run"
+    "test:unit": "jest",
+    "test:functional": "zuul -- test/functional-tests.js",
+    "test": "run-s test:lint test:build test:unit"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -33,7 +34,8 @@
     "npm-run-all": "^4.0.2",
     "raf": "^3.3.0",
     "uglify-js": "^2.8.10",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "zuul": "^3.11.1"
   },
   "repository": {
     "type": "git",

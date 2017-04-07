@@ -4,7 +4,7 @@ import {polyfill} from 'raf';
 
 polyfill();
 
-describe('SimpleSlider', function () {
+describe('simple-slider', function () {
   'use strict';
 
   var testDivCount = 0;
@@ -54,7 +54,7 @@ describe('SimpleSlider', function () {
     var ss = getNewSlider();
     expect(ss.internalState.paused).toEqual(undefined);
     expect(ss.internalState.trProp).toEqual('left');
-    expect(ss.internalState.trTime).toEqual(0.5);
+    expect(ss.internalState.trTime).toEqual(500);
     expect(ss.internalState.delay).toEqual(3000);
     expect(ss.internalState.startVal).toEqual(-100);
     expect(ss.internalState.visVal).toEqual(0);
@@ -81,7 +81,7 @@ describe('SimpleSlider', function () {
     });
     expect(ss.internalState.isAutoPlay()).toEqual(false);
     expect(ss.internalState.trProp).toEqual('left');
-    expect(ss.internalState.trTime).toEqual(1);
+    expect(ss.internalState.trTime).toEqual(1000);
     expect(ss.internalState.delay).toEqual(2000);
     expect(ss.internalState.startVal).toEqual(300);
     expect(ss.internalState.visVal).toEqual(200);

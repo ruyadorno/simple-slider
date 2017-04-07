@@ -1,0 +1,12 @@
+name: simple-slider
+ui: jasmine2
+browsers:
+  - name: chrome
+    version: latest
+  - name: firefox
+    version: latest
+  - name: ie
+    version: 10..latest
+scripts:
+  - "dist/simpleslider.min.js"
+
