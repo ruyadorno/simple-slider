@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-- '6'
-script: npm run ci
+- "6"
+script: "npm run ci"
 env:
   global:
-  - secure: SlDsH/0inFIufpXhNRD3Ruf66xm0XXYlpPJgmL+UAlleJiqapFqlMTXlr+I1nZ3DhDTS9fozKmXXBCyDDtsh2n85Cx5pUIsZ3etErvH9u2Gwy+bGyzSTqCxYcp9m4B5T3ID2F7eWECBze0Nx8BTrvsMR8Vqo24bfZK/Xr62qtUk=
-  - secure: gIbHszTCnynCaSTTXtK1fAzT9v4qrVb0ySM55DW27ZLNkRab+QxoJekPOFz292/8rBY5vFSGeKL9K3Rq+zz3zIW/BP3Kp1hub21zGQQsbwgmuYa2hhjM53TOelL5ZjCnaf8CYVvi6rcyFCjuW1zNPFiSQJz21GXltFr2UDbPRSQ=
+  - secure: "SlDsH/0inFIufpXhNRD3Ruf66xm0XXYlpPJgmL+UAlleJiqapFqlMTXlr+I1nZ3DhDTS9fozKmXXBCyDDtsh2n85Cx5pUIsZ3etErvH9u2Gwy+bGyzSTqCxYcp9m4B5T3ID2F7eWECBze0Nx8BTrvsMR8Vqo24bfZK/Xr62qtUk="
+  - secure: "gIbHszTCnynCaSTTXtK1fAzT9v4qrVb0ySM55DW27ZLNkRab+QxoJekPOFz292/8rBY5vFSGeKL9K3Rq+zz3zIW/BP3Kp1hub21zGQQsbwgmuYa2hhjM53TOelL5ZjCnaf8CYVvi6rcyFCjuW1zNPFiSQJz21GXltFr2UDbPRSQ="
