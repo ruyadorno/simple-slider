@@ -66,20 +66,19 @@ describe('simple-slider', function () {
     });
 
     it('should change values correctly after default transition', function (done) {
+      var startTime = 0;
+      var isTransitionTested;
       var s = getNewSlider({}, 5);
       var nextIndex = s.slider.currentIndex() + 1;
       var timeEnoughToStartTransition = 3100;
-      var timeEnoughToEndTransition = 600;
+      var timeEnoughToEndTransition = 3700;
 
-      setTimeout(function () {
-        // Internal index value is correct
-        try {
-          expect(s.slider.currentIndex()).toEqual(nextIndex);
-        } catch (e) {
-          console.error(e);
+      function testDefault(time) {
+        if (!startTime) {
+          startTime = time;
         }
 
-        setTimeout(function () {
+        if ((time - startTime) > timeEnoughToEndTransition) {
           // Test values after finishing the first transition
           try {
             expect(s.container.children[0].style.left).toEqual('100%');
@@ -89,8 +88,18 @@ describe('simple-slider', function () {
           }
           s.slider.dispose();
           done();
-        }, timeEnoughToEndTransition);
-      }, timeEnoughToStartTransition);
+          return;
+        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+          // Internal index value is correct
+          try {
+            expect(s.slider.currentIndex()).toEqual(nextIndex);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+        requestAnimationFrame(testDefault);
+      }
+      requestAnimationFrame(testDefault);
     });
 
     it('should change values using no options', function (done) {
@@ -133,30 +142,29 @@ describe('simple-slider', function () {
     it('should change values correctly, sliding style', function (done) {
       var s = getNewSlider({
         prop: 'left',
-        delay: 0.2,
-        duration: 0.1,
+        delay: 0.4,
+        duration: 0.2,
         init: -500,
         show: 0,
         end: 500,
         unit: 'px'
       }, 5);
 
+      var startTime = 0;
+      var isTransitionTested;
       var nextIndex = s.slider.currentIndex() + 1;
-      var timeEnoughToStartTransition = 350;
-      var timeEnoughToEndTransition = 50;
+      var timeEnoughToStartTransition = 500;
+      var timeEnoughToEndTransition = 700;
 
       expect(s.container.children[0].style.left).toEqual('0px');
       expect(s.container.children[1].style.left).toEqual('-500px');
 
-      setTimeout(function () {
-        // Internal index value is correct
-        try {
-          expect(s.slider.currentIndex()).toEqual(nextIndex);
-        } catch (e) {
-          console.error(e);
+      function testSliding(time) {
+        if (!startTime) {
+          startTime = time;
         }
 
-        setTimeout(function () {
+        if ((time - startTime) > timeEnoughToEndTransition) {
           // Test values after finishing the first transition
           try {
             expect(s.container.children[0].style.left).toEqual('500px');
@@ -167,32 +175,44 @@ describe('simple-slider', function () {
           }
           s.slider.dispose();
           done();
-        }, timeEnoughToEndTransition);
-      }, timeEnoughToStartTransition);
+          return;
+        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+          // Internal index value is correct
+          try {
+            expect(s.slider.currentIndex()).toEqual(nextIndex);
+          } catch (e) {
+            console.error(e);
+          }
+          isTransitionTested = true;
+        }
+
+        requestAnimationFrame(testSliding);
+      }
+
+      requestAnimationFrame(testSliding);
     });
 
     it('should change values correctly after using change function', function (done) {
       var s = getNewSlider({
         paused: true,
-        delay: 0.2,
-        duration: 0.1
+        delay: 0.4,
+        duration: 0.2
       }, 5);
 
+      var startTime = 0;
+      var isTransitionTested;
       var nextIndex = s.slider.currentIndex() + 1;
-      var timeEnoughToStartTransition = 320;
-      var timeEnoughToEndTransition = 100;
+      var timeEnoughToStartTransition = 500;
+      var timeEnoughToEndTransition = 700;
 
       s.slider.change(1);
 
-      setTimeout(function () {
-        // Internal index value is correct
-        try {
-          expect(s.slider.currentIndex()).toEqual(nextIndex);
-        } catch (e) {
-          console.error(e);
+      function testChange(time) {
+        if (!startTime) {
+          startTime = time;
         }
 
-        setTimeout(function () {
+        if ((time - startTime) > timeEnoughToEndTransition) {
           // Test values after finishing the first transition
           try {
             expect(s.container.children[0].style.left).toEqual('100%');
@@ -202,31 +222,39 @@ describe('simple-slider', function () {
           }
           s.slider.dispose();
           done();
-        }, timeEnoughToEndTransition);
-      }, timeEnoughToStartTransition);
+          return;
+        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+          // Internal index value is correct
+          try {
+            expect(s.slider.currentIndex()).toEqual(nextIndex);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+        requestAnimationFrame(testChange);
+      }
+      requestAnimationFrame(testChange);
     });
 
     it('should not change values when using paused:true option', function (done) {
       var s = getNewSlider({
         paused: true,
-        delay: 0.2,
+        delay: 0.4,
         duration: 0.2
       }, 5);
 
+      var startTime = 0;
+      var isTransitionTested;
       var startIndex = s.slider.currentIndex();
-      var timeEnoughToStartTransition = 320;
-      var timeEnoughToEndTransition = 100;
+      var timeEnoughToStartTransition = 500;
+      var timeEnoughToEndTransition = 700;
 
-      setTimeout(function () {
-        // Internal index value is correct
-        try {
-          expect(s.slider.currentIndex()).toEqual(startIndex);
-        } catch (e) {
-          console.error(e);
+      function testPausedOption(time) {
+        if (!startTime) {
+          startTime = time;
         }
 
-        setTimeout(function () {
-          // Ensure values paused hold initial values after time enough to have changed
+        if ((time - startTime) > timeEnoughToEndTransition) {
           try {
             expect(s.container.children[0].style.left).toEqual('0%');
             expect(s.container.children[1].style.left).toEqual('-100%');
@@ -237,8 +265,20 @@ describe('simple-slider', function () {
           s.slider.dispose();
 
           done();
-        }, timeEnoughToEndTransition);
-      }, timeEnoughToStartTransition);
+          return;
+        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+          // index value is correct
+          try {
+            expect(s.slider.currentIndex()).toEqual(startIndex);
+          } catch (e) {
+            console.error(e);
+          }
+
+          isTransitionTested = true;
+        }
+        requestAnimationFrame(testPausedOption);
+      }
+      requestAnimationFrame(testPausedOption);
     });
 
     it('should work well with just 2 slides', function (done) {
@@ -308,23 +348,22 @@ describe('simple-slider', function () {
 
     it('should not swap slides when there is only one image', function (done) {
       var s = getNewSlider({
-        delay: 0.2,
-        duration: 0.1
+        delay: 0.4,
+        duration: 0.2
       }, 1);
 
+      var startTime = 0;
+      var isTransitionTested;
       var startIndex = s.slider.currentIndex();
-      var timeEnoughToStartTransition = 320;
-      var timeEnoughToEndTransition = 100;
+      var timeEnoughToStartTransition = 500;
+      var timeEnoughToEndTransition = 700;
 
-      setTimeout(function () {
-        // Internal index value is correct
-        try {
-          expect(s.slider.currentIndex()).toEqual(startIndex);
-        } catch (e) {
-          console.error(e);
+      function testOneImage(time) {
+        if (!startTime) {
+          startTime = time;
         }
 
-        setTimeout(function () {
+        if ((time - startTime) > timeEnoughToEndTransition) {
           // Ensure values paused hold initial values after time enough to have changed
           try {
             expect(s.container.children[0].style.left).toEqual('0%');
@@ -335,8 +374,20 @@ describe('simple-slider', function () {
           s.slider.dispose();
 
           done();
-        }, timeEnoughToEndTransition);
-      }, timeEnoughToStartTransition);
+          return;
+        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+          // Internal index value is correct
+          try {
+            expect(s.slider.currentIndex()).toEqual(startIndex);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+
+        requestAnimationFrame(testOneImage);
+      }
+
+      requestAnimationFrame(testOneImage);
     });
 
     it('should handle z-index during transition', function (done) {
@@ -356,26 +407,38 @@ describe('simple-slider', function () {
         s.container.children[i].style.zIndex = 1;
       }
 
+      var startTime = 0;
       var timeEnoughToStartTransition = 320;
 
-      setTimeout(function testZIndex() {
-        try {
-          expect(
-            parseInt(s.container.children[1].style.zIndex)
-          ).toBeGreaterThan(
-            parseInt(s.container.children[0].style.zIndex)
-          );
-          expect(
-            parseInt(s.container.children[0].style.zIndex)
-          ).toBeGreaterThan(
-            parseInt(s.container.children[4].style.zIndex)
-          );
-        } catch (e) {
-          console.error(e);
+      function testZIndex(time) {
+        if (!startTime) {
+          startTime = time;
         }
-        s.slider.dispose();
-        done();
-      }, timeEnoughToStartTransition);
+
+        if ((time - startTime) > timeEnoughToStartTransition) {
+          try {
+            expect(
+              parseInt(s.container.children[1].style.zIndex)
+            ).toBeGreaterThan(
+              parseInt(s.container.children[0].style.zIndex)
+            );
+            expect(
+              parseInt(s.container.children[0].style.zIndex)
+            ).toBeGreaterThan(
+              parseInt(s.container.children[4].style.zIndex)
+            );
+          } catch (e) {
+            console.error(e);
+          }
+
+          s.slider.dispose();
+          done();
+          return;
+        }
+
+        requestAnimationFrame(testZIndex);
+      }
+      requestAnimationFrame(testZIndex);
     });
 
     it('should allow transition to lower values than visible value', function (done) {
@@ -385,27 +448,39 @@ describe('simple-slider', function () {
         show: 0,
         end: -500,
         unit: 'px',
-        delay: 0.2,
-        duration: 0.1
+        delay: 0.5,
+        duration: 0.4
       }, 5);
 
-      var timeEnoughToHalftransition = 250;
+      var startTime = 0;
+      var timeEnoughToHalftransition = 700;
 
-      setTimeout(function () {
-        try {
-          // Should be somewhere in the middle of animation values
-          expect(parseInt(s.container.children[0].style.left, 10)).toBeLessThan(0);
-          expect(parseInt(s.container.children[0].style.left, 10)).toBeGreaterThan(-500);
-          expect(parseInt(s.container.children[1].style.left, 10)).toBeLessThan(500);
-          expect(parseInt(s.container.children[1].style.left, 10)).toBeGreaterThan(0);
-        } catch (e) {
-          console.error(e);
+      function testVisible(time) {
+        if (!startTime) {
+          startTime = time;
         }
 
-        s.slider.dispose();
+        if ((time - startTime) > timeEnoughToHalftransition) {
+          try {
+            // Should be somewhere in the middle of animation values
+            expect(parseInt(s.container.children[0].style.left, 10)).toBeLessThan(0);
+            expect(parseInt(s.container.children[0].style.left, 10)).toBeGreaterThan(-500);
+            expect(parseInt(s.container.children[1].style.left, 10)).toBeLessThan(500);
+            expect(parseInt(s.container.children[1].style.left, 10)).toBeGreaterThan(0);
+          } catch (e) {
+            console.error(e);
+          }
 
-        done();
-      }, timeEnoughToHalftransition);
+          s.slider.dispose();
+
+          done();
+          return;
+        }
+
+        requestAnimationFrame(testVisible);
+      }
+
+      requestAnimationFrame(testVisible);
     });
 
     it('should allow opacity remove transition', function (done) {
@@ -415,37 +490,49 @@ describe('simple-slider', function () {
         show: 1,
         end: 0,
         unit: '',
-        delay: 0.2,
-        duration: 0.1
+        delay: 0.5,
+        duration: 0.4
       }, 5);
 
-      var timeEnoughToHalftransition = 250;
+      var startTime = 0;
+      var timeEnoughToHalftransition = 700;
 
-      setTimeout(function () {
-        try {
-          // Should be somewhere in the middle of remove animation
-          expect(parseFloat(s.container.children[0].style.opacity)).toBeLessThan(1);
-          expect(parseFloat(s.container.children[0].style.opacity)).toBeGreaterThan(0);
-        } catch (e) {
-          console.error(e);
+      function testOpacity(time) {
+        if (!startTime) {
+          startTime = time;
         }
 
-        s.slider.dispose();
+        if ((time - startTime) > timeEnoughToHalftransition) {
+          try {
+            // Should be somewhere in the middle of remove animation
+            expect(parseFloat(s.container.children[0].style.opacity)).toBeLessThan(1);
+            expect(parseFloat(s.container.children[0].style.opacity)).toBeGreaterThan(0);
+          } catch (e) {
+            console.error(e);
+          }
 
-        done();
-      }, timeEnoughToHalftransition);
+          s.slider.dispose();
+
+          done();
+          return;
+        }
+
+        requestAnimationFrame(testOpacity);
+      }
+
+      requestAnimationFrame(testOpacity);
     });
 
     it('should be able to pause autoplay', function (done) {
       var s = getNewSlider({
         paused: false,
-        delay: 0.2,
-        duration: 0.1
+        delay: 0.5,
+        duration: 0.4
       }, 5);
 
       var isTransitionTested;
-      var timeEnoughToHalftransition = 250;
-      var timeEnoughToAnotherTransition = 600;
+      var timeEnoughToHalftransition = 750;
+      var timeEnoughToAnotherTransition = 980;
       var startTime = 0;
 
       expect(s.container.children[0].style.left).toEqual('0%');

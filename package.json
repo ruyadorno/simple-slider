@@ -16,8 +16,9 @@
     "test:lint": "eslint src/ test/",
     "test:build": "webpack",
     "test:unit": "jest",
-    "test:functional": "zuul -- test/functional-tests.js",
-    "test": "run-s test:lint test:build test:unit"
+    "test": "run-s test:lint test:build test:unit",
+    "functional": "zuul -- test/functional-tests.js",
+    "ci": "run-s test functional"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",

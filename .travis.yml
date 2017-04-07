@@ -1,4 +1,9 @@
 language: node_js
 node_js:
   - '6'
-before_install: npm install -g grunt-cli
+script: "npm run ci"
+env:
+  global:
+    - secure: "fUtfHwpp7M5vhv/AR1yNfLp6OwRk3Q4NyCA2jPOmm3zvqzbyKtfgtOrFdkezPVgUyEApN26wNLSFgdv2BfGEqKcMaoD4SgO1GrtLlR7BRDt1HMEF74/tyeqSFk3H+4zi/oCp5MxaUKhFL+F4v+iR30EGMAPFXXwrBT/yE9oY6Pc="
+    - secure: "gx67NON+n4bkx5vve7M2cK2AFov1Ohn0m7/ALwAjur6Qmxk032DJ7aN6ECH6WPw/gLulbGl/zLOcuDhvIzjsta74+6sCWJD5RHMWv8Gf66NJQN0Vflj4WUnH+mawSRJ3WY0LuM7wpgRXmbzj41UhDk5IO8D1PcFTe9OzKvQNYrY="
+
