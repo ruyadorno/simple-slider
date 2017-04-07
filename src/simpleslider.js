@@ -47,7 +47,7 @@ function getSlider(options) {
   // Get user defined options or its default values
   let containerElem = getdef(options.container, document.querySelector('*[data-simple-slider]'));
   let trProp = getdef(options.prop, 'left');
-  let trTime = getdef(options.duration, 0.5);
+  let trTime = getdef(options.duration, 0.5) * 1000;
   let delay = getdef(options.delay, 3) * 1000;
   let unit = getdef(options.unit, '%');
   let startVal = getdef(options.init, -100);
@@ -132,7 +132,7 @@ function getSlider(options) {
       imgs[newIndex].style, // removeElem
       startVal, // removeFrom
       visVal, // removeTo
-      trTime * 1000, // transitionDuration
+      trTime, // transitionDuration
       0, // startTime
       0, // elapsedTime
       ease // easeFunc
@@ -171,6 +171,7 @@ function getSlider(options) {
 
   function dispose() {
     clearTimeout(interval);
+    document.removeEventListener('visibilitychange', visibilityChange);
 
     imgs =
     containerElem =
@@ -233,20 +234,21 @@ function getSlider(options) {
     });
   }
 
-  reset();
-
-  if (imgs && len(imgs) > 1) {
-    resume();
-  }
-
-  // configures visibility api handler https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
-  document.addEventListener('visibilitychange', () => {
+  function visibilityChange() {
     if (document.hidden) {
       pause();
     } else {
       resume();
     }
-  });
+  }
+
+  // configures visibility api handler https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
+  document.addEventListener('visibilitychange', visibilityChange);
+  reset();
+
+  if (imgs && len(imgs) > 1) {
+    resume();
+  }
 
   "#if TEST > 0"; // eslint-disable-line
   return {
