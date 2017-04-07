@@ -18,7 +18,7 @@
     "test:unit": "jest",
     "test": "run-s test:lint test:build test:unit",
     "functional": "zuul -- test/functional-tests.js",
-    "ci": "run-s test functional"
+    "ci": "run-s test build functional"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
