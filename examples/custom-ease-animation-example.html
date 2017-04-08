@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Custom ease function</title>
+    <style>
+      .slider { width: 100%; padding-bottom: 25%; }
+      .slider img { width: 100%; }
+      .wrapper { width: 100%; margin: 0; }
+      @media only screen and (min-width: 1024px) {
+        .wrapper { width: 1024px; margin: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="myslider" class="slider">
+        <img src="http://placekitten.com/g/1024/256"/>
+        <img src="https://unsplash.it/1024/256"/>
+        <img src="https://unsplash.it/1024/256?random=1"/>
+        <img src="https://unsplash.it/1024/256?random=2"/>
+      </div>
+      <p>This example uses a <a href="http://robertpenner.com/easing/">Robert Penner</a> classic ease function, for more ready-to-use functions check <a href="https://github.com/jimjeffers/Easie/blob/master/easie.js">Easie</a>.</p>
+    </div>
+  </body>
+  <script src="../dist/simpleslider.js"></script>
+  <script>
+    function bounceOut(time, begin, change, duration) {
+      if ((time /= duration) < 1 / 2.75) {
+        return change * (7.5625 * time * time) + begin;
+      } else if (time < 2 / 2.75) {
+        return change * (7.5625 * (time -= 1.5 / 2.75) * time + 0.75) + begin;
+      } else if (time < 2.5 / 2.75) {
+        return change * (7.5625 * (time -= 2.25 / 2.75) * time + 0.9375) + begin;
+      } else {
+        return change * (7.5625 * (time -= 2.625 / 2.75) * time + 0.984375) + begin;
+      }
+    }
+    simpleslider.getSlider({
+      container: document.getElementById('myslider'),
+      delay: 3,
+      duration: 1,
+      ease: bounceOut
+    });
+  </script>
+</html>
+
