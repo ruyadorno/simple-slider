@@ -7,7 +7,7 @@
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/ruyadorno/simple-slider/master/LICENSE)
 [![Join the chat at https://gitter.im/simple-slider/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/simple-slider/Lobby)
 
-http://ruyadorno.github.com/simple-slider
+https://ruyadorno.github.com/simple-slider
 
 Extremely lightweight carousel micro library.
 
@@ -211,9 +211,9 @@ Some methods are exposed by the returning value of the function allowing you to 
 - [Custom ease animation](./examples/custom-ease-animation-example.html)
 
 
-## [Documentation](https://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html)
+## [Documentation](https://ruyadorno.github.io/simple-slider/docs/)
 
-Extensive documentation of the options and methods can be found at the [simple-slider official documentation](https://ruyadorno.github.io/simple-slider/doc/simpleslider_doc.html).
+Extensive documentation of the options and methods can be found at the [simple-slider official documentation](https://ruyadorno.github.io/simple-slider/docs/).
 
 
 ## Alternatives
