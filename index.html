@@ -19,11 +19,6 @@
 				}
 			}
 			function startHomeSlider() {
-				console.log('startHomeSlider');
-				console.log(document.location.pathname);
-				if (document.location.pathname !== '/') {
-					return;
-				}
 				[
 					{
 						container: document.getElementById('home-simple-slider')
@@ -52,12 +47,6 @@
 						ease: bounceOut
 					}
 				].map(simpleslider.getSlider);
-				console.log('start slider');
-			}
 			document.addEventListener('DOMContentLoaded', startHomeSlider);
-			var pushState = history.pushState;
-			history.pushState = function() {
-				pushState.apply(history, arguments);
-				setTimeout(startHomeSlider, 1);
-			};
+			}
 			</script><!-- inject:vendor:js --><script>CodeMirror.defaults.lineNumbers = true; CodeMirror.defaults.matchBrackets = true; CodeMirror.defaults.readOnly = true; CodeMirror.defaults.theme = 'dracula'; CodeMirror.defaults.viewportMargin = Infinity; var REGEX_LB = /&#123;/g; var REGEX_RB = /&#125;/g; function disposePageComponent() {if (window.prevElectricPageComponent) {window.prevElectricPageComponent.dispose();}}function runCodeMirror() {var code = document.querySelectorAll('.code'); for (var i = 0; i < code.length; i++) {var text = code[i].innerText .replace(REGEX_LB, '{') .replace(REGEX_RB, '}'); var editor = CodeMirror(function(elt) {var preEl = code[i].parentNode; preEl.parentNode.append(elt);}, {mode: code[i].getAttribute('data-mode') || '', value: text});}}function runGoogleAnalytics(path) {if (ga) {ga('set', 'page', path); ga('send', 'pageview');}}runCodeMirror(); document.addEventListener('DOMContentLoaded', function() {if (senna) {var app = senna.dataAttributeHandler.getApp(); app.on('endNavigate', function(event) {disposePageComponent(); runCodeMirror(); runGoogleAnalytics(event.path);});}}); (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-43100019-2', 'auto'); ga('send', 'pageview');</script><!-- endinject --></body></html>
