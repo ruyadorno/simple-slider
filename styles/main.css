@@ -11388,7 +11388,7 @@ li a:not([class]) {
 .simple-slider img {
   width: 100%; }
 
-.topbar .topbar-list .topbar-item {
+.topbar .topbar-list .topbar-item:first-child {
   display: none; }
 
 .about .simple-slider {
