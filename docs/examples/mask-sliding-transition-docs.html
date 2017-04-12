@@ -1,82 +1,167 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta content="minimum-scale=1.0, width=device-width" name="viewport"><meta name="description" content="Example of a slider that masks images behind it instead of moving them."><title>Mask Sliding transition - simple-slider</title><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto+Mono"><link rel="stylesheet" href="/simple-slider/fonts/galano/galano.css"><link rel="stylesheet" href="/simple-slider/fonts/icon-12/icon-12.css"><link rel="stylesheet" href="/simple-slider/fonts/icon-16/icon-16.css"><!-- inject:css --><link rel="stylesheet" href="/simple-slider/vendor/senna/senna.css"><link rel="stylesheet" href="/simple-slider/vendor/codemirror/lib/codemirror.css"><link rel="stylesheet" href="/simple-slider/vendor/codemirror/theme/dracula.css"><!-- endinject --><!-- inject:js --><script src="/simple-slider/js/bundle.js"></script><script src="/simple-slider/vendor/senna/senna.js"></script><script src="/simple-slider/vendor/codemirror/lib/codemirror.js"></script><script src="/simple-slider/vendor/codemirror/mode/css/css.js"></script><script src="/simple-slider/vendor/codemirror/mode/javascript/javascript.js"></script><script src="/simple-slider/vendor/codemirror/mode/xml/xml.js"></script><!-- endinject --><link rel="stylesheet" href="/simple-slider/styles/main.css"></head><body data-senna><div data-senna-surface id="wrapper"><div class="senna-loading-bar"></div><!-- inject:metal:js --><div id="pageComponent"><div class="main"><div class="guide"><main class="content"><div class="docs"><nav class="topbar topbar-light  topbar-docs-main"><div class="topbar-logo"><a class="topbar-logo-link" href="/"><span class="topbar-logo-icon icon-16-send"></span><span class="topbar-logo-text">simple-slider</span></a></div><ul class="topbar-list"><li class="topbar-item"><a class="topbar-link" href="/blog/markdown-post.html"><span>Blog</span></a></li><li class="topbar-item active"><a class="topbar-link" href="/docs"><span>Docs</span></a></li><li class="topbar-item"><a class="topbar-link" href="/updates"><span>Updates</span></a></li></ul></nav><nav class="sidebar"><a class="sidebar-header toggler-header-collapsed"><span class="sidebar-icon icon-16-menu"></span><span>Docs Menu</span><span class="sidebar-icon-right"><span class="icon-12-arrow-down-short"></span><span class="icon-12-arrow-up-short"></span></span></a><div class="sidebar-toggler-content toggler-collapsed"><div class="sidebar-search"><div class="page-autocomplete"><div class="form-group"><div class="input-inner-addon input-inner-addon-right"><input autocomplete="off" class="form-control" name="q" placeholder="Search Docs" ref="input" required type="text" ><span class="input-inner-icon-helper icon-16-magnifier"></span></div></div></div></div><ul class="sidebar-list sidebar-list-1"><li class="sidebar-item active"><a class="sidebar-link sidebar-link-selected" href="/simple-slider/docs/examples"><span class="sidebar-icon icon-16-flash"></span><span>Examples</span></a><ul class="sidebar-list sidebar-list-1"><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/custom-ease-animation-example-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Custom ease animation</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/default-sliding-transition-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Default Sliding Transition</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/no-options-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Default slider with no options</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/fading-transition-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Fading/Opacity transition</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/full-page-transition-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Full page transition</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/lightbox-integrated-example-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Lightbox Integration</span></a></li><li class="sidebar-item active"><a class="sidebar-link sidebar-link-selected" href="/simple-slider/docs/examples/mask-sliding-transition-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Mask Sliding transition</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/pause-slide-change-example-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Pause slide</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/requirejs-example-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>RequireJS usage</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/responsive-layout-example-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Responsive Layout Example</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/reverse-sliding-direction-example-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Reverse sliding direction</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/right-to-left-sliding-transition-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Right to left sliding transition</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/text-content-example-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Slides containing no image</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/top-to-bottom-slide-transition-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Top to bottom transition</span></a></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/examples/touch-swipe-example-docs.html"><span class="sidebar-icon icon-16-undefined"></span><span>Touch swipe example</span></a></li></ul></li><li class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/develop"><span class="sidebar-icon icon-16-code-file"></span><span>API</span></a></li></ul></div></nav><div class="sidebar-offset"><nav class="topbar topbar-light "><div class="topbar-logo"><a class="topbar-logo-link" href="/"><span class="topbar-logo-icon icon-16-send"></span><span class="topbar-logo-text">simple-slider</span></a></div><ul class="topbar-list"><li class="topbar-item"><a class="topbar-link" href="/blog/markdown-post.html"><span>Blog</span></a></li><li class="topbar-item active"><a class="topbar-link" href="/docs"><span>Docs</span></a></li><li class="topbar-item"><a class="topbar-link" href="/updates"><span>Updates</span></a></li></ul></nav><header class="guide-header"><div class="container-hybrid"><h1 class="title">Mask Sliding transition Guide</h1></div></header><div class="container-hybrid"><div class="docs-guide row"><div class="docs-content col-xs-16 col-md-9"><div class="guide-content"><h6>Example of a slider that masks images behind it instead of moving them.</h6><article id="base"><h2><a href="./mask-sliding-transition.html">View this example</a></h2><div class="code-container"><button class="btn btn-sm btn-copy"><span class="icon-12-overlap"></span></button><pre><code class="code" data-mode="text/html" ref="code">&lt;!doctype html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;Mask sliding example&lt;/title&gt;
-    &lt;style&gt;
-      #myslider, #myslider div{ width:612px; height:612px; }
-    &lt;/style&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id=&quot;myslider&quot;&gt;
-      &lt;div style=&quot;background-image:url(http://placekitten.com/g/612/612)&quot;&gt;&lt;/div&gt;
-      &lt;div style=&quot;background-image:url(https://unsplash.it/612/612)&quot;&gt;&lt;/div&gt;
-      &lt;div style=&quot;background-image:url(https://unsplash.it/612/612?random=1)&quot;&gt;&lt;/div&gt;
-      &lt;div style=&quot;background-image:url(https://unsplash.it/612/612?random=2)&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/body&gt;
-  &lt;script src=&quot;../dist/simpleslider.js&quot;&gt;&lt;/script&gt;
-  &lt;script&gt;
-    var imgSlider = simpleslider.getSlider({
-      container: document.getElementById(&#39;myslider&#39;),
-      prop: &#39;width&#39;,
-      init: 0,
-      show: 612,
-      end: 612,
-      unit: &#39;px&#39;
-    });
-  &lt;/script&gt;
-&lt;/html&gt;</code></pre></div></article><input type="hidden" value="Mask Sliding transition"><input type="hidden" value="simple-slider"></div><div class="contribute"><div class="contribute-img"><span class="icon-16-github"></span></div><div class="contribute-text"><p>Contribute on Github! <a href="https://github.com/ruyadorno/simple-slider-site/tree/master/src/pages/docs/examples/mask-sliding-transition-docs.md" class="contribute-link" target="_blank">Edit this section</a>.</p></div></div></div><nav class="col-xs-16 col-md-offset-2 col-md-5"><div class="docs-nav-container"><div class="affix-top docs-nav"><div ref="readingContainer"></div></div></div></nav></div></div></div></div></main></div></div></div><script>var data = JSON.parse('{\x22page\x22:{\x22title\x22:\x22Mask Sliding transition\x22,\x22description\x22:\x22Example of a slider that masks images behind it instead of moving them.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/mask-sliding-transition-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/mask-sliding-transition-docs.html\x22,\x22active\x22:true,\x22componentName\x22:\x22docsExamplesMaskSlidingTransitionDocsHtml\x22},\x22site\x22:{\x22title\x22:\x22simple-slider\x22,\x22githubRepo\x22:\x22ruyadorno\/simple-slider-site\x22,\x22googleAnalytics\x22:\x22UA-43100019-2\x22,\x22index\x22:{\x22title\x22:\x22Home\x22,\x22description\x22:\x22Extremely lightweight JavaScript carousel micro library\x22,\x22srcFilePath\x22:\x22src\/pages\/index.soy\x22,\x22url\x22:\x22\/.\x22,\x22children\x22:[{\x22title\x22:\x22Blog\x22,\x22description\x22:\x22Discover all the latest about our project.\x22,\x22type\x22:\x22blog\x22,\x22srcFilePath\x22:\x22src\/pages\/blog\/index.soy\x22,\x22url\x22:\x22\/blog\x22,\x22children\x22:[{\x22title\x22:\x22Markdown Post\x22,\x22description\x22:\x22Lorem ipsum dolor sit amet, consectetur adipisicing elit.\x22,\x22date\x22:\x22February 02, 2017\x22,\x22author\x22:\x22Author Name\x22,\x22layout\x22:\x22blog\x22,\x22srcFilePath\x22:\x22src\/pages\/blog\/markdown-post.md\x22,\x22url\x22:\x22\/blog\/markdown-post.html\x22},{\x22title\x22:\x22Soy Post\x22,\x22description\x22:\x22Voluptas laboriosam qui dolor et cumque tempore.\x22,\x22date\x22:\x22January 12, 2017\x22,\x22author\x22:\x22Author Name\x22,\x22srcFilePath\x22:\x22src\/pages\/blog\/soy-post.soy\x22,\x22url\x22:\x22\/blog\/soy-post.html\x22}],\x22redirect\x22:\x22\/blog\/markdown-post.html\x22},{\x22title\x22:\x22Docs\x22,\x22description\x22:\x22Everything you need to know to get started.\x22,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/index.soy\x22,\x22url\x22:\x22\/simple-slider\/docs\x22,\x22children\x22:[{\x22children\x22:[{\x22title\x22:\x22Custom ease animation\x22,\x22description\x22:\x22Example using a custom ease function.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/custom-ease-animation-example-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/custom-ease-animation-example-docs.html\x22},{\x22title\x22:\x22Default Sliding Transition\x22,\x22description\x22:\x22Example using pixel values for a default sliding transition.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/default-sliding-transition-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/default-sliding-transition-docs.html\x22},{\x22title\x22:\x22Default slider with no options\x22,\x22description\x22:\x22Example using data attribute to define a slider container and no initalization options.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/no-options-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/no-options-docs.html\x22},{\x22title\x22:\x22Fading\/Opacity transition\x22,\x22description\x22:\x22Example using css opacity for a fading slides transition.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/fading-transition-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/fading-transition-docs.html\x22},{\x22title\x22:\x22Full page transition\x22,\x22description\x22:\x22Example showing a slider taking the full window size.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/full-page-transition-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/full-page-transition-docs.html\x22},{\x22title\x22:\x22Lightbox Integration\x22,\x22description\x22:\x22Example of integration with a third-party library such as a lightbox when clicking a slide.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/lightbox-integrated-example-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/lightbox-integrated-example-docs.html\x22},{\x22title\x22:\x22Mask Sliding transition\x22,\x22description\x22:\x22Example of a slider that masks images behind it instead of moving them.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/mask-sliding-transition-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/mask-sliding-transition-docs.html\x22,\x22active\x22:true},{\x22title\x22:\x22Pause slide\x22,\x22description\x22:\x22Example of using the pause method to control a slider.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/pause-slide-change-example-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/pause-slide-change-example-docs.html\x22},{\x22title\x22:\x22RequireJS usage\x22,\x22description\x22:\x22Example of usage within a RequireJS environment.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/requirejs-example-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/requirejs-example-docs.html\x22},{\x22title\x22:\x22Responsive Layout Example\x22,\x22description\x22:\x22Example using css media queries to achieve a responsive layout with a maxium width value.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/responsive-layout-example-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/responsive-layout-example-docs.html\x22},{\x22title\x22:\x22Reverse sliding direction\x22,\x22description\x22:\x22Example showing how to reverse the carousel direction using the programmatic API.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/reverse-sliding-direction-example-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/reverse-sliding-direction-example-docs.html\x22},{\x22title\x22:\x22Right to left sliding transition\x22,\x22description\x22:\x22Example of a transition that slides from right to left instead of the default animation.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/right-to-left-sliding-transition-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/right-to-left-sliding-transition-docs.html\x22},{\x22title\x22:\x22Slides containing no image\x22,\x22description\x22:\x22Example showing slides that contains text-only.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/text-content-example-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/text-content-example-docs.html\x22},{\x22title\x22:\x22Top to bottom transition\x22,\x22description\x22:\x22Example of a transition animation that moves slides from top to bottom instead of the default animation.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/top-to-bottom-slide-transition-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/top-to-bottom-slide-transition-docs.html\x22},{\x22title\x22:\x22Touch swipe example\x22,\x22description\x22:\x22Example showing how to use a touch\/swipe interface to control the slider.\x22,\x22layout\x22:\x22guide\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/touch-swipe-example-docs.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\/touch-swipe-example-docs.html\x22}],\x22title\x22:\x22Examples\x22,\x22description\x22:\x22Lot\x27s of ready-to-use examples showing different usages.\x22,\x22layout\x22:\x22guide\x22,\x22icon\x22:\x22flash\x22,\x22weight\x22:1,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/examples\/index.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/examples\x22,\x22active\x22:true},{\x22title\x22:\x22API\x22,\x22description\x22:\x22Detailed usage of initialization options and methods to control your slider.\x22,\x22layout\x22:\x22guide\x22,\x22icon\x22:\x22code-file\x22,\x22weight\x22:2,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/develop\/index.md\x22,\x22url\x22:\x22\/simple-slider\/docs\/develop\x22},{\x22title\x22:\x22Search\x22,\x22description\x22:\x22Find what you\x27re looking for in the documentation.\x22,\x22hidden\x22:true,\x22srcFilePath\x22:\x22src\/pages\/simple-slider\/docs\/search.soy\x22,\x22url\x22:\x22\/simple-slider\/docs\/search.html\x22}],\x22active\x22:true},{\x22title\x22:\x22Updates\x22,\x22description\x22:\x22Check out what\x27s new\x22,\x22updates\x22:[{\x22version\x22:\x221.0.0\x22,\x22major\x22:true,\x22features\x22:[{\x22icon\x22:\x22send\x22,\x22title\x22:\x22New API\x22,\x22description\x22:\x22Amazing filesize, now under 1.2kb! API uses a factory method instead of a constructor.\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v1.0.0\x22},{\x22icon\x22:\x22send\x22,\x22title\x22:\x22Changes\x22,\x22description\x22:\x22The main container HTML element is now defined via container property; Default transition values now uses percentual values; Removed requestAnimationFrame polyfill.\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v1.0.0\x22},{\x22icon\x22:\x22send\x22,\x22title\x22:\x22Additions\x22,\x22description\x22:\x22Added children and unit as configurable properties.\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v1.0.0\x22},{\x22icon\x22:\x22send\x22,\x22title\x22:\x22New infrastructure\x22,\x22description\x22:\x22Uses modern js tools, such as Babel\/webpack\/UglifyJS for creating distribution files and running the tests.\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v1.0.0\x22}]},{\x22version\x22:\x220.6.0\x22,\x22major\x22:false,\x22features\x22:[{\x22icon\x22:\x22send\x22,\x22title\x22:\x22Additions\x22,\x22description\x22:\x22Added onChangeEnd callback function\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v0.6.0\x22}]},{\x22version\x22:\x220.5.0\x22,\x22major\x22:false,\x22features\x22:[{\x22icon\x22:\x22send\x22,\x22title\x22:\x22Additions\x22,\x22description\x22:\x22Added onChange callback function\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v0.5.0\x22}]},{\x22version\x22:\x220.4.0\x22,\x22major\x22:false,\x22features\x22:[{\x22icon\x22:\x22send\x22,\x22title\x22:\x22Additions\x22,\x22description\x22:\x22Added methods to play()\/pause() slideshow; Added support to visibilitychange API\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v0.4.0\x22}]},{\x22version\x22:\x220.3.0\x22,\x22major\x22:false,\x22features\x22:[{\x22icon\x22:\x22send\x22,\x22title\x22:\x22Fixes\x22,\x22description\x22:\x22Fixed prevIndex() method; Fixed integration between autoPlay and change() method\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v0.3.0\x22}]},{\x22version\x22:\x220.2.0\x22,\x22major\x22:false,\x22features\x22:[{\x22icon\x22:\x22send\x22,\x22title\x22:\x22Additions\x22,\x22description\x22:\x22Now animations supports easing function and also added prev\/next functions.\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v0.2.0\x22},{\x22icon\x22:\x22send\x22,\x22title\x22:\x22Changes\x22,\x22description\x22:\x22Default transition is now left-to-right sliding; Some basic style is now defined on initialization; z-index position is now handled internally\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v0.2.0\x22}]},{\x22version\x22:\x220.1.0\x22,\x22major\x22:false,\x22features\x22:[{\x22icon\x22:\x22send\x22,\x22title\x22:\x22First official release!\x22,\x22description\x22:\x22This may be considered the first official release of SimpleSlider, with consistent unit tests and use of best practices.\x22,\x22url\x22:\x22https:\/\/github.com\/ruyadorno\/simple-slider\/releases\/tag\/v0.1.0\x22}]}],\x22srcFilePath\x22:\x22src\/pages\/updates\/index.soy\x22,\x22url\x22:\x22\/updates\x22}]}}}'); if (window.electricPageComponent) {window.prevElectricPageComponent = window.electricPageComponent;}window.electricPageComponent = metal.Component.render(metal[data.page.componentName], {element: '#pageComponent', page: data.page, site: data.site});</script><!-- endinject --></div><script src="https://rawgit.com/ruyadorno/simple-slider/next-simple-slider/dist/simpleslider.min.js"></script><script>
-			function bounceOut(time, begin, change, duration) {
-				if ((time /= duration) < 1 / 2.75) {
-					return change * (7.5625 * time * time) + begin;
-				} else if (time < 2 / 2.75) {
-					return change * (7.5625 * (time -= 1.5 / 2.75) * time + 0.75) + begin;
-				} else if (time < 2.5 / 2.75) {
-					return change * (7.5625 * (time -= 2.25 / 2.75) * time + 0.9375) + begin;
-				} else {
-					return change * (7.5625 * (time -= 2.625 / 2.75) * time + 0.984375) + begin;
-				}
-			}
-			function startHomeSlider() {
-				console.log('startHomeSlider');
-				console.log(document.location.pathname);
-				if (document.location.pathname !== '/') {
-					return;
-				}
-				[
-					{
-						container: document.getElementById('home-simple-slider')
-					},
-					{
-						container: document.getElementById('highlight1-simple-slider'),
-						prop:'width',
-						init: 0,
-						show: 100,
-						end: 100
-					},
-					{
-						container: document.getElementById('highlight2-simple-slider'),
-						prop: 'opacity',
-						init: 0,
-						show: 1,
-						end: 0,
-						unit: ''
-					},
-					{
-						container: document.getElementById('highlight3-simple-slider'),
-						duration: 1.25,
-						prop: 'top',
-						init: -99,
-						end: 99,
-						ease: bounceOut
-					}
-				].map(simpleslider.getSlider);
-				console.log('start slider');
-			}
-			document.addEventListener('DOMContentLoaded', startHomeSlider);
-			var pushState = history.pushState;
-			history.pushState = function() {
-				pushState.apply(history, arguments);
-				setTimeout(startHomeSlider, 1);
-			};
-			</script><!-- inject:vendor:js --><script>CodeMirror.defaults.lineNumbers = true; CodeMirror.defaults.matchBrackets = true; CodeMirror.defaults.readOnly = true; CodeMirror.defaults.theme = 'dracula'; CodeMirror.defaults.viewportMargin = Infinity; var REGEX_LB = /&#123;/g; var REGEX_RB = /&#125;/g; function disposePageComponent() {if (window.prevElectricPageComponent) {window.prevElectricPageComponent.dispose();}}function runCodeMirror() {var code = document.querySelectorAll('.code'); for (var i = 0; i < code.length; i++) {var text = code[i].innerText .replace(REGEX_LB, '{') .replace(REGEX_RB, '}'); var editor = CodeMirror(function(elt) {var preEl = code[i].parentNode; preEl.parentNode.append(elt);}, {mode: code[i].getAttribute('data-mode') || '', value: text});}}function runGoogleAnalytics(path) {if (ga) {ga('set', 'page', path); ga('send', 'pageview');}}runCodeMirror(); document.addEventListener('DOMContentLoaded', function() {if (senna) {var app = senna.dataAttributeHandler.getApp(); app.on('endNavigate', function(event) {disposePageComponent(); runCodeMirror(); runGoogleAnalytics(event.path);});}}); (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-43100019-2', 'auto'); ga('send', 'pageview');</script><!-- endinject --></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="minimum-scale=1.0, width=device-width" name="viewport">
+    <meta name="description" content="Example of a slider that masks images behind it instead of moving them.">
+    <title>Mask Sliding transition - simple-slider</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto+Mono">
+    <link rel="stylesheet" href="/simple-slider/fonts/galano/galano.css">
+    <link rel="stylesheet" href="/simple-slider/fonts/icon-12/icon-12.css">
+    <link rel="stylesheet" href="/simple-slider/fonts/icon-16/icon-16.css">
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/simple-slider/vendor/senna/senna.css">
+    <link rel="stylesheet" href="/simple-slider/vendor/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="/simple-slider/vendor/codemirror/theme/dracula.css">
+    <!-- endinject -->
+    <!-- inject:js -->
+    <!-- endinject -->
+    <link rel="stylesheet" href="/simple-slider/styles/main.css">
+  </head>
+  <body data-senna="">
+    <div data-senna-surface="" id="wrapper">
+      <div class="senna-loading-bar"></div>
+      <!-- inject:metal:js -->
+      <div id="pageComponent">
+        <div class="main">
+          <div class="guide">
+            <main class="content">
+              <div class="docs">
+                <nav class="topbar topbar-light topbar-docs-main">
+                  <div class="topbar-logo"><a class="topbar-logo-link" href="/"><span class="topbar-logo-icon
+                      icon-16-send"></span><span class="topbar-logo-text">simple-slider</span></a></div>
+                  <ul class="topbar-list"><li class="topbar-item"><a class="topbar-link"
+                      href="/blog/markdown-post.html"><span>Blog</span></a></li><li class="topbar-item active"><a
+                      class="topbar-link" href="/docs"><span>Docs</span></a></li><li class="topbar-item"><a
+                      class="topbar-link" href="/updates"><span>Updates</span></a></li></ul>
+                </nav>
+                <nav class="sidebar">
+                  <a class="sidebar-header toggler-header-collapsed"><span class="sidebar-icon
+                      icon-16-menu"></span><span>Docs Menu</span><span class="sidebar-icon-right"><span
+                      class="icon-12-arrow-down-short"></span><span class="icon-12-arrow-up-short"></span></span></a>
+                  <div class="sidebar-toggler-content toggler-collapsed">
+                    <div class="sidebar-search">
+                      <div class="page-autocomplete">
+                        <div class="form-group">
+                          <div class="input-inner-addon input-inner-addon-right"><input autocomplete="off"
+                              class="form-control" name="q" placeholder="Search Docs" ref="input" required=""
+                              type="text"><span class="input-inner-icon-helper icon-16-magnifier"></span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <ul class="sidebar-list sidebar-list-1"><li class="sidebar-item active"><a class="sidebar-link
+                        sidebar-link-selected" href="/simple-slider/docs/examples"><span class="sidebar-icon
+                        icon-16-flash"></span><span>Examples</span></a><ul class="sidebar-list sidebar-list-1"><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/custom-ease-animation-example-docs.html"><span
+                        class="sidebar-icon icon-16-undefined"></span><span>Custom ease animation</span></a></li><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/default-sliding-transition-docs.html"><span
+                        class="sidebar-icon icon-16-undefined"></span><span>Default Sliding
+                        Transition</span></a></li><li class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/no-options-docs.html"><span class="sidebar-icon
+                        icon-16-undefined"></span><span>Default slider with no options</span></a></li><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/fading-transition-docs.html"><span class="sidebar-icon
+                        icon-16-undefined"></span><span>Fading/Opacity transition</span></a></li><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/full-page-transition-docs.html"><span class="sidebar-icon
+                        icon-16-undefined"></span><span>Full page transition</span></a></li><li class="sidebar-item"><a
+                        class="sidebar-link "
+                        href="/simple-slider/docs/examples/lightbox-integrated-example-docs.html"><span
+                        class="sidebar-icon icon-16-undefined"></span><span>Lightbox Integration</span></a></li><li
+                        class="sidebar-item active"><a class="sidebar-link sidebar-link-selected"
+                        href="/simple-slider/docs/examples/mask-sliding-transition-docs.html"><span class="sidebar-icon
+                        icon-16-undefined"></span><span>Mask Sliding transition</span></a></li><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/pause-slide-change-example-docs.html"><span
+                        class="sidebar-icon icon-16-undefined"></span><span>Pause slide</span></a></li><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/requirejs-example-docs.html"><span class="sidebar-icon
+                        icon-16-undefined"></span><span>RequireJS usage</span></a></li><li class="sidebar-item"><a
+                        class="sidebar-link "
+                        href="/simple-slider/docs/examples/responsive-layout-example-docs.html"><span
+                        class="sidebar-icon icon-16-undefined"></span><span>Responsive Layout Example</span></a></li><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/reverse-sliding-direction-example-docs.html"><span
+                        class="sidebar-icon icon-16-undefined"></span><span>Reverse sliding direction</span></a></li><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/right-to-left-sliding-transition-docs.html"><span
+                        class="sidebar-icon icon-16-undefined"></span><span>Right to left sliding
+                        transition</span></a></li><li class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/text-content-example-docs.html"><span class="sidebar-icon
+                        icon-16-undefined"></span><span>Slides containing no image</span></a></li><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/top-to-bottom-slide-transition-docs.html"><span
+                        class="sidebar-icon icon-16-undefined"></span><span>Top to bottom transition</span></a></li><li
+                        class="sidebar-item"><a class="sidebar-link "
+                        href="/simple-slider/docs/examples/touch-swipe-example-docs.html"><span class="sidebar-icon
+                        icon-16-undefined"></span><span>Touch swipe example</span></a></li></ul></li><li
+                        class="sidebar-item"><a class="sidebar-link " href="/simple-slider/docs/develop"><span
+                        class="sidebar-icon icon-16-code-file"></span><span>API</span></a></li></ul>
+                  </div>
+                </nav>
+                <div class="sidebar-offset">
+                  <nav class="topbar topbar-light ">
+                    <div class="topbar-logo"><a class="topbar-logo-link" href="/"><span class="topbar-logo-icon
+                        icon-16-send"></span><span class="topbar-logo-text">simple-slider</span></a></div>
+                    <ul class="topbar-list"><li class="topbar-item"><a class="topbar-link"
+                        href="/blog/markdown-post.html"><span>Blog</span></a></li><li class="topbar-item active"><a
+                        class="topbar-link" href="/docs"><span>Docs</span></a></li><li class="topbar-item"><a
+                        class="topbar-link" href="/updates"><span>Updates</span></a></li></ul>
+                  </nav>
+                  <header class="guide-header">
+                    <div class="container-hybrid">
+                      <h1 class="title">Mask Sliding transition Guide</h1>
+                    </div>
+                  </header>
+                  <div class="container-hybrid">
+                    <div class="docs-guide row">
+                      <div class="docs-content col-xs-16 col-md-9">
+                        <div class="guide-content">
+                          <h6>Example of a slider that masks images behind it instead of moving them.</h6>
+                          <article id="base">
+                            <h2><a href="./mask-sliding-transition.html">View this example</a></h2>
+                            <div class="code-container"><button class="btn btn-sm btn-copy"><span
+                                class="icon-12-overlap"></span></button><pre><code class="code" data-mode="text/html"
+                                ref="code">&lt;!doctype html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;Mask sliding
+                                example&lt;/title&gt; &lt;style&gt; #myslider, #myslider div{ width:612px; height:612px;
+                                } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&quot;myslider&quot;&gt; &lt;div
+                                style=&quot;background-image:url(http://placekitten.com/g/612/612)&quot;&gt;&lt;/div&gt;
+                                &lt;div
+                                style=&quot;background-image:url(https://unsplash.it/612/612)&quot;&gt;&lt;/div&gt;
+                                &lt;div
+                                style=&quot;background-image:url(https://unsplash.it/612/612?random=1)&quot;&gt;&lt;/div&gt; &lt;div style=&quot;background-image:url(https://unsplash.it/612/612?random=2)&quot;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/body&gt; &lt;script src=&quot;../dist/simpleslider.js&quot;&gt;&lt;/script&gt; &lt;script&gt; var imgSlider = simpleslider.getSlider({ container: document.getElementById(&#39;myslider&#39;), prop: &#39;width&#39;, init: 0, show: 612, end: 612, unit: &#39;px&#39; }); &lt;/script&gt; &lt;/html&gt;</code></pre></div>
+                          </article>
+                          <input type="hidden" value="Mask Sliding transition"><input type="hidden"
+                              value="simple-slider">
+                        </div>
+                        <div class="contribute">
+                          <div class="contribute-img"><span class="icon-16-github"></span></div>
+                          <div class="contribute-text">
+                            <p>Contribute on Github! <a
+                                href="https://github.com/ruyadorno/simple-slider-site/tree/master/src/pages/docs/examples/mask-sliding-transition-docs.md" class="contribute-link">Edit this section</a>.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <nav class="col-xs-16 col-md-offset-2 col-md-5">
+                        <div class="docs-nav-container">
+                          <div class="affix-top docs-nav">
+                            <div ref="readingContainer"></div>
+                          </div>
+                        </div>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+      <!-- endinject -->
+    </div>
+    <!-- inject:vendor:js -->
+    <!-- endinject -->
+  </body>
+</html>
