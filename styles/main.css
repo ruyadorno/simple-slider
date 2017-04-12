@@ -11415,3 +11415,7 @@ li a:not([class]) {
 
 .CodeMirror.cm-s-dracula {
   text-align: left; }
+
+.docs .sidebar-toggler-content {
+  margin-top: 20px;
+}
