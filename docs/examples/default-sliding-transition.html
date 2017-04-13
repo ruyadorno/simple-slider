@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Simple horizontal slider example</title>
+    <style>
+      #myslider { width:612px; height:612px; }
+    </style>
+  </head>
+  <body>
+    <div id="myslider">
+      <img src="http://placekitten.com/g/612/612"/>
+      <img src="https://unsplash.it/612/612"/>
+      <img src="https://unsplash.it/612/612?random=1"/>
+    </div>
+  </body>
+  <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
+  <script>
+    var imgSlider = simpleslider.getSlider({
+      container: document.getElementById('myslider'),
+      prop: 'left',
+      init: -612,
+      show: 0,
+      end: 612,
+      unit: 'px'
+    });
+  </script>
+</html>

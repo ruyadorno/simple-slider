@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Slider occupying full page</title>
+    <style>
+      html body { margin: 0; padding: 0; }
+      #myslider { width:100%; }
+      #myslider img { width:100%; height:auto; }
+    </style>
+  </head>
+  <body>
+    <div id="myslider">
+      <img src="http://placekitten.com/g/612/612"/>
+      <img src="https://unsplash.it/612/612"/>
+      <img src="https://unsplash.it/612/612?random=1"/>
+      <img src="https://unsplash.it/612/612?random=2"/>
+    </div>
+  </body>
+  <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
+  <script>
+    var container = document.getElementById('myslider');
+    var height = isNaN(window.innerHeight) ? window.clientHeight : window.innerHeight;
+    var imgSlider = simpleslider.getSlider({
+      container: container,
+      autoPlay: true,
+      prop: 'left',
+      unit: '%',
+      init: -100,
+      show: 0,
+      end: 100
+    });
+    container.style.height = height + 'px';
+  </script>
+</html>

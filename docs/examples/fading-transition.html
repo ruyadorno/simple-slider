@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Fade in/out transition example</title>
+  </head>
+  <style>
+    #myslider { width:612px; height:612px; }
+  </style>
+  <body>
+    <div id="myslider">
+      <img src="http://placekitten.com/g/612/612"/>
+      <img src="https://unsplash.it/612/612"/>
+      <img src="https://unsplash.it/612/612?random=1"/>
+      <img src="https://unsplash.it/612/612?random=2"/>
+    </div>
+  </body>
+  <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
+  <script>
+    var imgSlider = simpleslider.getSlider({
+      container: document.getElementById('myslider'),
+      prop: 'opacity',
+      unit: '',
+      init: 0,
+      show: 1,
+      end: 0
+    });
+  </script>
+</html>

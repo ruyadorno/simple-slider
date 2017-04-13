@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Responsive layout example</title>
+    <style>
+      .slider { width: 100%; padding-bottom: 25%; }
+      .slider img { width: 100%; }
+      .wrapper { width: 100%; margin: 0; }
+      @media only screen and (min-width: 1024px) {
+        .wrapper { width: 1024px; margin: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="myslider" class="slider">
+        <img src="http://placekitten.com/g/1024/256"/>
+        <img src="https://unsplash.it/1024/256"/>
+        <img src="https://unsplash.it/1024/256?random=1"/>
+        <img src="https://unsplash.it/1024/256?random=2"/>
+      </div>
+    </div>
+  </body>
+  <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
+  <script>
+    simpleslider.getSlider({
+      container: document.getElementById('myslider'),
+      init: -100,
+      show: 0,
+      end: 100,
+      unit: '%'
+    });
+  </script>
+</html>
+

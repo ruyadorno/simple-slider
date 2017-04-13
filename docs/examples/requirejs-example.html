@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>RequireJS example</title>
+    <style>
+      #myslider { width:612px; height:612px; }
+    </style>
+  </head>
+  <body>
+    <div id="myslider">
+      <img src="http://placekitten.com/g/612/612"/>
+      <img src="https://unsplash.it/612/612"/>
+      <img src="https://unsplash.it/612/612?random=1"/>
+      <img src="https://unsplash.it/612/612?random=2"/>
+    </div>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+    <script>
+      require(["https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"], function(simpleSlider) {
+        simpleSlider.getSlider({
+          container: document.getElementById('myslider')
+        });
+      });
+    </script>
+  </body>
+</html>

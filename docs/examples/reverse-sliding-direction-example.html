@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Reverse sliding direction example</title>
+    <style>
+      .nav-example { position: relative; width: 612px; height: 612px; }
+      .nav-slider { position: absolute; top: 0px; left: 0px; z-index: 1;}
+      #myslider { width:612px; height:612px; }
+      a.slide-button { position: absolute; padding: 300px 0px 0px 15px; top: 0px; left: 0px; z-index: 12; width: 30px; height: 612px; color: #FFF; background-color: rgba(0,0,0,0.4); text-decoration: none; font-weight: 600; box-sizing: border-box; }
+      #next-button { left: auto; right: 0px; }
+    </style>
+  </head>
+  <body>
+    <div class="nav-example">
+      <div id="myslider" class="nav-slider">
+        <img src="http://placekitten.com/g/612/612"/>
+        <img src="https://unsplash.it/612/612"/>
+        <img src="https://unsplash.it/612/612?random=1"/>
+        <img src="https://unsplash.it/612/612?random=2"/>
+      </div>
+      <a id="prev-button" href="#" class="slide-button">&lt;</a>
+      <a id="next-button" href="#" class="slide-button">&gt;</a>
+    </div>
+  </body>
+  <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
+  <script>
+    var isNext = true;
+    var imgSlider = simpleslider.getSlider({
+      container: document.getElementById('myslider'),
+      prop: 'left',
+      init: -612,
+      show: 0,
+      end: 612,
+      unit: 'px'
+    });
+
+    document.getElementById('prev-button').onclick = function(e) {
+      if (isNext) {
+        imgSlider.reverse();
+        isNext = false;
+      }
+      imgSlider.next();
+      e.preventDefault();
+    };
+
+    document.getElementById('next-button').onclick = function(e) {
+      if (!isNext) {
+        imgSlider.reverse();
+        isNext = true;
+      }
+      imgSlider.next();
+      e.preventDefault();
+    };
+  </script>
+</html>
