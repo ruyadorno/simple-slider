@@ -117,17 +117,34 @@
                             <h2><a href="./top-to-bottom-slide-transition.html">View this example</a></h2>
                             <div class="code-container"><button class="btn btn-sm btn-copy"><span
                                 class="icon-12-overlap"></span></button><pre><code class="code" data-mode="text/html"
-                                ref="code">&lt;!doctype html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;Vertical sliding
-                                example&lt;/title&gt; &lt;style&gt; #myslider { width:612px; height:612px; }
-                                &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&quot;myslider&quot;&gt; &lt;img
-                                src=&quot;http://placekitten.com/g/612/612&quot;/&gt; &lt;img
-                                src=&quot;https://unsplash.it/612/612&quot;/&gt; &lt;img
-                                src=&quot;https://unsplash.it/612/612?random=1&quot;/&gt; &lt;img
-                                src=&quot;https://unsplash.it/612/612?random=2&quot;/&gt; &lt;/div&gt; &lt;/body&gt;
-                                &lt;script src=&quot;../dist/simpleslider.js&quot;&gt;&lt;/script&gt; &lt;script&gt;
-                                simpleslider.getSlider({ container: document.getElementById(&#39;myslider&#39;), prop:
-                                &#39;top&#39;, init: -612, show: 0, end: 612, unit: &#39;px&#39; }); &lt;/script&gt;
-                                &lt;/html&gt;</code></pre></div>
+                                ref="code">&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Vertical sliding example&lt;/title&gt;
+    &lt;style&gt;
+      #myslider { width:612px; height:612px; }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;myslider&quot;&gt;
+      &lt;img src=&quot;http://placekitten.com/g/612/612&quot;/&gt;
+      &lt;img src=&quot;https://unsplash.it/612/612&quot;/&gt;
+      &lt;img src=&quot;https://unsplash.it/612/612?random=1&quot;/&gt;
+      &lt;img src=&quot;https://unsplash.it/612/612?random=2&quot;/&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+  &lt;script src=&quot;../dist/simpleslider.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    simpleslider.getSlider({
+      container: document.getElementById(&#39;myslider&#39;),
+      prop: &#39;top&#39;,
+      init: -612,
+      show: 0,
+      end: 612,
+      unit: &#39;px&#39;
+    });
+  &lt;/script&gt;
+&lt;/html&gt;</code></pre></div>
                           </article>
                           <input type="hidden" value="Top to bottom transition"><input type="hidden"
                               value="simple-slider">
@@ -157,7 +174,7 @@
       </div>
       <!-- endinject -->
     </div>
-    <!-- inject:vendor:js -->
-    <!-- endinject -->
+		<script src="/simple-slider/js/bundle.min.js"></script>
+		<script>CodeMirror.defaults.lineNumbers = true; CodeMirror.defaults.matchBrackets = true; CodeMirror.defaults.readOnly = true; CodeMirror.defaults.theme = 'dracula'; CodeMirror.defaults.viewportMargin = Infinity; var REGEX_LB = /&#123;/g; var REGEX_RB = /&#125;/g; function runCodeMirror() {var code = document.querySelectorAll('.code'); for (var i = 0; i < code.length; i++) {var text = code[i].innerText .replace(REGEX_LB, '{') .replace(REGEX_RB, '}'); var editor = CodeMirror(function(elt) {var preEl = code[i].parentNode; preEl.parentNode.append(elt);}, {mode: code[i].getAttribute('data-mode') || '', value: text});}}function runGoogleAnalytics(path) {if (ga) {ga('set', 'page', path); ga('send', 'pageview');}}runCodeMirror(); document.addEventListener('DOMContentLoaded', function() {runCodeMirror(); runGoogleAnalytics(event.path);}); (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-43100019-2', 'auto'); ga('send', 'pageview');</script>
   </body>
 </html>

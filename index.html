@@ -160,7 +160,51 @@
       </div>
       <!-- endinject -->
     </div>
-    <!-- inject:vendor:js -->
-    <!-- endinject -->
+<script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script><script>
+			function bounceOut(time, begin, change, duration) {
+				if ((time /= duration) < 1 / 2.75) {
+					return change * (7.5625 * time * time) + begin;
+				} else if (time < 2 / 2.75) {
+					return change * (7.5625 * (time -= 1.5 / 2.75) * time + 0.75) + begin;
+				} else if (time < 2.5 / 2.75) {
+					return change * (7.5625 * (time -= 2.25 / 2.75) * time + 0.9375) + begin;
+				} else {
+					return change * (7.5625 * (time -= 2.625 / 2.75) * time + 0.984375) + begin;
+				}
+			}
+			function startHomeSlider() {
+				[
+					{
+						container: document.getElementById('home-simple-slider')
+					},
+					{
+						container: document.getElementById('highlight1-simple-slider'),
+						prop:'width',
+						init: 0,
+						show: 100,
+						end: 100
+					},
+					{
+						container: document.getElementById('highlight2-simple-slider'),
+						prop: 'opacity',
+						init: 0,
+						show: 1,
+						end: 0,
+						unit: ''
+					},
+					{
+						container: document.getElementById('highlight3-simple-slider'),
+						duration: 1.25,
+						prop: 'top',
+						init: -99,
+						end: 99,
+						ease: bounceOut
+					}
+				].map(simpleslider.getSlider);
+			}
+			document.addEventListener('DOMContentLoaded', startHomeSlider);
+		</script>
+		<script src="/simple-slider/js/bundle.min.js"></script>
+		<script>CodeMirror.defaults.lineNumbers = true; CodeMirror.defaults.matchBrackets = true; CodeMirror.defaults.readOnly = true; CodeMirror.defaults.theme = 'dracula'; CodeMirror.defaults.viewportMargin = Infinity; var REGEX_LB = /&#123;/g; var REGEX_RB = /&#125;/g; function runCodeMirror() {var code = document.querySelectorAll('.code'); for (var i = 0; i < code.length; i++) {var text = code[i].innerText .replace(REGEX_LB, '{') .replace(REGEX_RB, '}'); var editor = CodeMirror(function(elt) {var preEl = code[i].parentNode; preEl.parentNode.append(elt);}, {mode: code[i].getAttribute('data-mode') || '', value: text});}}function runGoogleAnalytics(path) {if (ga) {ga('set', 'page', path); ga('send', 'pageview');}}runCodeMirror(); document.addEventListener('DOMContentLoaded', function() {runCodeMirror(); runGoogleAnalytics(event.path);}); (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-43100019-2', 'auto'); ga('send', 'pageview');</script>
   </body>
 </html>

@@ -115,19 +115,51 @@
                             <h2><a href="./custom-ease-animation-example.html">View this example</a></h2>
                             <div class="code-container"><button class="btn btn-sm btn-copy"><span
                                 class="icon-12-overlap"></span></button><pre><code class="code" data-mode="text/html"
-                                ref="code">&lt;!doctype html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;Custom ease
-                                function&lt;/title&gt; &lt;style&gt; .slider { width: 100%; padding-bottom: 25%; }
-                                .slider img { width: 100%; } .wrapper { width: 100%; margin: 0; } @media only screen and
-                                (min-width: 1024px) { .wrapper { width: 1024px; margin: auto; } } &lt;/style&gt;
-                                &lt;/head&gt; &lt;body&gt; &lt;div class=&quot;wrapper&quot;&gt; &lt;div
-                                id=&quot;myslider&quot; class=&quot;slider&quot;&gt; &lt;img
-                                src=&quot;http://placekitten.com/g/1024/256&quot;/&gt; &lt;img
-                                src=&quot;https://unsplash.it/1024/256&quot;/&gt; &lt;img
-                                src=&quot;https://unsplash.it/1024/256?random=1&quot;/&gt; &lt;img
-                                src=&quot;https://unsplash.it/1024/256?random=2&quot;/&gt; &lt;/div&gt; &lt;p&gt;This
-                                example uses a &lt;a href=&quot;http://robertpenner.com/easing/&quot;&gt;Robert
-                                Penner&lt;/a&gt; classic ease function, for more ready-to-use functions check &lt;a
-                                href=&quot;https://github.com/jimjeffers/Easie/blob/master/easie.js&quot;&gt;Easie&lt;/a&gt;.&lt;/p&gt; &lt;/div&gt; &lt;/body&gt; &lt;script src=&quot;../dist/simpleslider.js&quot;&gt;&lt;/script&gt; &lt;script&gt; function bounceOut(time, begin, change, duration) { if ((time /= duration) &lt; 1 / 2.75) { return change * (7.5625 * time * time) + begin; } else if (time &lt; 2 / 2.75) { return change * (7.5625 * (time -= 1.5 / 2.75) * time + 0.75) + begin; } else if (time &lt; 2.5 / 2.75) { return change * (7.5625 * (time -= 2.25 / 2.75) * time + 0.9375) + begin; } else { return change * (7.5625 * (time -= 2.625 / 2.75) * time + 0.984375) + begin; } } simpleslider.getSlider({ container: document.getElementById(&#39;myslider&#39;), delay: 3, duration: 1, ease: bounceOut }); &lt;/script&gt; &lt;/html&gt;</code></pre></div>
+                                ref="code">&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Custom ease function&lt;/title&gt;
+    &lt;style&gt;
+      .slider { width: 100%; padding-bottom: 25%; }
+      .slider img { width: 100%; }
+      .wrapper { width: 100%; margin: 0; }
+      @media only screen and (min-width: 1024px) {
+        .wrapper { width: 1024px; margin: auto; }
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class=&quot;wrapper&quot;&gt;
+      &lt;div id=&quot;myslider&quot; class=&quot;slider&quot;&gt;
+        &lt;img src=&quot;http://placekitten.com/g/1024/256&quot;/&gt;
+        &lt;img src=&quot;https://unsplash.it/1024/256&quot;/&gt;
+        &lt;img src=&quot;https://unsplash.it/1024/256?random=1&quot;/&gt;
+        &lt;img src=&quot;https://unsplash.it/1024/256?random=2&quot;/&gt;
+      &lt;/div&gt;
+      &lt;p&gt;This example uses a &lt;a href=&quot;http://robertpenner.com/easing/&quot;&gt;Robert Penner&lt;/a&gt; classic ease function, for more ready-to-use functions check &lt;a href=&quot;https://github.com/jimjeffers/Easie/blob/master/easie.js&quot;&gt;Easie&lt;/a&gt;.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+  &lt;script src=&quot;../dist/simpleslider.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    function bounceOut(time, begin, change, duration) {
+      if ((time /= duration) &lt; 1 / 2.75) {
+        return change * (7.5625 * time * time) + begin;
+      } else if (time &lt; 2 / 2.75) {
+        return change * (7.5625 * (time -= 1.5 / 2.75) * time + 0.75) + begin;
+      } else if (time &lt; 2.5 / 2.75) {
+        return change * (7.5625 * (time -= 2.25 / 2.75) * time + 0.9375) + begin;
+      } else {
+        return change * (7.5625 * (time -= 2.625 / 2.75) * time + 0.984375) + begin;
+      }
+    }
+    simpleslider.getSlider({
+      container: document.getElementById(&#39;myslider&#39;),
+      delay: 3,
+      duration: 1,
+      ease: bounceOut
+    });
+  &lt;/script&gt;
+&lt;/html&gt;</code></pre></div>
                           </article>
                           <input type="hidden" value="Custom ease animation"><input type="hidden"
                               value="simple-slider">
@@ -157,7 +189,7 @@
       </div>
       <!-- endinject -->
     </div>
-    <!-- inject:vendor:js -->
-    <!-- endinject -->
+		<script src="/simple-slider/js/bundle.min.js"></script>
+		<script>CodeMirror.defaults.lineNumbers = true; CodeMirror.defaults.matchBrackets = true; CodeMirror.defaults.readOnly = true; CodeMirror.defaults.theme = 'dracula'; CodeMirror.defaults.viewportMargin = Infinity; var REGEX_LB = /&#123;/g; var REGEX_RB = /&#125;/g; function runCodeMirror() {var code = document.querySelectorAll('.code'); for (var i = 0; i < code.length; i++) {var text = code[i].innerText .replace(REGEX_LB, '{') .replace(REGEX_RB, '}'); var editor = CodeMirror(function(elt) {var preEl = code[i].parentNode; preEl.parentNode.append(elt);}, {mode: code[i].getAttribute('data-mode') || '', value: text});}}function runGoogleAnalytics(path) {if (ga) {ga('set', 'page', path); ga('send', 'pageview');}}runCodeMirror(); document.addEventListener('DOMContentLoaded', function() {runCodeMirror(); runGoogleAnalytics(event.path);}); (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-43100019-2', 'auto'); ga('send', 'pageview');</script>
   </body>
 </html>
