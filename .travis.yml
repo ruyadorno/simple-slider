@@ -2,6 +2,8 @@ language: node_js
 node_js:
 - '6'
 script: npm run ci
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run ci:pr; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run ci; fi'
 env:
   global:
   - secure: "AsKT1Jdh0JFB0iWMY8NIfdqSohXRCK2qGrbjWbkLiPA9ueifNyI1Sn5SWDua6uSGuVsF2OX+XtFYMVhGOobtiC3N+bYdBX1UD2jPrNKzBIXvlsW2D/oc03HcNW4hSNVb09wS+It9eMcnplIw6dX3Q7TPhhGLrXg9ModLe74fNlI="

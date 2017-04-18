@@ -19,7 +19,8 @@
     "test": "run-s test:lint test:build test:unit",
     "functional": "zuul -- test/functional-tests.js",
     "functional:local": "zuul --local 8080 -- test/functional-tests.js",
-    "ci": "run-s test build functional"
+    "ci": "run-s test build functional",
+    "ci:pr": "run-s test build"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
