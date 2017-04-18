@@ -1,7 +1,7 @@
 language: node_js
 node_js:
 - '6'
-script: npm run ci
+script:
   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run ci:pr; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run ci; fi'
 env:
