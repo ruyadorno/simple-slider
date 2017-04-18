@@ -48,6 +48,13 @@ and you can also get it on **Bower**:
 bower install --save simple-slider
 ```
 
+### Getting it from cdnjs
+
+This library is also available on https://cdnjs.com/ you can use it just by importing:
+
+- Minified version: https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js
+- Unminified version: https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.js
+
 
 ## Usage
 
@@ -58,7 +65,7 @@ Simply import the script in your html and call the `simpleslider.getSlider` func
   <img src="https://unsplash.it/612/612?random=1"/>
   <img src="https://unsplash.it/612/612?random=2"/>
 </div>
-<script src="simpleslider.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
 <script>
   simpleslider.getSlider();
 </script>
@@ -102,7 +109,7 @@ The main option is a `container` element, this will usually be a `<div>` or `<ul
   <img src="https://unsplash.it/612/612?random=1"/>
   <img src="https://unsplash.it/612/612?random=2"/>
 </div>
-<script src="simpleslider.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
 <script>
   simpleslider.getSlider({
     container: document.getElementById('myslider'),
