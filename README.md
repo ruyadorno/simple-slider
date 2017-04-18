@@ -231,7 +231,7 @@ I would recommend that you take a look at some of the available alternatives and
 
 - [slick](https://github.com/kenwheeler/slick)
 - [lory](https://github.com/meandmax/lory)
-- [siema](https://github.com/pawelgrzybek/siema)
+- [siema](https://pawelgrzybek.com/siema/)
 - [Swiper](https://github.com/nolimits4web/Swiper)
 - [iSlider](https://github.com/BE-FE/iSlider)
 - [Owl Carousel](https://github.com/OwlCarousel2/OwlCarousel2)
