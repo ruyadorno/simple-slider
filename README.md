@@ -3,7 +3,6 @@
 [![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider)
 [![Build Status](https://travis-ci.org/ruyadorno/simple-slider.svg?branch=master)](https://travis-ci.org/ruyadorno/simple-slider)
 ![File Size: < 1.2kB gzipped](http://img.badgesize.io/ruyadorno/simple-slider/master/dist/simpleslider.min.js?compression=gzip)
-[![Build Status](https://saucelabs.com/buildstatus/ruyadorno-3)](https://saucelabs.com/beta/builds/533bdd25630b4472a05f128b0c47e91f)
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/ruyadorno/simple-slider/master/LICENSE)
 [![Join the chat at https://gitter.im/simple-slider/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/simple-slider/Lobby)
 
