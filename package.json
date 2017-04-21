@@ -71,6 +71,9 @@
   "jest": {
     "verbose": true
   },
-  "author": "Ruy Adorno",
+  "author": {
+    "name": "Ruy Adorno",
+    "url": "ruyadorno.com"
+  },
   "license": "MIT"
 }
