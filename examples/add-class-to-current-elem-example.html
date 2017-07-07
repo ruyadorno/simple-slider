@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>No options on initialization example</title>
+    <style>
+      #slider-container { width:612px; height:612px; }
+      .current-slide {
+        border-top: 3px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="slider-container">
+      <img class="current-slide" src="http://placekitten.com/g/612/612"/>
+      <img src="https://unsplash.it/612/612"/>
+      <img src="https://unsplash.it/612/612?random=1"/>
+      <img src="https://unsplash.it/612/612?random=2"/>
+    </div>
+  </body>
+  <script src="../dist/simpleslider.js"></script>
+  <script>
+    var container = document.getElementById('slider-container');
+    var children = container.children;
+
+    function onSlideChanged(prev, next) {
+      children[prev].className = '';
+      children[next].className = 'current-slide';
+    }
+
+    simpleslider.getSlider({
+      container: container,
+      children: children,
+      onChange: onSlideChanged
+    });
+  </script>
+</html>
+
+
