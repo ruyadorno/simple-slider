@@ -1,6 +1,7 @@
 # simple-slider
 
 [![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider)
+[![CDNJS version](https://img.shields.io/cdnjs/v/simple-slider.svg)](https://cdnjs.com/libraries/simple-slider)
 [![Build Status](https://travis-ci.org/ruyadorno/simple-slider.svg?branch=master)](https://travis-ci.org/ruyadorno/simple-slider)
 ![File Size: < 1.2kB gzipped](http://img.badgesize.io/ruyadorno/simple-slider/master/dist/simpleslider.min.js?compression=gzip)
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/ruyadorno/simple-slider/master/LICENSE)
