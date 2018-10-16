@@ -31,7 +31,7 @@
       container: sliderElem
     });
     var manager = new Hammer.Manager(sliderElem);
-    var Swipe = new Hammer.Swipe();
+    var Swipe = new Hammer.Swipe({direction: Hammer.DIRECTION_HORIZONTAL});
 
     manager.add(Swipe);
 
