@@ -62,8 +62,8 @@ Simply import the script in your html and call the `simpleslider.getSlider` func
 
 ```html
 <div style="width:612px; height:612px" data-simple-slider>
-  <img src="https://unsplash.it/612/612?random=1"/>
-  <img src="https://unsplash.it/612/612?random=2"/>
+  <img src="https://picsum.photos/612/612?random=1"/>
+  <img src="https://picsum.photos/612/612?random=2"/>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
 <script>
@@ -106,8 +106,8 @@ The main option is a `container` element, this will usually be a `<div>` or `<ul
 
 ```html
 <div id="myslider" style="width:612px; height:612px">
-  <img src="https://unsplash.it/612/612?random=1"/>
-  <img src="https://unsplash.it/612/612?random=2"/>
+  <img src="https://picsum.photos/612/612?random=1"/>
+  <img src="https://picsum.photos/612/612?random=2"/>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
 <script>

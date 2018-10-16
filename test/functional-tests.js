@@ -21,7 +21,7 @@ describe('simple-slider', function () {
     var child;
     while (--childrenNum >= 0) {
       child = document.createElement('img');
-      child.src = '//unsplash.it/50/50?random=' + (Math.random() * 1000);
+      child.src = '//picsum.photos/50/50?random=' + (Math.random() * 1000);
       child.style.width = '100%';
       newDiv.appendChild(child);
     }
