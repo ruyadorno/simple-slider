@@ -21,7 +21,7 @@
   }
 
   function len(arr) {
-    return arr.length;
+    return (arr || []).length;
   }
 
   function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
@@ -194,6 +194,7 @@
           if (onChangeEnd) {
             onChangeEnd(actualIndex, nextIndex());
           }
+
           return;
         }
       }
@@ -218,7 +219,7 @@
     document.addEventListener('visibilitychange', visibilityChange);
     reset();
 
-    if (imgs && len(imgs) > 1) {
+    if (len(imgs) > 1) {
       resume();
     }
 
