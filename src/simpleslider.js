@@ -5,7 +5,7 @@ function getdef(val, def) {
 }
 
 function len(arr) {
-  return arr.length;
+  return (arr || []).length;
 }
 
 function startSlides(containerElem, children, unit, startVal, visVal, trProp) {
@@ -247,7 +247,7 @@ function getSlider(options) {
   document.addEventListener('visibilitychange', visibilityChange);
   reset();
 
-  if (imgs && len(imgs) > 1) {
+  if (len(imgs) > 1) {
     resume();
   }
 
