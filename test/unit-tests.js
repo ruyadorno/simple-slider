@@ -44,7 +44,7 @@ describe('simple-slider', function () {
 
   it('should be able to create a new instance', function () {
     var ss = getNewSlider();
-    expect(typeof ss).toEqual('object');
+    expect(ss.toString()).toEqual('[object Object]');
 
     ss.dispose();
   });
