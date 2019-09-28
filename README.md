@@ -3,7 +3,7 @@
 [![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider)
 [![CDNJS version](https://img.shields.io/cdnjs/v/simple-slider.svg)](https://cdnjs.com/libraries/simple-slider)
 [![Build Status](https://travis-ci.org/ruyadorno/simple-slider.svg?branch=master)](https://travis-ci.org/ruyadorno/simple-slider)
-![File Size: < 1.2kB gzipped](http://img.badgesize.io/ruyadorno/simple-slider/master/dist/simpleslider.min.js?compression=gzip)
+![File Size: < 1.1kB gzipped](http://img.badgesize.io/ruyadorno/simple-slider/master/dist/simpleslider.min.js?compression=gzip)
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/ruyadorno/simple-slider/master/LICENSE)
 [![Join the chat at https://gitter.im/simple-slider/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/simple-slider/Lobby)
 
@@ -25,7 +25,7 @@ This package contains a framework agnostic implementation. If you are using **An
 
 ## Features
 
-- Small size, less than 1.2kb minified/gzipped
+- Small size, less than 1.1kb minified/gzipped
 - Support to [UMD](https://github.com/umdjs/umd): AMD, CommonJS and global definition
 - Uses [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) for animations
 - Supports [Page visibility API](https://developer.mozilla.org/en-US/docs/Web/Events/visibilitychange) to pause/resume transitions when user navigates away from the page
