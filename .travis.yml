@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 'lts'
+- '12'
 script:
   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run ci:pr; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run ci; fi'
