@@ -69,6 +69,7 @@ describe('simple-slider', function () {
     var customEasingStub = function () {
       return true;
     };
+
     var ss = getNewSlider({
       prop: 'left',
       duration: 1,

@@ -53,7 +53,7 @@ function getSlider(options) {
   let startVal = getdef(options.init, -100);
   let visVal = getdef(options.show, 0);
   let endVal = getdef(options.end, 100);
-  let paused = options.paused; // eslint-disable-line
+  let paused = options.paused;
   let ease = getdef(options.ease, defaultEase);
   let onChange = getdef(options.onChange, 0);
   let onChangeEnd = getdef(options.onChangeEnd, 0);
@@ -209,6 +209,7 @@ function getSlider(options) {
         if (onChangeEnd) {
           onChangeEnd(actualIndex, nextIndex());
         }
+
         return;
       }
     }

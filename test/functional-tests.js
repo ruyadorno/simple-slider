@@ -86,10 +86,13 @@ describe('simple-slider', function () {
           } catch (e) {
             console.error(e);
           }
+
           s.slider.dispose();
           done();
           return;
-        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+        }
+
+        if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
           // Internal index value is correct
           try {
             expect(s.slider.currentIndex()).toEqual(nextIndex);
@@ -97,8 +100,10 @@ describe('simple-slider', function () {
             console.error(e);
           }
         }
+
         requestAnimationFrame(testDefault);
       }
+
       requestAnimationFrame(testDefault);
     });
 
@@ -128,6 +133,7 @@ describe('simple-slider', function () {
         } catch (e) {
           console.error(e);
         }
+
         s.slider.dispose();
         done();
       }
@@ -173,16 +179,20 @@ describe('simple-slider', function () {
           } catch (e) {
             console.error(e);
           }
+
           s.slider.dispose();
           done();
           return;
-        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+        }
+
+        if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
           // Internal index value is correct
           try {
             expect(s.slider.currentIndex()).toEqual(nextIndex);
           } catch (e) {
             console.error(e);
           }
+
           isTransitionTested = true;
         }
 
@@ -220,10 +230,13 @@ describe('simple-slider', function () {
           } catch (e) {
             console.error(e);
           }
+
           s.slider.dispose();
           done();
           return;
-        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+        }
+
+        if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
           // Internal index value is correct
           try {
             expect(s.slider.currentIndex()).toEqual(nextIndex);
@@ -231,8 +244,10 @@ describe('simple-slider', function () {
             console.error(e);
           }
         }
+
         requestAnimationFrame(testChange);
       }
+
       requestAnimationFrame(testChange);
     });
 
@@ -266,7 +281,9 @@ describe('simple-slider', function () {
 
           done();
           return;
-        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+        }
+
+        if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
           // index value is correct
           try {
             expect(s.slider.currentIndex()).toEqual(startIndex);
@@ -276,8 +293,10 @@ describe('simple-slider', function () {
 
           isTransitionTested = true;
         }
+
         requestAnimationFrame(testPausedOption);
       }
+
       requestAnimationFrame(testPausedOption);
     });
 
@@ -375,7 +394,9 @@ describe('simple-slider', function () {
 
           done();
           return;
-        } else if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
+        }
+
+        if (!isTransitionTested && (time - startTime) > timeEnoughToStartTransition) {
           // Internal index value is correct
           try {
             expect(s.slider.currentIndex()).toEqual(startIndex);
@@ -438,6 +459,7 @@ describe('simple-slider', function () {
 
         requestAnimationFrame(testZIndex);
       }
+
       requestAnimationFrame(testZIndex);
     });
 
