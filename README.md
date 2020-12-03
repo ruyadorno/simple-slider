@@ -1,6 +1,7 @@
 # simple-slider
 
 JUST TESTING DELETE THIS LINE
+MORE README SO GOOD SUCH WOW
 
 [![NPM version](https://badge.fury.io/js/simple-slider.svg)](https://npmjs.org/package/simple-slider)
 [![CDNJS version](https://img.shields.io/cdnjs/v/simple-slider.svg)](https://cdnjs.com/libraries/simple-slider)
