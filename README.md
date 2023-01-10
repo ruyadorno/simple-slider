@@ -7,7 +7,7 @@
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/ruyadorno/simple-slider/master/LICENSE)
 [![Join the chat at https://gitter.im/simple-slider/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/simple-slider/Lobby)
 
-https://ruyadorno.github.com/simple-slider
+https://ruyadorno.github.io/simple-slider
 
 Extremely lightweight carousel micro library.
 
